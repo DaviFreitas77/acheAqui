@@ -1,20 +1,135 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// App.js
+import 'react-native-gesture-handler';
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function App() {
+
+
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
+
+
+import Provider from './scr/context/provider';
+import SignUp from './scr/pages/SignUp';
+import SignIn from './scr/pages/SignIn/Index';
+import HomeScreen from './scr/pages/HomeUser';
+import ChatScreen from './scr/pages/ChatScreen';
+import CustomDrawerContent from './scr/CustomDrawer/customDrawer';
+import EditUser from './scr/pages/EditUser';
+
+
+
+function TabNavigator() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Tab.Navigator 
+      screenOptions={{
+        tabBarStyle:{
+          backgroundColor:"#cecece",
+          height:60
+        },
+        tabBarLabel:() => null
+      }}
+    >
+      <Tab.Screen 
+        name='HomeScreen' 
+        component={HomeScreen}  
+        options={{headerShown: false,
+        tabBarIcon: ({ color, size }) => (
+          <Icon name="home" color={color} size={size} />
+        ),
+
+        }}/>
+
+      <Tab.Screen 
+        name='ChatScreen' 
+        component={ChatScreen}  
+        options={{headerShown: false, 
+        tabBarIcon: ({ color, size }) => (
+          <Icon name="comments" color={color} size={size} />
+        ),
+      }}/>
+      
+    </Tab.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+function StackInsideDrawer() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen 
+        name="Home" 
+        component={TabNavigator} 
+        options={{
+          headerShown:false
+        }} 
+      />
+      <Stack.Screen 
+        name="EditUser" 
+        component={EditUser} 
+        options={{ 
+          headerShown: true, 
+          headerTitle: 'Editar Perfil',
+          
+        }} 
+      />
+    </Stack.Navigator>
+  );
+}
+
+function DrawerNavigator() {
+  return (
+    <Drawer.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}>
+    <Drawer.Screen name="StackInsideDrawer" component={StackInsideDrawer}  options={{
+      headerTitle:''
+    }}/>
+  </Drawer.Navigator>
+  );
+}
+
+
+
+
+// Navegador de Pilha Dentro do Drawer
+
+// Definir o Stack Navigator
+function MyStack() {
+  
+  return (
+    <Provider>
+      <Stack.Navigator initialRouteName='SignIn'>
+      <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
+      <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
+      <Stack.Screen name="Drawer" component={DrawerNavigator} options={{ headerShown: false }} />
+      <Stack.Screen name="EditUser" component={EditUser} options={{ headerShown: true,
+        headerTitle:"Editar Perfil",
+        
+        headerStyle:{
+          backgroundColor:'#005AC5',
+     
+        },
+        headerTitleContainerStyle:{
+          paddingLeft:'50%'
+        },
+        headerTitleStyle:{
+          fontSize:22
+        }
+       }} />
+    </Stack.Navigator>
+    </Provider>
+  
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <MyStack />
+    </NavigationContainer>
+  );
+}
