@@ -14,6 +14,7 @@ export default function SignIn() {
   const {setEmailUser} = useContext(Context)
   const {setNumeroUser} = useContext(Context);
   const {setImagemUser} = useContext(Context)
+  const {setIdUser} = useContext(Context)
   async function loginUser() {
     try {
       let response = await fetch('http://192.168.1.67/services/login.php', {
@@ -33,6 +34,7 @@ export default function SignIn() {
           setEmailUser(result.email)
           setNumeroUser(result.numeroCelular)
           setImagemUser(result.imagem)
+          setIdUser(result.id)
           navigation.navigate('Drawer') 
         }
       } else {

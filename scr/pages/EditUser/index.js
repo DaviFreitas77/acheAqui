@@ -4,25 +4,52 @@ import Icon from 'react-native-vector-icons/FontAwesome6';
 import { Context } from '../../context/provider';
 import * as ImagePicker from 'expo-image-picker';
 import { useContext } from 'react';
+import { storage } from '../../../service/firebaseConection';
+import { ref,getDownloadURL,uploadBytes } from 'firebase/storage';
 export default function EditUser() {
-    const [image,setImage] = useState(null)
+
     const { nomeUser } = useContext(Context);
     const { emailUser } = useContext(Context);
     const { numeroUser } = useContext(Context);
     const {imagemUser} = useContext(Context);
+    const {setImagemUser} = useContext(Context)
+    const {idUser} = useContext(Context)
+
+    console.log(idUser)
+
+    async function updateInfo() {
+       
+    }
+    const uploadImage = async (uri) => {
+        try {
+            const filename = uri.split('/').pop();
+            const storageRef = ref(storage, `images/${filename}`);
+        
+            const response = await fetch(uri);
+            if (!response.ok) throw new Error('Falha ao buscar imagem');
+        
+            const blob = await response.blob();
+        
+            await uploadBytes(storageRef, blob);
+        
+            const url = await getDownloadURL(storageRef);
+        
+            return url;
+        } catch (error) {
+            console.error('Erro ao fazer upload da imagem:', error);
+            return null;
+        }
+    };
 
     const pickImage = async () =>{
         //pedir permição
-
         const {status} = await ImagePicker.requestCameraPermissionsAsync();
-
         if(status !== 'granted') {
             alert('Desculpe, precisamos de permissões para acessar a galeria!');
             return;
         }
 
         //abrir galeria
-
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing:true,
@@ -30,11 +57,20 @@ export default function EditUser() {
             quality:1
         })
 
-        if (!result.canceled){
-            setImage(result.assets[0].uri);
-
+        if (!result.canceled) {
+            const uri = result.assets[0].uri;
+            setImagemUser(uri); 
+            console.log('Imagem selecionada:', uri); 
+    
+            const url = await uploadImage(uri); 
+            if (url) {
+                setImagemUser(url); 
+                console.log('URL da imagem após o upload:', url);
+            } else {
+                console.log('Falha no upload da imagem.');
+            }
         }
-        console.log(image)
+    
     } 
     return (
         <View style={styles.container}>
@@ -67,6 +103,9 @@ export default function EditUser() {
                     <Text style={styles.tittleInput}>Telefone</Text>
                     <Text style={styles.txtInput}>{numeroUser}</Text>
                 </View>
+                <Pressable onPress={updateInfo}>
+                    <Text>Atualizar informções</Text>
+                </Pressable>
             </View>
         </View>
     );

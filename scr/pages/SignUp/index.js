@@ -1,13 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, Pressable, Switch, ScrollView, } from 'react-native';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient'
 import CustomModal from '../../ModalSignUp';
 import Icon from 'react-native-vector-icons/FontAwesome6';
-import { storage } from '../../../service/firebaseConection';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { Context } from '../../context/provider';
 
-import * as ImagePicker from 'expo-image-picker';
+
+
 
 const SignUp = () => {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -18,7 +18,7 @@ const SignUp = () => {
   const [senha, setSenha] = useState('')
   const [data, setData] = useState('')
   const [modalVisible, setModalVisible] = useState(false);
-  const [imagem, setImage] = useState(null)
+
 
   async function registerUser() {
     if (nome.length < 5 || numero.length <= 10 || senha.length <= 5 || data.length <= 9 || !isEnabled) {
@@ -38,11 +38,11 @@ const SignUp = () => {
             senha: senha,
             numero: numero,
             dataNascimento: data,
-            imagem: imagem
+            imagem: 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F932e5e7c-acb9-46ca-beac-11013ea15967.jpeg?alt=media&token=4bb19d6b-8a13-4001-9537-9e8e8fa80c8e'
           })
         });
         if (response.ok) {
-          let result = await response.json(); // Aguarde a resposta JSON
+          let result = await response.json(); 
           if (result.success === false) {
             alert(result.message);
           } else {
@@ -58,53 +58,7 @@ const SignUp = () => {
   }
 
 
-  const uploadImage = async (uri) => {
-    try {
-      const filename = uri.split('/').pop();
-      const storageRef = ref(storage, `images/${filename}`);
 
-      const response = await fetch(uri);
-      const blob = await response.blob();
-
-      await uploadBytes(storageRef, blob);
-
-      const url = await getDownloadURL(storageRef);
-      setImage(url); 
-      return url;
-    } catch (error) {
-      console.error('Erro ao fazer upload da imagem:', error);
-    }
-  };
-
-  const pickImage = async () => {
-    // Solicitar permissões
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-    if (status !== 'granted') {
-      alert('Desculpe, precisamos de permissões para acessar a galeria!');
-      return;
-    }
-
-    // Abrir a galeria
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      const uri = result.assets[0].uri;
-      setImage(uri);
-
-      const url = await uploadImage(uri);
-      if (url) {
-        console.log('URL da imagem:', url);
-      } else {
-        console.log('Falha no upload da imagem.');
-      }
-    }
-  };
   return (
     <ScrollView>
 
@@ -120,16 +74,7 @@ const SignUp = () => {
           source={require('../../imges/signUp/logo.png')}
           style={{ width: 238, height: 238 }}
         />
-        <View style={styles.editImage}>
-          <Icon name='user-circle' size={110} />
-          {imagem && <Image source={{ uri: imagem}} style={styles.overlayImage} />}
-
-
-          <Pressable onPress={pickImage}>
-            <Text style={styles.txtEditFoto}>Editar Foto</Text>
-          </Pressable>
-
-        </View>
+      
         <View style={styles.ContainerInput}>
 
           <View style={styles.viewInput}>

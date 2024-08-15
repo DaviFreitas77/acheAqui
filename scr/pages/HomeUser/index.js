@@ -16,13 +16,13 @@ import { Context } from "../../context/provider";
 const HomeUser = () => {
   const { nomeUser } = useContext(Context);
   const {imagemUser} = useContext(Context);
-    console.log(imagemUser);
+  
   return (
     
     <View style={styles.container}>
       <View style={styles.header}>
         <Image
-          source={imagemUser ? { uri: imagemUser } : require('../../imges/signUp/logo.png')}
+          source={{ uri: imagemUser }}
           style={{ width: 80, height: 80, borderRadius: 100 }}
         />
         <View style={{ width: "55%" }}>

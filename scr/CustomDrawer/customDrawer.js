@@ -33,8 +33,9 @@ function CustomDrawerContent(props) {
                 <Icon   name='user' size={30}/>
                     <Text>Editar usuario</Text>
                 </Pressable>
-                <Pressable onPress={() => props.navigation.navigate('Profile')} style={styles.menuItem}>
-                    <Text>Profile</Text>
+                <Pressable onPress={() => props.navigation.navigate('RegisterObject')} style={styles.menuItem}>
+                    <Icon  name='upload-cloud' size={30}/>
+                    <Text>Registrar achado</Text>
                 </Pressable>
                 {/* Adicione outros itens do menu aqui */}
                 {/* Botão de logout */}
