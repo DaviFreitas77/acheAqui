@@ -17,7 +17,7 @@ export default function SignIn() {
   const {setIdUser} = useContext(Context)
   async function loginUser() {
     try {
-      let response = await fetch('http://192.168.1.67/services/login.php', {
+      let response = await fetch('http://192.168.1.72/services/login.php', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -41,7 +41,7 @@ export default function SignIn() {
         alert('Erro na resposta da API');
       }
     } catch (error) {
-      alert(error);
+      alert('aa',error);
     }
   }
 

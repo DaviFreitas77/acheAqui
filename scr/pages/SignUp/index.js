@@ -26,7 +26,7 @@ const SignUp = () => {
       return;
     } else {
       try {
-        let response = await fetch('http://192.168.1.67/services/register.php', {
+        let response = await fetch('http://192.168.1.72/services/register.php', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',

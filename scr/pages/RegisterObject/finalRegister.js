@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Pressable, ScrollView } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { StyleSheet, Text, View, Pressable, ScrollView, Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
+import { Context } from '../../context/provider';
 
 const FinalRegister = () => {
     const navigation = useNavigation();
@@ -11,7 +12,7 @@ const FinalRegister = () => {
     const [activeLivingroom, setLivingroom] = useState(null);
     const originalColor = '#ffffff';
     const activeTagColor = '#b1b1b1';
-
+    const { formData } = useContext(Context);
     const handleColorPress = (item) => {
         setLocalActive(item);
     };
@@ -20,10 +21,10 @@ const FinalRegister = () => {
         setLivingroom(item);
     };
 
-   
+
     useEffect(() => {
-        console.log( localActive);
-        console.log( activeLivingroom);
+        console.log(localActive);
+        console.log(activeLivingroom);
     }, [localActive, activeLivingroom]);
 
     return (
@@ -34,10 +35,29 @@ const FinalRegister = () => {
                     <Text style={{ color: 'gray', width: '70%' }}>Nos informe onde você encontrou seu achado</Text>
                 </View>
                 <View style={styles.containerImages}>
-                    <Pressable style={styles.imgBig}>
-                        <Icon name='camera' size={20} />
-                    </Pressable>
-                 
+                    <View style={{ flexDirection: 'row', gap: 10 }}>
+                        {formData.images.map((img, index) => (
+                            <Image key={index} source={{ uri: img }} style={styles.imgSmall} />
+                        ))}
+                    </View>
+
+                    <View style={{ flexDirection: "row", gap: 10, flexWrap: 'wrap', alignItems: "center", justifyContent: "center" }}>
+
+                        <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
+                            <Text>{formData.category}</Text>
+                        </View>
+                        <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
+                            <Text>{formData.item}</Text>
+                        </View>
+
+                        <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
+                            <Text>{formData.cor}</Text>
+                        </View>
+
+                        <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
+                            <Text>{formData.tamanho}</Text>
+                        </View>
+                    </View>
                 </View>
                 <View style={styles.objectCategory}>
                     <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Em qual andar você o encontrou?</Text>
@@ -59,7 +79,7 @@ const FinalRegister = () => {
                     <Text style={{ fontSize: 16, color: "gray" }}>Escolha 1 tag</Text>
                 </View>
                 <View style={styles.containerTags}>
-                    {['Sala de aula adm', 'Sala de aula nutri', 'Sala de aula ds', 'Laboratório nutri','Laboratório ds','Auditório','Refeitório','Cantina','Outro'].map((item, index) => (
+                    {['Sala de aula adm', 'Sala de aula nutri', 'Sala de aula ds', 'Laboratório nutri', 'Laboratório ds', 'Auditório', 'Refeitório', 'Cantina', 'Outro'].map((item, index) => (
                         <Pressable
                             key={index}
                             onPress={() => handleLocationPress(item)}
@@ -71,7 +91,7 @@ const FinalRegister = () => {
                 </View>
 
                 {localActive && activeLivingroom && (
-                    <View style={{ width: "100%", justifyContent: "center", alignItems: "center",marginBottom:20 }}>
+                    <View style={{ width: "100%", justifyContent: "center", alignItems: "center", marginBottom: 20 }}>
                         <Pressable
                             onPress={() => navigation.navigate('CharactObject')}
                             style={styles.btnAdvance}
@@ -101,7 +121,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     containerImages: {
-        flexDirection: "row",
+        flexDirection: "column",
         gap: 15,
         justifyContent: "center",
         alignItems: "center",
@@ -115,7 +135,14 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
-    
+    imgSmall: {
+        width: 100,
+        height: 100,
+        borderRadius: 10,
+        backgroundColor: '#f1f2f7',
+        alignItems: "center",
+        justifyContent: "center"
+    },
     containerMarca: {
         width: '100%',
         flexDirection: 'row',
@@ -133,7 +160,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         paddingHorizontal: 40,
-        marginBottom:45
+        marginBottom: 45
     },
     tag: {
         width: 110,
@@ -143,7 +170,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         borderWidth: 1,
         borderColor: "#b1b1b1",
-      
+
     },
     btnAdvance: {
         width: '80%',

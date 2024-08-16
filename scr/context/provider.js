@@ -8,6 +8,11 @@ export default function Provider({ children }) {
     const [numeroUser,setNumeroUser] = useState();
     const [imagemUser,setImagemUser] = useState();
     const[idUser,setIdUser] = useState();
+    const [formData, setFormData] = useState({
+        category: null,
+        item: null,
+        images: []
+    });
 
     useEffect(() => {
        
@@ -40,7 +45,7 @@ export default function Provider({ children }) {
     }, []); 
 
     return (
-        <Context.Provider value={{ nomeUser, setNomeUser,emailUser,setEmailUser,numeroUser,setNumeroUser,imagemUser,setImagemUser,idUser,setIdUser}}>
+        <Context.Provider value={{ nomeUser, setNomeUser,emailUser,setEmailUser,numeroUser,setNumeroUser,imagemUser,setImagemUser,idUser,setIdUser,formData,setFormData}}>
             {children}
         </Context.Provider>
     );

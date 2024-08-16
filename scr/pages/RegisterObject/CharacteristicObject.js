@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Pressable, ScrollView } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { StyleSheet, Text, View, Pressable, ScrollView, Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
+import { Context } from '../../context/provider';
 
 const RegisterObject = () => {
+    const { formData } = useContext(Context);
     const navigation = useNavigation();
     const [activeColor, setActiveColor] = useState(null);
     const [activeTam, setActiveTam] = useState(null);
     const originalColor = '#ffffff';
     const activeTagColor = '#b1b1b1';
+    const { setFormData } = useContext(Context)
 
     const handleColorPress = (item) => {
         setActiveColor(item);
@@ -19,42 +22,40 @@ const RegisterObject = () => {
     const handleLocationPress = (item) => {
         setActiveTam(item);
     };
-
-   
-    useEffect(() => {
-        console.log( activeColor);
-        console.log( activeTam);
-    }, [activeColor, activeTam]);
-
+    async function handleUpload() {
+       
+        setFormData(prevData => ({
+            ...prevData, 
+            cor: activeColor, 
+            tamanho: activeTam 
+        }));
+    }
+ 
     return (
         <ScrollView>
             <View style={styles.container}>
                 <View style={styles.header}>
+
+
+
                     <Text style={styles.title}>Nos dê mais características</Text>
                     <Text style={{ color: 'gray', width: '70%' }}>Nos ajude a entender melhor as características do seu achado</Text>
                 </View>
                 <View style={styles.containerImages}>
-                    <Pressable style={styles.imgBig}>
-                        <Icon name='camera' size={20} />
-                    </Pressable>
-                    <View style={{ flexDirection: 'row', gap: 6 }}>
-                        <View style={{ gap: 6 }}>
-                            <Pressable style={styles.imgSmall}>
-                                <Icon name='camera' size={20} />
-                            </Pressable>
-                            <Pressable style={styles.imgSmall}>
-                                <Icon name='camera' size={20} />
-                            </Pressable>
-                        </View>
-                        <View style={{ gap: 6 }}>
-                            <Pressable style={styles.imgSmall}>
-                                <Icon name='camera' size={20} />
-                            </Pressable>
-                            <Pressable style={styles.imgSmall}>
-                                <Icon name='camera' size={20} />
-                            </Pressable>
-                        </View>
+                    <View style={{ flexDirection: 'row', gap: 5 }}>
+                        {formData.images.map((img, index) => (
+                            <Image key={index} source={{ uri: img }} style={styles.imgSmall} />
+                        )
+
+
+                        )}
                     </View>
+                    <View style={{flexDirection:"row",gap:10}}>
+                        
+                            <View style={[styles.tag,{backgroundColor:'#b1b1b1',fontWeight:"bold"}]}><Text>{formData.category}</Text></View>
+                            <View style={[styles.tag,{backgroundColor:'#b1b1b1',fontWeight:"bold"}]}><Text>{formData.item}</Text></View>
+                    </View>
+
                 </View>
                 <View style={styles.objectCategory}>
                     <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Nos informe a cor do achado</Text>
@@ -76,7 +77,7 @@ const RegisterObject = () => {
                     <Text style={{ fontSize: 16, color: "gray" }}>Escolha 1 tag</Text>
                 </View>
                 <View style={styles.containerTags}>
-                    {['Pequeno', 'Médio', 'Grande', ].map((item, index) => (
+                    {['Pequeno', 'Médio', 'Grande',].map((item, index) => (
                         <Pressable
                             key={index}
                             onPress={() => handleLocationPress(item)}
@@ -88,9 +89,13 @@ const RegisterObject = () => {
                 </View>
 
                 {activeColor && activeTam && (
-                    <View style={{ width: "100%", justifyContent: "center", alignItems: "center",marginBottom:20 }}>
+                    <View style={{ width: "100%", justifyContent: "center", alignItems: "center", marginBottom: 20 }}>
                         <Pressable
-                            onPress={() => navigation.navigate('FinalRegister')}
+                            onPress={ async() => {
+                                await  handleUpload()
+                                navigation.navigate('FinalRegister')
+                            }
+                        }
                             style={styles.btnAdvance}
                         >
                             <Text style={{ fontSize: 20, fontWeight: '600', color: "#fff" }}>Próximo</Text>
@@ -118,7 +123,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     containerImages: {
-        flexDirection: "row",
+        flexDirection: "column",
         gap: 15,
         justifyContent: "center",
         alignItems: "center",
@@ -157,17 +162,17 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         paddingHorizontal: 40,
-        marginBottom:40
+        marginBottom: 40
     },
     tag: {
-        width: 110,
+        width: 100,
         height: 38,
         borderRadius: 20,
         alignItems: "center",
         justifyContent: "center",
         borderWidth: 1,
         borderColor: "#b1b1b1",
-      
+
     },
     btnAdvance: {
         width: '80%',
