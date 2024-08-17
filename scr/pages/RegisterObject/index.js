@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
-import { StyleSheet, Text, View, Image, Pressable,ActivityIndicator} from 'react-native';
+import React, { useContext, useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Image, Pressable, ActivityIndicator, Alert } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import { StatusBar } from 'expo-status-bar';
-import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 import * as ImagePicker from 'expo-image-picker';
@@ -14,13 +13,14 @@ const RegisterObject = () => {
     const [image, setImage] = useState(null);
     const [image2, setImage2] = useState(null);
     const [image3, setImage3] = useState(null);
-    const navigation = useNavigation()
+    const navigation = useNavigation();
     const [activeTag, setActiveTag] = useState(null);
     const [selectedItem, setSelectedItem] = useState(null);
+    const [loading, setLoading] = useState(false);
+
     const originalColor = '#ffffff';
     const activeColor = '#b1b1b1';
-    const { setFormData } = useContext(Context)
-    const [loading,setLoading] = useState(false)
+    const { setFormData } = useContext(Context);
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -38,7 +38,7 @@ const RegisterObject = () => {
             } else if (!image3) {
                 setImage3(result.assets[0].uri);
             } else {
-                Alert.alert("Limite de imagens", "Você já selecionou 5 imagens.");
+                Alert.alert("Limite de imagens", "Você já selecionou 3 imagens.");
             }
         }
     };
@@ -54,18 +54,6 @@ const RegisterObject = () => {
         try {
             await uploadBytes(imageRef, blob);
             const url = await getDownloadURL(imageRef);
-            if (!image) {
-                setImage(url);
-
-            } else if (!image2) {
-                setImage2(url);
-
-            } else if (!image3) {
-                setImage3(url);
-
-            }
-
-
             return url;
         } catch (error) {
             alert('Upload Error', error.message);
@@ -73,21 +61,14 @@ const RegisterObject = () => {
         }
     };
 
-
-
-
-
     const handlePress = (item) => {
         setActiveTag(item);
-
     };
+
     useEffect(() => {
         console.log(activeTag);
-        console.log(selectedItem)
-        
-    }, [activeTag,selectedItem]);
-
-
+        console.log(selectedItem);
+    }, [activeTag, selectedItem]);
 
     const getPickerItems = () => {
         switch (activeTag) {
@@ -108,8 +89,8 @@ const RegisterObject = () => {
                 ];
             case 'Eletrônico':
                 return [
-                    { label: 'Celular', value: 'Celular' },
-                    { label: 'Notbook', value: 'Notbook' },
+                    { label: 'Celular', value: 'celular' },
+                    { label: 'Notebook', value: 'notebook' },
                     { label: 'Tablet', value: 'tablet' },
                     { label: 'Fone de Ouvido', value: 'fone_de_ouvido' },
                     { label: 'Carregador', value: 'carregador' },
@@ -119,8 +100,6 @@ const RegisterObject = () => {
                     { label: 'Pen Drive', value: 'pendrive' },
                     { label: 'Teclado', value: 'teclado' },
                     { label: 'Mouse', value: 'mouse' },
-
-
                 ];
             case 'Documentos':
                 return [
@@ -129,7 +108,7 @@ const RegisterObject = () => {
                     { label: 'CPF', value: 'cpf' },
                     { label: 'Certidão de Nascimento', value: 'certidao_nascimento' },
                     { label: 'Bilhete Único', value: 'bilhete_unico' },
-                ]
+                ];
             case 'Acessório Pessoal':
                 return [
                     { label: 'Bilhete Único', value: 'bilhete_unico' },
@@ -142,7 +121,7 @@ const RegisterObject = () => {
                     { label: 'Colar', value: 'colar' },
                     { label: 'Anel', value: 'anel' },
                     { label: 'Máscara de Proteção', value: 'mascara_protecao' },
-                ]
+                ];
             case 'Material Escolar':
                 return [
                     { label: 'Caderno', value: 'caderno' },
@@ -151,12 +130,12 @@ const RegisterObject = () => {
                     { label: 'Borracha', value: 'borracha' },
                     { label: 'Mochila', value: 'mochila' },
                     { label: 'Apontador', value: 'apontador' },
-                    { label: 'Regua', value: 'regua' },
+                    { label: 'Régua', value: 'regua' },
                     { label: 'Fichário', value: 'fichario' },
                     { label: 'Canetinha', value: 'canetinha' },
                     { label: 'Marcador de Texto', value: 'marcador_texto' },
                     { label: 'Pasta de Arquivo', value: 'pasta_arquivo' },
-                ]
+                ];
             default:
                 return [];
         }
@@ -174,15 +153,13 @@ const RegisterObject = () => {
             category: activeTag,
             item: selectedItem,
             images: uploadedImageUrls,
-            cor:null,
-            tamanho:null
+            cor: null,
+            tamanho: null,
         });
 
-        setLoading(false); 
-        
-        navigation.navigate('CharactObject'); 
+        setLoading(false);
+        navigation.navigate('CharactObject');
     };
-
 
     return (
         <View style={styles.container}>
@@ -195,12 +172,9 @@ const RegisterObject = () => {
                 {image ? (
                     <Image source={{ uri: image }} style={styles.imgBig} />
                 ) : (
-                    <Pressable
-                        onPress={pickImage}
-                        style={styles.imgBig}>
+                    <Pressable onPress={pickImage} style={styles.imgBig}>
                         <Icon name='camera' size={20} />
                     </Pressable>
-
                 )}
 
                 <View style={{ flexDirection: 'row', gap: 6 }}>
@@ -208,9 +182,7 @@ const RegisterObject = () => {
                         {image2 ? (
                             <Image source={{ uri: image2 }} style={styles.imgSmall} />
                         ) : (
-                            <Pressable
-                                onPress={pickImage}
-                                style={styles.imgSmall}>
+                            <Pressable onPress={pickImage} style={styles.imgSmall}>
                                 <Icon name='camera' size={20} />
                             </Pressable>
                         )}
@@ -218,17 +190,11 @@ const RegisterObject = () => {
                         {image3 ? (
                             <Image source={{ uri: image3 }} style={styles.imgSmall} />
                         ) : (
-                            <Pressable
-                                onPress={pickImage}
-
-                                style={styles.imgSmall}>
+                            <Pressable onPress={pickImage} style={styles.imgSmall}>
                                 <Icon name='camera' size={20} />
                             </Pressable>
-
                         )}
-
                     </View>
-
                 </View>
             </View>
 
@@ -259,27 +225,26 @@ const RegisterObject = () => {
                     />
                 </View>
             )}
-            
-              <ActivityIndicator size="small" color="#0000ff" />
-            {(selectedItem && image && image2 && image3) && (
-                <View style={{ width: "100%", justifyContent: "center", alignItems: "center" }}>
-                    <Pressable
-                        onPress={async () => {
-                            await handleUpload();
-                            navigation.navigate('CharactObject', { formData });
-                        }}
-                        style={styles.btnAdvance}
-                    >
-                        <Text style={{ fontSize: 20, fontWeight: '600', color: "#fff" }}>Próximo</Text>
-                    </Pressable>
-                </View>
-            )}
 
+            {loading ? (
+                <ActivityIndicator size="small" color="#0000ff" style={styles.loadingIndicator} />
+            ) : (
+                (selectedItem && image && image2 && image3) && (
+                    <View style={{ width: "100%", justifyContent: "center", alignItems: "center" }}>
+                        <Pressable
+                            onPress={handleUpload}
+                            style={styles.btnAdvance}
+                        >
+                            <Text style={{ fontSize: 20, fontWeight: '600', color: "#fff" }}>Próximo</Text>
+                        </Pressable>
+                    </View>
+                )
+            )}
 
             <StatusBar style="auto" />
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -318,11 +283,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
-    containerMarca: {
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-around'
-    },
     objectCategory: {
         paddingLeft: 50
     },
@@ -357,6 +317,9 @@ const styles = StyleSheet.create({
     pickerContainer: {
         paddingHorizontal: 20,
         marginTop: 20,
+    },
+    loadingIndicator: {
+        marginTop: 30,
     }
 });
 

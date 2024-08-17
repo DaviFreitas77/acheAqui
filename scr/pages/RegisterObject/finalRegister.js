@@ -13,6 +13,7 @@ const FinalRegister = () => {
     const originalColor = '#ffffff';
     const activeTagColor = '#b1b1b1';
     const { formData } = useContext(Context);
+    const { setFormData } = useContext(Context);
     const handleColorPress = (item) => {
         setLocalActive(item);
     };
@@ -22,10 +23,35 @@ const FinalRegister = () => {
     };
 
 
-    useEffect(() => {
-        console.log(localActive);
-        console.log(activeLivingroom);
-    }, [localActive, activeLivingroom]);
+    const handleUpload = async () => {
+        const requestData = {
+            category: formData.category,
+            item: formData.item,
+            images: formData.images,
+            cor: formData.cor,
+            tamanho: formData.tamanho,
+            local: localActive,
+            livingroom: activeLivingroom,
+        };
+
+        try {
+            const request = await fetch('http://192.168.1.72/services/registroObjeto.php', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData)
+            });
+
+            const response = await request.json();
+
+
+            console.log(response);
+        } catch (error) {
+            console.error('Error while uploading data: ', error);
+        }
+    };
 
     return (
         <ScrollView>
@@ -93,7 +119,10 @@ const FinalRegister = () => {
                 {localActive && activeLivingroom && (
                     <View style={{ width: "100%", justifyContent: "center", alignItems: "center", marginBottom: 20 }}>
                         <Pressable
-                            onPress={() => navigation.navigate('CharactObject')}
+                            onPress={async () => {
+                                await handleUpload();
+                                
+                            }}
                             style={styles.btnAdvance}
                         >
                             <Text style={{ fontSize: 20, fontWeight: '600', color: "#fff" }}>Próximo</Text>

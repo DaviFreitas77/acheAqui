@@ -13,8 +13,16 @@ export default function EditUser() {
     const { numeroUser } = useContext(Context);
     const {imagemUser} = useContext(Context);
     const {setImagemUser} = useContext(Context)
+    const {nascUser} = useContext(Context)
     const {idUser} = useContext(Context)
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Lembre-se que os meses começam do zero
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
     console.log(idUser)
 
     async function updateInfo() {
@@ -102,6 +110,10 @@ export default function EditUser() {
                 <View style={styles.input}>
                     <Text style={styles.tittleInput}>Telefone</Text>
                     <Text style={styles.txtInput}>{numeroUser}</Text>
+                </View>
+                <View style={styles.input}>
+                    <Text style={styles.tittleInput}>Data de nascimento</Text>
+                 <Text style={styles.txtInput}>{formatDate(nascUser)}</Text>
                 </View>
                 <Pressable onPress={updateInfo}>
                     <Text>Atualizar informções</Text>

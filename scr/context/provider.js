@@ -7,6 +7,7 @@ export default function Provider({ children }) {
     const [emailUser,setEmailUser] = useState();
     const [numeroUser,setNumeroUser] = useState();
     const [imagemUser,setImagemUser] = useState();
+    const[nascUser,setNascUser] = useState();
     const[idUser,setIdUser] = useState();
     const [formData, setFormData] = useState({
         category: null,
@@ -35,6 +36,7 @@ export default function Provider({ children }) {
                         setNumeroUser(result.numeroCelular)
                         setImagemUser(result.imagem)
                         setIdUser(result.id)
+                        setNascUser(result.dataNascimento)
                     }
                 } else {
                     alert('Erro ao buscar dados do usuário');
@@ -45,7 +47,7 @@ export default function Provider({ children }) {
     }, []); 
 
     return (
-        <Context.Provider value={{ nomeUser, setNomeUser,emailUser,setEmailUser,numeroUser,setNumeroUser,imagemUser,setImagemUser,idUser,setIdUser,formData,setFormData}}>
+        <Context.Provider value={{ nomeUser, setNomeUser,emailUser,setEmailUser,numeroUser,setNumeroUser,imagemUser,setImagemUser,idUser,setIdUser,formData,setFormData,setNascUser,nascUser}}>
             {children}
         </Context.Provider>
     );

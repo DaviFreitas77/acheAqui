@@ -14,6 +14,7 @@ export default function SignIn() {
   const {setEmailUser} = useContext(Context)
   const {setNumeroUser} = useContext(Context);
   const {setImagemUser} = useContext(Context)
+  const {setNascUser} = useContext(Context)
   const {setIdUser} = useContext(Context)
   async function loginUser() {
     try {
@@ -35,6 +36,7 @@ export default function SignIn() {
           setNumeroUser(result.numeroCelular)
           setImagemUser(result.imagem)
           setIdUser(result.id)
+          setNascUser(result.dataNascimento)
           navigation.navigate('Drawer') 
         }
       } else {

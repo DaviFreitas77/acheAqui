@@ -1,28 +1,36 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TextInput, Pressable, Switch, ScrollView, } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Pressable, Switch, ScrollView } from 'react-native';
 import { useContext, useState } from 'react';
-import { LinearGradient } from 'expo-linear-gradient'
+import { LinearGradient } from 'expo-linear-gradient';
 import CustomModal from '../../ModalSignUp';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 import { Context } from '../../context/provider';
-
-
-
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const SignUp = () => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  const [nome, setNome] = useState('')
-  const [email, setEmail] = useState('')
-  const [numero, setNumero] = useState('')
-  const [senha, setSenha] = useState('')
-  const [data, setData] = useState('')
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [numero, setNumero] = useState('');
+  const [senha, setSenha] = useState('');
+  const [data, setData] = useState(new Date());
   const [modalVisible, setModalVisible] = useState(false);
+  const [show, setShow] = useState(false);
 
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || data;
+    setShow(false);
+    setData(currentDate);
+  };
+
+  const showDatePicker = () => {
+    setShow(true);
+  };
 
   async function registerUser() {
-    if (nome.length < 5 || numero.length <= 10 || senha.length <= 5 || data.length <= 9 || !isEnabled) {
-      alert('Preecha todos os campos corretamente')
+    if (nome.length < 5 || numero.length <= 10 || senha.length <= 5 || !data || !isEnabled) {
+      alert('Preencha todos os campos corretamente');
       return;
     } else {
       try {
@@ -37,27 +45,23 @@ const SignUp = () => {
             email: email,
             senha: senha,
             numero: numero,
-            dataNascimento: data,
+            dataNascimento: data.toISOString().split('T')[0],
             imagem: 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F932e5e7c-acb9-46ca-beac-11013ea15967.jpeg?alt=media&token=4bb19d6b-8a13-4001-9537-9e8e8fa80c8e'
           })
         });
         if (response.ok) {
-          let result = await response.json(); 
+          let result = await response.json();
           if (result.success === false) {
             alert(result.message);
           } else {
             setModalVisible(true);
           }
-
-
         }
       } catch (error) {
         console.log(error)
       }
     }
   }
-
-
 
   return (
     <ScrollView>
@@ -74,7 +78,7 @@ const SignUp = () => {
           source={require('../../imges/signUp/logo.png')}
           style={{ width: 238, height: 238 }}
         />
-      
+
         <View style={styles.ContainerInput}>
 
           <View style={styles.viewInput}>
@@ -91,7 +95,6 @@ const SignUp = () => {
             <Text style={styles.labelInput}>Numero do Celular</Text>
             <TextInput
               placeholder='ex: 11964928492'
-
               placeholderTextColor="#707070"
               style={styles.input}
               onChangeText={(text) => setNumero(text)}
@@ -99,7 +102,7 @@ const SignUp = () => {
             />
           </View>
           <View style={styles.viewInput}>
-            <Text style={styles.labelInput}>Email institucional etec</Text>
+            <Text style={styles.labelInput}>Email institucional ETEC</Text>
             <TextInput
               placeholder='ex: clodoaldo@gmail.com'
               placeholderTextColor="#707070"
@@ -111,7 +114,7 @@ const SignUp = () => {
           <View style={styles.viewInput}>
             <Text style={styles.labelInput}>Senha</Text>
             <TextInput
-              placeholder='No minimo 6 caracteres'
+              placeholder='No mínimo 6 caracteres'
               placeholderTextColor="#707070"
               style={styles.input}
               onChangeText={(text) => setSenha(text)}
@@ -121,13 +124,20 @@ const SignUp = () => {
           </View>
           <View style={styles.viewInput}>
             <Text style={styles.labelInput}>Insira sua Data de nascimento</Text>
-            <TextInput
-              placeholder='Data de nacsimento'
-              placeholderTextColor="#707070"
-              style={styles.input}
-              onChangeText={(text) => setData(text)}
-              value={data}
-            />
+            <Pressable onPress={showDatePicker} style={styles.input}>
+              <Text style={{ paddingLeft: 10 }}>
+                {data ? data.toLocaleDateString() : 'Data de nascimento'}
+              </Text>
+            </Pressable>
+            {show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={data}
+                mode="date"
+                is24Hour={true}
+                onChange={onChange}
+              />
+            )}
           </View>
           <Pressable style={styles.btn} onPress={registerUser}>
             <Text style={styles.txtBtn}>Cadastrar</Text>
@@ -135,13 +145,11 @@ const SignUp = () => {
           <View style={{ alignItems: "center", flexDirection: 'row', gap: 10 }}>
             <Switch
               value={isEnabled}
-
               thumbColor={isEnabled ? '#4adb3f' : '#f4f3f4'}
               onValueChange={toggleSwitch}
-
             />
             <Text style={styles.txtTerms}>
-              Ao criar a conta, você concorda com as nossas Politicas de Uso e Privacidade e Notificações.
+              Ao criar a conta, você concorda com as nossas Políticas de Uso e Privacidade e Notificações.
             </Text>
           </View>
         </View>
@@ -152,10 +160,8 @@ const SignUp = () => {
         <StatusBar style="auto" />
       </View>
     </ScrollView>
-
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -204,15 +210,14 @@ const styles = StyleSheet.create({
   },
   txtTerms: {
     width: '80%',
-
   },
   overlayImage: {
     position: 'absolute',
     width: 110,
     height: 110,
     borderRadius: 100,
-    top: 0, // Ajusta a posição em relação ao ícone
-    left: -60, // Ajusta a posição em relação ao ícone
+    top: 0,
+    left: -60,
   },
   txtEditFoto: {
     fontWeight: "bold",
