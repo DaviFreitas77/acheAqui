@@ -6,11 +6,12 @@ import { Context } from '../context/provider';
 import { useContext } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 
-function CustomDrawerContent(props) {
+function CustomDrawerAdmin(props) {
     const navigation = useNavigation();
-    const { nomeUser } = useContext(Context);
-    const { emailUser } = useContext(Context)
-    const {imagemUser} = useContext(Context);
+    const { nomeAdm } = useContext(Context);
+    const { emailAdm } = useContext(Context)
+    
+    
     const handleLogout = () => {
         navigation.navigate('SignIn');
     };
@@ -19,11 +20,11 @@ function CustomDrawerContent(props) {
         <View style={styles.container}>
             <View style={styles.header}>
             <Image
-          source={imagemUser ? { uri: imagemUser } : require('../imges/signUp/logo.png')}
+            source={require('../imges/homeAdm/adm.jpeg')}
           style={{ width: 80, height: 80, borderRadius: 100 }}
         />
-                <Text style={styles.nomeUser}>{nomeUser}</Text>
-                <Text style={styles.emailUser}>{emailUser}</Text>
+                <Text style={styles.nomeUser}>{nomeAdm}</Text>
+                <Text style={styles.emailUser}>{emailAdm}</Text>
             </View>
             <View style={styles.linha}><Text>a</Text></View>
 
@@ -31,7 +32,7 @@ function CustomDrawerContent(props) {
 
                 <Pressable onPress={() => props.navigation.navigate('EditUser')} style={styles.menuItem}>
                 <Icon   name='user' size={30}/>
-                    <Text>Editar usuario</Text>
+                    <Text>Banco de objetos</Text>
                 </Pressable>
                 <Pressable onPress={() => props.navigation.navigate('RegisterObject')} style={styles.menuItem}>
                     <Icon  name='upload-cloud' size={30}/>
@@ -97,4 +98,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default CustomDrawerContent;
+export default CustomDrawerAdmin;

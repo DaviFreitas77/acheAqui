@@ -11,11 +11,12 @@ export default function SignIn() {
   const [senha, setSenha] = useState('');
   const navigation = useNavigation();
   const { setNomeUser } = useContext(Context);
-  const {setEmailUser} = useContext(Context)
-  const {setNumeroUser} = useContext(Context);
-  const {setImagemUser} = useContext(Context)
-  const {setNascUser} = useContext(Context)
-  const {setIdUser} = useContext(Context)
+  const { setEmailUser } = useContext(Context)
+  const { setNumeroUser } = useContext(Context);
+  const { setImagemUser } = useContext(Context)
+  const { setNascUser } = useContext(Context)
+  const { setIdUser } = useContext(Context)
+  const { setLogAdm } = useContext(Context)
   async function loginUser() {
     try {
       let response = await fetch('http://192.168.1.72/services/login.php', {
@@ -31,19 +32,21 @@ export default function SignIn() {
         if (result.success === false) {
           alert('Usuário ou senha incorretos');
         } else {
-          setNomeUser(result.nome); 
+          setNomeUser(result.nome);
           setEmailUser(result.email)
           setNumeroUser(result.numeroCelular)
           setImagemUser(result.imagem)
           setIdUser(result.id)
           setNascUser(result.dataNascimento)
-          navigation.navigate('Drawer') 
+          
+          navigation.navigate('Drawer')
+          setSenha('')
         }
       } else {
         alert('Erro na resposta da API');
       }
     } catch (error) {
-      alert('aa',error);
+      alert('aa', error);
     }
   }
 
@@ -82,8 +85,9 @@ export default function SignIn() {
                 placeholder='Digite sua senha'
                 placeholderTextColor="#707070"
                 style={styles.input}
-                secureTextEntry={true} // Para esconder a senha
+                secureTextEntry={true}
                 onChangeText={(text) => setSenha(text)}
+                value={senha}
               />
             </View>
           </View>
@@ -110,7 +114,7 @@ export default function SignIn() {
           </Text>
         </Pressable>
 
-        <Pressable style={styles.btnAdm}>
+        <Pressable onPress={() => navigation.navigate('Code')} style={styles.btnAdm}>
           <Text style={{ fontSize: 10, color: 'white' }}>Admins</Text>
         </Pressable>
       </View>

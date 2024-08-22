@@ -24,6 +24,12 @@ import EditUser from './scr/pages/EditUser';
 import RegisterObject from './scr/pages/RegisterObject';
 import CharactObject from './scr/pages/RegisterObject/CharacteristicObject';
 import FinalRegister from './scr/pages/RegisterObject/finalRegister';
+import RegisterComplempeted from './scr/pages/RegisterObject/registerCompleted';
+
+
+//adm
+import Code from './scr/areaAdm/pages/Code';
+import AdminDrawerNavigator from './adminDrawer';
 
 function TabNavigator() {
   return (
@@ -102,12 +108,6 @@ function DrawerNavigator() {
   );
 }
 
-
-
-
-// Navegador de Pilha Dentro do Drawer
-
-// Definir o Stack Navigator
 function MyStack() {
 
   return (
@@ -120,9 +120,11 @@ function MyStack() {
         <Stack.Screen name="EditUser" component={EditUser} options={{
           headerShown: true,
           headerTitle: "Editar Perfil",
+          headerTintColor:"#fff",
 
           headerStyle: {
             backgroundColor: '#005AC5',
+            
 
           },
           headerTitleContainerStyle: {
@@ -135,6 +137,7 @@ function MyStack() {
         <Stack.Screen name="RegisterObject" component={RegisterObject} options={{
           headerShown: true,
           headerTitle: 'Registrar Achado',
+          headerTintColor:"#fff",
           headerStyle: {
             backgroundColor: '#005AC5',
 
@@ -153,9 +156,9 @@ function MyStack() {
         <Stack.Screen name="CharactObject" component={CharactObject} options={{
           headerShown: true,
           headerTitle: 'Registrar Achado',
+          headerTintColor:"#fff",
           headerStyle: {
             backgroundColor: '#005AC5',
-
           },
           headerTitleContainerStyle: {
             paddingLeft: '40%'
@@ -163,17 +166,15 @@ function MyStack() {
           headerTitleStyle: {
             fontSize: 22
           }
-
         }}
         />
 
         <Stack.Screen name="FinalRegister" component={FinalRegister} options={{
           headerShown: true,
-
           headerTitle: 'Registrar Achado',
+          headerTintColor:"#fff",
           headerStyle: {
             backgroundColor: '#005AC5',
-
           },
           headerTitleContainerStyle: {
             paddingLeft: '40%'
@@ -181,9 +182,24 @@ function MyStack() {
           headerTitleStyle: {
             fontSize: 22
           }
-
         }}
         />
+  
+        <Stack.Screen name="Code" component={Code} options={{ headerShown: true,
+          headerTitle:'Autentificando-se',
+          headerTintColor:"#fff",
+          headerStyle:{
+            backgroundColor:'#6d9fdc'
+          }
+         }} />
+
+           <Stack.Screen name="AdminDrawer" component={AdminDrawerNavigator} options={{ headerShown: false }} />
+           <Stack.Screen name="RegisterComplempeted" component={RegisterComplempeted} options={{ headerShown: true,headerTitle:'Registrar achado',  headerTintColor:"#fff",headerStyle:{
+              backgroundColor:"#4786d3",
+           },   headerTitleContainerStyle: {
+            paddingLeft:'30%'
+          },
+          headerLeft: () => null}} />
 
       </Stack.Navigator>
     </Provider>

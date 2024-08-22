@@ -29,7 +29,7 @@ const SignUp = () => {
   };
 
   async function registerUser() {
-    if (nome.length < 5 || numero.length <= 10 || senha.length <= 5 || !data || !isEnabled) {
+    if (nome.length < 2 || numero.length <= 10 || senha.length <= 5 || !data || !isEnabled) {
       alert('Preencha todos os campos corretamente');
       return;
     } else {
@@ -187,7 +187,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     height: 45,
-    paddingLeft: 10
+    paddingLeft: 10,
+    justifyContent:"center"
   },
   labelInput: {
     fontWeight: 'bold',

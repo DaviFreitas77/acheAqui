@@ -14,6 +14,8 @@ const FinalRegister = () => {
     const activeTagColor = '#b1b1b1';
     const { formData } = useContext(Context);
     const { setFormData } = useContext(Context);
+    const { idUser } = useContext(Context)
+    const { nomeUser } = useContext(Context)
     const handleColorPress = (item) => {
         setLocalActive(item);
     };
@@ -32,6 +34,7 @@ const FinalRegister = () => {
             tamanho: formData.tamanho,
             local: localActive,
             livingroom: activeLivingroom,
+            idUser: idUser
         };
 
         try {
@@ -45,9 +48,28 @@ const FinalRegister = () => {
             });
 
             const response = await request.json();
+            setFormData(requestData)
+
+            const newObjeto = {
+                idObjeto: response.id,
+                idUsuario: response.idUser
+            }
+
+            const postResponse = await fetch('http://192.168.1.72/services/criarPost.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newObjeto)
+            });
+            const postResponseJson = await postResponse.json();
+
+            if (postResponse.ok) {
+                navigation.replace('RegisterComplempeted');
+
+            }
 
 
-            console.log(response);
         } catch (error) {
             console.error('Error while uploading data: ', error);
         }
@@ -121,7 +143,7 @@ const FinalRegister = () => {
                         <Pressable
                             onPress={async () => {
                                 await handleUpload();
-                                
+
                             }}
                             style={styles.btnAdvance}
                         >

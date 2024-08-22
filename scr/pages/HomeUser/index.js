@@ -9,13 +9,14 @@ import {
   TextInput,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Feather';
 
 import { Context } from "../../context/provider";
 
 const HomeUser = () => {
   const { nomeUser } = useContext(Context);
   const {imagemUser} = useContext(Context);
+
   
   return (
     
@@ -34,7 +35,7 @@ const HomeUser = () => {
         </View>
       </View>
       <View style={styles.inputView}>
-        <Icon name="at-outline" size={25} color="#707070" />
+      
         <TextInput
           placeholder="Pesquise pelo seu objeto"
           style={styles.input}
@@ -49,43 +50,53 @@ const HomeUser = () => {
           <View style={{ flexDirection: "row", gap: 20 }}>
             <View style={{ alignItems: "center", gap: 5 }}>
               <Pressable style={styles.BtnCatalogo}>
-                   <Text>aaa</Text>
+                   <Icon  name="smartphone" size={50} />
                    
               </Pressable>
               <Text style={styles.txtBtNCatalogo}>Eletronicos</Text>
             </View>
             <View style={{ alignItems: "center", gap: 5 }}>
               <Pressable style={styles.BtnCatalogo}>
-                <Text>aa</Text>
+                <Image source={require('../../imges/homeUser/veste.png')} 
+                  
+                />
               </Pressable>
-              <Text style={styles.txtBtNCatalogo}>Eletronicos</Text>
+              <Text style={styles.txtBtNCatalogo}>Vestimentas</Text>
             </View>
             <View style={{ alignItems: "center", gap: 5 }}>
               <Pressable style={styles.BtnCatalogo}>
-                <Text>aa</Text>
+              <Image source={require('../../imges/homeUser/pessoal.png')} 
+                  
+                  />
               </Pressable>
-              <Text style={styles.txtBtNCatalogo}>Eletronicos</Text>
+              <Text style={styles.txtBtNCatalogo}>Acessorio Pessoal</Text>
             </View>
           </View>
 
           <View style={{ flexDirection: "row", gap: 20 }}>
             <View style={{ alignItems: "center", gap: 5 }}>
               <Pressable style={styles.BtnCatalogo}>
-                <Text>aa</Text>
+              <Image source={require('../../imges/homeUser/caderno.png')} 
+                  
+                  />
               </Pressable>
-              <Text style={styles.txtBtNCatalogo}>Eletronicos</Text>
+              <Text style={styles.txtBtNCatalogo}>Material escolar</Text>
             </View>
             <View style={{ alignItems: "center", gap: 5 }}>
               <Pressable style={styles.BtnCatalogo}>
-                <Text>aa</Text>
+              <Image source={require('../../imges/homeUser/documento.png')} 
+                  
+                  />
               </Pressable>
-              <Text style={styles.txtBtNCatalogo}>Eletronicos</Text>
+              <Text style={styles.txtBtNCatalogo}>Documentos</Text>
             </View>
             <View style={{ alignItems: "center", gap: 5 }}>
               <Pressable style={styles.BtnCatalogo}>
-                <Text>aa</Text>
+              <Image source={require('../../imges/homeUser/pesquisa.png')} 
+                  
+                  />
               </Pressable>
-              <Text style={styles.txtBtNCatalogo}>Eletronicos</Text>
+              <Text style={styles.txtBtNCatalogo}>Outros</Text>
             </View>
           </View>
         </View>
@@ -120,10 +131,12 @@ const styles = StyleSheet.create({
   },
   containerCatalogo: {
     gap: 20,
+    justifyContent:"center",
+    alignItems:"center"
   },
   BtnCatalogo: {
     backgroundColor: "#4787d4",
-    padding: 45,
+    padding: 30,
     borderRadius:100
   },
   txtBtNCatalogo: {

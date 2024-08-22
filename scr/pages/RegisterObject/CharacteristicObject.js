@@ -23,14 +23,14 @@ const RegisterObject = () => {
         setActiveTam(item);
     };
     async function handleUpload() {
-       
+
         setFormData(prevData => ({
-            ...prevData, 
-            cor: activeColor, 
-            tamanho: activeTam 
+            ...prevData,
+            cor: activeColor,
+            tamanho: activeTam
         }));
     }
- 
+
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -50,10 +50,10 @@ const RegisterObject = () => {
 
                         )}
                     </View>
-                    <View style={{flexDirection:"row",gap:10}}>
-                        
-                            <View style={[styles.tag,{backgroundColor:'#b1b1b1',fontWeight:"bold"}]}><Text>{formData.category}</Text></View>
-                            <View style={[styles.tag,{backgroundColor:'#b1b1b1',fontWeight:"bold"}]}><Text>{formData.item}</Text></View>
+                    <View style={{ flexDirection: "row", gap: 10 }}>
+
+                        <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}><Text>{formData.category}</Text></View>
+                        <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}><Text>{formData.item}</Text></View>
                     </View>
 
                 </View>
@@ -91,11 +91,11 @@ const RegisterObject = () => {
                 {activeColor && activeTam && (
                     <View style={{ width: "100%", justifyContent: "center", alignItems: "center", marginBottom: 20 }}>
                         <Pressable
-                            onPress={ async() => {
-                                await  handleUpload()
-                                navigation.navigate('FinalRegister')
+                            onPress={async () => {
+                                await handleUpload()
+                                navigation.replace('FinalRegister')
                             }
-                        }
+                            }
                             style={styles.btnAdvance}
                         >
                             <Text style={{ fontSize: 20, fontWeight: '600', color: "#fff" }}>Próximo</Text>

@@ -158,7 +158,7 @@ const RegisterObject = () => {
         });
 
         setLoading(false);
-        navigation.navigate('CharactObject');
+        navigation.replace('CharactObject');
     };
 
     return (

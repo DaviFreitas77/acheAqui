@@ -1,47 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 import { Context } from '../../context/provider';
 import * as ImagePicker from 'expo-image-picker';
-import { useContext } from 'react';
 import { storage } from '../../../service/firebaseConection';
-import { ref,getDownloadURL,uploadBytes } from 'firebase/storage';
-export default function EditUser() {
+import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
+import { TextInput } from 'react-native-gesture-handler';
+import axios from 'axios';
 
-    const { nomeUser } = useContext(Context);
-    const { emailUser } = useContext(Context);
-    const { numeroUser } = useContext(Context);
-    const {imagemUser} = useContext(Context);
-    const {setImagemUser} = useContext(Context)
-    const {nascUser} = useContext(Context)
-    const {idUser} = useContext(Context)
+export default function EditUser() {
+   
+    const { nomeUser, setNomeUser, emailUser, numeroUser, setImagemUser, imagemUser, nascUser, idUser,setNumeroUser } = useContext(Context);
+    const [edit, setEdit] = useState(false);
+    const [newName, setNewName] = useState(nomeUser);
+    const[newNumero,setNewNumero] = useState(numeroUser)
+  
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Lembre-se que os meses começam do zero
+        const month = String(date.getMonth() + 1).padStart(2, '0'); 
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     };
-    console.log(idUser)
 
-    async function updateInfo() {
-       
-    }
     const uploadImage = async (uri) => {
         try {
             const filename = uri.split('/').pop();
             const storageRef = ref(storage, `images/${filename}`);
-        
             const response = await fetch(uri);
             if (!response.ok) throw new Error('Falha ao buscar imagem');
-        
             const blob = await response.blob();
-        
             await uploadBytes(storageRef, blob);
-        
             const url = await getDownloadURL(storageRef);
-        
             return url;
         } catch (error) {
             console.error('Erro ao fazer upload da imagem:', error);
@@ -49,58 +40,119 @@ export default function EditUser() {
         }
     };
 
-    const pickImage = async () =>{
-        //pedir permição
-        const {status} = await ImagePicker.requestCameraPermissionsAsync();
-        if(status !== 'granted') {
+    const pickImage = async () => {
+        const { status } = await ImagePicker.requestCameraPermissionsAsync();
+        if (status !== 'granted') {
             alert('Desculpe, precisamos de permissões para acessar a galeria!');
             return;
         }
-
-        //abrir galeria
+    
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing:true,
-            aspect:[1,1],
-            quality:1
-        })
-
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1
+        });
+    
         if (!result.canceled) {
             const uri = result.assets[0].uri;
-            setImagemUser(uri); 
-            console.log('Imagem selecionada:', uri); 
-    
             const url = await uploadImage(uri); 
             if (url) {
-                setImagemUser(url); 
+               
                 console.log('URL da imagem após o upload:', url);
+                try {
+                    
+                    const response = await axios.put(`http://192.168.1.72/services/atualizaRegistro.php`, {
+                        id: idUser,         
+                        imagem: url         
+                    });
+                    
+                    if (response.status === 200) {
+                        console.log('Imagem do usuário atualizada com sucesso:', response.data);
+                        setImagemUser(url)
+                    } else {
+                        console.log('Erro', response.data);
+                    }
+                } catch (error) {
+                    console.error( error);
+                }
             } else {
                 console.log('Falha no upload da imagem.');
             }
         }
-    
-    } 
+    };
+    const requestBody = () => {
+        const body = {
+            id: idUser,
+            ...(newName !== nomeUser && { nome: newName }),
+            ...(newNumero !== numeroUser && { numeroCelular: newNumero })
+        };
+        return body;
+    };
+
+    const updateName = async () => {
+        const body = requestBody();
+        if (Object.keys(body).length === 1) { 
+            alert('Nenhuma alteração foi feita.');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://192.168.1.72/services/atualizaRegistro.php', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body)
+            });
+
+            if (response.ok) {
+                let result = await response.json();
+                if (result.status === "success") { 
+                    if (newName !== nomeUser) setNomeUser(newName);
+                    if (newNumero !== numeroUser) setNumeroUser(newNumero);
+                    setEdit(false)
+                    alert('Informações atualizadas com sucesso!');
+                } else {
+                    alert('Erro na atualização: ' + result.message);
+                }
+            } else {
+                alert('Erro: ' + response.statusText);
+            }
+        } catch (error) {
+            console.log(error);
+            alert('Ocorreu um erro ao tentar atualizar suas informações.');
+        }   
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.editImage}>
                 <Icon name='user-circle' size={110} />
                 <Image
-          source={imagemUser ? { uri: imagemUser } : require('../../imges/signUp/logo.png')}
-          style={styles.overlayImage}
-        />
-               
-
+                    source={imagemUser ? { uri: imagemUser } : require('../../imges/signUp/logo.png')}
+                    style={styles.overlayImage}
+                />
                 <Pressable onPress={pickImage}>
                     <Text style={styles.txtEditFoto}>Editar Foto</Text>
                 </Pressable>
-
             </View>
             <View style={{ width: '90%', alignItems: "center", gap: 25 }}>
-
-                <View style={styles.input}>
+                <Pressable onPress={() => setEdit(!edit)} style={styles.input}>
                     <Text style={styles.tittleInput}>Nome</Text>
-                    <Text style={styles.txtInput}>{nomeUser}</Text>
-                </View>
+                    {edit ? (
+                        <TextInput
+                        style={styles.txtInput} 
+                            placeholder='Novo nome'
+                            value={newName}
+                            onChangeText={setNewName}
+                            autoFocus
+                        />
+                    ) : (
+                        <Text style={styles.txtInput}>{nomeUser}</Text>
+                    )}
+                </Pressable>
 
                 <View style={styles.input}>
                     <Text style={styles.tittleInput}>Email</Text>
@@ -109,14 +161,20 @@ export default function EditUser() {
 
                 <View style={styles.input}>
                     <Text style={styles.tittleInput}>Telefone</Text>
-                    <Text style={styles.txtInput}>{numeroUser}</Text>
+                    <TextInput 
+                        style={styles.txtInput} 
+                        value={newNumero} 
+                        onChangeText={setNewNumero}
+                        placeholder='Novo número'
+                    />
                 </View>
+
                 <View style={styles.input}>
                     <Text style={styles.tittleInput}>Data de nascimento</Text>
-                 <Text style={styles.txtInput}>{formatDate(nascUser)}</Text>
+                    <Text style={styles.txtInput}>{formatDate(nascUser)}</Text>
                 </View>
-                <Pressable onPress={updateInfo}>
-                    <Text>Atualizar informções</Text>
+                <Pressable onPress={updateName} style={styles.btn}>
+                    <Text style={styles.txtBtn}>Atualizar Informações</Text>
                 </Pressable>
             </View>
         </View>
@@ -131,17 +189,13 @@ const styles = StyleSheet.create({
         paddingTop: 80,
         gap: 30
     },
-    text: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
     overlayImage: {
         position: 'absolute',
         width: 110,
         height: 110,
         borderRadius: 100,
-        top: 0, // Ajusta a posição em relação ao ícone
-        left: -60, // Ajusta a posição em relação ao ícone
+        top: 0,
+        left: -60,
     },
     editImage: {
         gap: 20
@@ -164,10 +218,20 @@ const styles = StyleSheet.create({
     txtInput: {
         fontSize: 18,
         fontWeight: '600'
-
     },
     tittleInput: {
         fontSize: 12
-    }
-
+    },
+    btn: {
+        backgroundColor: "#4786d3",
+        height: 58,
+        borderRadius: 13,
+        alignItems: "center",
+        justifyContent: 'center',
+        width: '70%'
+    },
+    txtBtn: {
+        color: '#fff',
+        fontSize: 20
+    },
 });
