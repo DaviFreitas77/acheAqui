@@ -39,7 +39,7 @@ export default function SignIn() {
           setIdUser(result.id)
           setNascUser(result.dataNascimento)
           
-          navigation.navigate('Drawer')
+          navigation.replace('Drawer')
           setSenha('')
         }
       } else {

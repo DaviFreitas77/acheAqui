@@ -9,11 +9,14 @@ import {
     ActivityIndicator,
     FlatList,
     Pressable,
+    
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Context } from "../../../context/provider";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeAdm = () => {
+    const navigation = useNavigation()
     const { nomeAdm } = useContext(Context);
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -23,7 +26,7 @@ const HomeAdm = () => {
             try {
                 const response = await axios.get('http://192.168.1.72/services/getPost.php');
                 setPosts(response.data);
-          
+
             } catch (error) {
                 console.error('Erro ao buscar os dados:', error);
             } finally {
@@ -36,32 +39,35 @@ const HomeAdm = () => {
     const renderItem = ({ item }) => {
         let images;
         try {
-            images = JSON.parse(item.images); 
+            images = JSON.parse(item.images);
         } catch (error) {
             console.error('Erro ao converter images:', error);
-            images = []; 
+            images = [];
         }
 
-       
         const imageUrl = images.length > 0 ? images[0] : null;
         const userImage = item.imagem ? item.imagem : null;
 
         return (
             <View style={styles.postItem}>
                 {imageUrl ? (
-                    <Image 
-                        source={{ uri: imageUrl }} 
-                        style={styles.postImage} 
-                    />
+                    <Pressable onPress={()=> navigation.navigate('InfoObject',{selectedItem:item})}>
+                        <Image
+                            source={{ uri: imageUrl }}
+                            style={styles.postImage}
+                        />
+                    </Pressable>
+
                 ) : (
+    
                     <Text style={styles.postTitle}>Sem imagem disponível</Text>
                 )}
-                
-                <View style={{flexDirection:"row",gap:10}}>
+
+                <View style={{ flexDirection: "row", gap: 10 }}>
                     {userImage ? (
                         <Image
                             source={{ uri: userImage }}
-                            style={{width:30,height:30,borderRadius:20}}
+                            style={{ width: 30, height: 30, borderRadius: 20 }}
                         />
                     ) : (
                         <Text style={styles.postTitle}>Sem imagem do usuário disponível</Text>
@@ -75,7 +81,7 @@ const HomeAdm = () => {
         );
     };
 
-    const bnt = () =>{
+    const bnt = () => {
         alert('não pronto ;)')
     }
     return (
@@ -101,16 +107,20 @@ const HomeAdm = () => {
                     placeholderTextColor="#fff"
                 />
             </View> */}
-            <View style={{flexDirection:"row",gap:10,margin:10}}>
+            <View style={{ flexDirection: "row", gap: 10, margin: 10 }}>
                 <Pressable onPress={bnt} style={styles.tag}>
-                    <Text style={{color:'white',fontSize:17}}>Tudo</Text>
+                    <Text style={{ color: 'white', fontSize: 17 }}>Tudo</Text>
                 </Pressable>
-                <Pressable  onPress={bnt} style={[styles.tag,{backgroundColor:'#4786d3'}]}>
-                    <Text style={{color:'white',fontSize:17}}>Eletronico</Text>
+                <Pressable onPress={bnt} style={[styles.tag, { backgroundColor: '#4786d3' }]}>
+                    <Text style={{ color: 'white', fontSize: 17 }}>Eletronico</Text>
                 </Pressable>
-                <Pressable  onPress={bnt} style={[styles.tag,{backgroundColor:'#4786d3'}]}>
-                    <Text style={{color:'white',fontSize:17}}>Documentos</Text>
+                <Pressable onPress={bnt} style={[styles.tag, { backgroundColor: '#4786d3' }]}>
+                    <Text style={{ color: 'white', fontSize: 17 }}>Documentos</Text>
                 </Pressable>
+            </View>
+
+            <View style={{ width: "90%" }}>
+                <Text style={{ fontWeight: 'bold', fontSize: 19 }}>Objetos perdidos recentemente</Text>
             </View>
 
             {loading ? (
@@ -135,7 +145,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         backgroundColor: "#fff",
-        gap: 60,
+        gap: 30,
         paddingTop: 20
     },
     header: {
@@ -185,10 +195,10 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
     postImage: {
-        width:250, 
-        height: 250, 
-        borderRadius: 10, 
-        marginBottom: 10, 
+        width: 250,
+        height: 250,
+        borderRadius: 10,
+        marginBottom: 10,
     },
     postTitle: {
         fontWeight: "bold",
@@ -202,7 +212,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         borderWidth: 1,
         borderColor: "#b1b1b1",
-        backgroundColor:"#2f2f2f"
+        backgroundColor: "#2f2f2f"
     },
 });
 

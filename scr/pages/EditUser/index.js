@@ -11,6 +11,8 @@ import axios from 'axios';
 export default function EditUser() {
    
     const { nomeUser, setNomeUser, emailUser, numeroUser, setImagemUser, imagemUser, nascUser, idUser,setNumeroUser } = useContext(Context);
+      console.log(nomeUser)
+      console.log(imagemUser)
     const [edit, setEdit] = useState(false);
     const [newName, setNewName] = useState(nomeUser);
     const[newNumero,setNewNumero] = useState(numeroUser)
@@ -140,7 +142,10 @@ export default function EditUser() {
             </View>
             <View style={{ width: '90%', alignItems: "center", gap: 25 }}>
                 <Pressable onPress={() => setEdit(!edit)} style={styles.input}>
-                    <Text style={styles.tittleInput}>Nome</Text>
+                    <View style={{flexDirection:"row",gap:280}}> 
+                        <Text style={styles.tittleInput}>Nome</Text>
+                        <Text style={[styles.tittleInput,{color:'red',fontWeight:'bold'}]}>Editar</Text>
+                    </View>
                     {edit ? (
                         <TextInput
                         style={styles.txtInput} 
@@ -160,7 +165,10 @@ export default function EditUser() {
                 </View>
 
                 <View style={styles.input}>
-                    <Text style={styles.tittleInput}>Telefone</Text>
+                <View style={{flexDirection:"row",gap:260}}> 
+                        <Text style={styles.tittleInput}>Telefone</Text>
+                        <Text style={[styles.tittleInput,{color:'red',fontWeight:'bold'}]}>Editar</Text>
+                    </View>
                     <TextInput 
                         style={styles.txtInput} 
                         value={newNumero} 

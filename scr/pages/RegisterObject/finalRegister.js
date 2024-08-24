@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { StyleSheet, Text, View, Pressable, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, View, Pressable, ScrollView, Image, TextInput } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -16,6 +16,7 @@ const FinalRegister = () => {
     const { setFormData } = useContext(Context);
     const { idUser } = useContext(Context)
     const { nomeUser } = useContext(Context)
+    const[desc,setDesc] = useState('')
     const handleColorPress = (item) => {
         setLocalActive(item);
     };
@@ -34,7 +35,8 @@ const FinalRegister = () => {
             tamanho: formData.tamanho,
             local: localActive,
             livingroom: activeLivingroom,
-            idUser: idUser
+            idUser: idUser,
+            desc: desc
         };
 
         try {
@@ -106,6 +108,15 @@ const FinalRegister = () => {
                             <Text>{formData.tamanho}</Text>
                         </View>
                     </View>
+                </View>
+
+                <View style={styles.containerDesc}>
+                    <TextInput 
+                        placeholder='Pequena descrição de como você o encontrou'
+                        style={styles.input}
+                        onChangeText={(text)=> setDesc(text)}
+                        maxLength={250}
+                    />
                 </View>
                 <View style={styles.objectCategory}>
                     <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Em qual andar você o encontrou?</Text>
@@ -235,6 +246,17 @@ const styles = StyleSheet.create({
     pickerContainer: {
         paddingHorizontal: 20,
         marginTop: 20,
+    },
+    containerDesc:{
+        width:"100%",
+        alignItems:"center",
+        justifyContent:"center",
+    },
+    input:{
+        borderBottomWidth:1,
+        padding:5,
+        width:'80%',
+        borderBottomColor:'gray'
     }
 });
 

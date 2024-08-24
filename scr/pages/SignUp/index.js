@@ -46,7 +46,7 @@ const SignUp = () => {
             senha: senha,
             numero: numero,
             dataNascimento: data.toISOString().split('T')[0],
-            imagem: 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F932e5e7c-acb9-46ca-beac-11013ea15967.jpeg?alt=media&token=4bb19d6b-8a13-4001-9537-9e8e8fa80c8e'
+            imagem: 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2Ff25d16d4-4ea0-4a5f-81d9-5dff69a58f49.jpeg?alt=media&token=c6ca676e-9d1c-4c7b-8392-ee0cac4691a0'
           })
         });
         if (response.ok) {

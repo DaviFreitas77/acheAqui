@@ -32,7 +32,7 @@ const RegisterObject = () => {
     }
 
     return (
-        <ScrollView>
+        <ScrollView style={{backgroundColor:"#fff"}}>
             <View style={styles.container}>
                 <View style={styles.header}>
 
@@ -162,7 +162,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         paddingHorizontal: 40,
-        marginBottom: 40
+        marginBottom: 40,
+    
     },
     tag: {
         width: 100,
@@ -172,6 +173,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         borderWidth: 1,
         borderColor: "#b1b1b1",
+        
 
     },
     btnAdvance: {
@@ -181,7 +183,8 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: "center",
         borderRadius: 30,
-        marginTop: 30
+        marginTop: 30,
+       
     },
     pickerContainer: {
         paddingHorizontal: 20,
