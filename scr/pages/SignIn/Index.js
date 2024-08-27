@@ -19,7 +19,7 @@ export default function SignIn() {
   const { setLogAdm } = useContext(Context)
   async function loginUser() {
     try {
-      let response = await fetch('http://192.168.1.72/services/login.php', {
+      let response = await fetch('http://192.168.1.65/services/login.php', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -39,7 +39,7 @@ export default function SignIn() {
           setIdUser(result.id)
           setNascUser(result.dataNascimento)
           
-          navigation.navigate('Drawer')
+          navigation.replace('Drawer')
           setSenha('')
         }
       } else {

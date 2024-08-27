@@ -25,8 +25,8 @@ const RegisterObject = () => {
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
+            allowsEditing: false,
+            aspect: [12, 16],
             quality: 1,
         });
 

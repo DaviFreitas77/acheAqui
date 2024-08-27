@@ -30,7 +30,7 @@ function CustomDrawerAdmin(props) {
 
             <View style={styles.main}>
 
-                <Pressable onPress={() => props.navigation.navigate('EditUser')} style={styles.menuItem}>
+                <Pressable onPress={() => props.navigation.navigate('ObjectBank')} style={styles.menuItem}>
                 <Icon   name='user' size={30}/>
                     <Text>Banco de objetos</Text>
                 </Pressable>

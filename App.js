@@ -1,6 +1,6 @@
 // App.js
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -14,7 +14,7 @@ const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
 
-import Provider from './scr/context/provider';
+import Provider, { Context } from './scr/context/provider';
 import SignUp from './scr/pages/SignUp';
 import SignIn from './scr/pages/SignIn/Index';
 import HomeScreen from './scr/pages/HomeUser';
@@ -30,6 +30,9 @@ import RegisterComplempeted from './scr/pages/RegisterObject/registerCompleted';
 //adm
 import Code from './scr/areaAdm/pages/Code';
 import AdminDrawerNavigator from './adminDrawer';
+import InfoObject from './scr/areaAdm/pages/InfoObject';
+import HomeAdm from './scr/areaAdm/pages/SignIn';
+import ObjectBank from './scr/areaAdm/pages/ObjectBank';
 
 function TabNavigator() {
   return (
@@ -192,14 +195,29 @@ function MyStack() {
             backgroundColor:'#6d9fdc'
           }
          }} />
-
            <Stack.Screen name="AdminDrawer" component={AdminDrawerNavigator} options={{ headerShown: false }} />
+
+
            <Stack.Screen name="RegisterComplempeted" component={RegisterComplempeted} options={{ headerShown: true,headerTitle:'Registrar achado',  headerTintColor:"#fff",headerStyle:{
               backgroundColor:"#4786d3",
            },   headerTitleContainerStyle: {
             paddingLeft:'30%'
           },
           headerLeft: () => null}} />
+
+          <Stack.Screen  name='InfoObject' component={InfoObject} options={{headerShown:false}} />
+
+          <Stack.Screen  name='HomeAdm' component={HomeAdm} options={{headerShown:false}} />
+
+          <Stack.Screen  name='ObjectBank' component={ObjectBank} options={{headerTitle:'Banco de objetos',headerTintColor:'white',headerStyle:{
+            backgroundColor:"#4786d3"
+          },
+          headerTitleContainerStyle: {
+            paddingLeft: '40%'
+          },}} />
+
+         
+        
 
       </Stack.Navigator>
     </Provider>
