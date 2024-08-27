@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View,Image, Pressable} from 'react-native';
+import { StyleSheet, Text, View,Image, Pressable,TouchableOpacity} from 'react-native';
 import { useContext } from 'react';
 import { Context } from '../../../context/provider';
+import Icon from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 
 export default function ObjectBank() {
@@ -12,7 +13,7 @@ export default function ObjectBank() {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://192.168.1.72/services/getPost.php');
+            const response = await axios.get('http://192.168.1.65/services/getPost.php');
             setObject(response.data);
 
         } catch (error) {
@@ -54,8 +55,16 @@ export default function ObjectBank() {
       {object.length > 0 ? (
         object.map((item) => (
           <View key={item.id} style={styles.dataRow}>
-            <Pressable  style={styles.dataText}><Text style={{paddingLeft:25}}>ex</Text></Pressable>
-            <Text style={styles.dataText}>ex</Text>
+            <TouchableOpacity  style={styles.dataText}>
+              <Text style={{paddingLeft:25}}>
+                <Icon name='trash' color="red" size={20} />
+              </Text>
+              </TouchableOpacity>
+              <TouchableOpacity  style={styles.dataText}>
+              <Text style={{paddingLeft:25}}>
+                <Icon name='eye' color="#4b7099" size={20} />
+              </Text>
+              </TouchableOpacity>
             <Text style={styles.dataText}>{item.idObjeto}</Text>
             <Text style={styles.dataText}>{item.nomeObjeto}</Text>
             <Text style={styles.dataText}>{item.corObjeto}</Text>
@@ -104,7 +113,7 @@ const styles = StyleSheet.create({
   dataRow: {
     flexDirection: 'row',
     backgroundColor: '#D4D2D2',
-    paddingVertical: 10,
+    paddingVertical: 15,
     justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderBottomColor: '#b1b1b1',
@@ -112,6 +121,7 @@ const styles = StyleSheet.create({
   dataText: {
     flex: 1,
     textAlign: 'center',
+    
   },
  
 });

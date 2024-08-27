@@ -100,7 +100,7 @@ export default function EditUser() {
         }
 
         try {
-            const response = await fetch('http://192.168.1.72/services/atualizaRegistro.php', {
+            const response = await fetch('http://192.168.1.65/services/atualizaRegistro.php', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

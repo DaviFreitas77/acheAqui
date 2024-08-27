@@ -24,7 +24,7 @@ const HomeAdm = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://192.168.1.72/services/getPost.php');
+                const response = await axios.get('http://192.168.1.65/services/getPost.php');
                 setPosts(response.data);
 
             } catch (error) {

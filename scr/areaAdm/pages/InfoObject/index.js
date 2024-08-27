@@ -38,29 +38,39 @@ const InfoObject = ({ route }) => {
 
                 />
             </View>
-            <View style={styles.caracteristicaObj}>
-                <Text style={styles.objeto}>{selectedItem.nomeObjeto}</Text>
-                <Text style={[styles.objeto, { color: '#BCBCBC' }]}>{selectedItem.dataRegistro}</Text>
-                <Text style={styles.objeto}>
-                    <Icon name='map-pin' size={14} />
-                    {selectedItem.localidadeObjeto}
-                </Text>
-
-            </View>
             <Pressable
                 style={styles.btnAdvance}
             >
                 <Text style={{ fontSize: 20, fontWeight: '600', color: "#fff" }}>Esse objeto é meu!!</Text>
             </Pressable>
             <View style={styles.containerDesc}>
-                <View style={{ flexDirection: "row", justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+
+           
+             <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center"}}> 
+                 <Text style={styles.objeto}>nome: {selectedItem.nomeObjeto}</Text>
+                 <Text style={{ color: '#787878', fontSize: 16 }}>
+                 {selectedItem.categoriaObjeto}</Text>
+             </View>
+              
+                <Text style={styles.objeto}>
+                    andar Encontrado: {selectedItem.andar}
+                </Text>
+                <Text style={styles.objeto}>
+                    Local Encontrado: {selectedItem.localidadeObjeto}
+                </Text>
+                <Text style={styles.objeto}>Data de registro: {selectedItem.dataRegistro}</Text>
+
+                <View style={{ flexDirection: "row", justifyContent: 'space-between', width: '100%', alignItems: 'center',marginTop:20 }}>
                     <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Descrição do objeto</Text>
-                    <Text style={{ color: '#787878', fontSize: 16 }}>
-                        {selectedItem.categoriaObjeto}</Text>
+                   
                 </View>
-                <View style={{ marginTop: 20 }}>
+                <View style={{ marginTop: 10 }}>
                     <Text style={{ fontSize: 16 }}>{selectedItem.descObjeto}</Text>
                 </View>
+                
+
+           
+            
             </View>
         </View>
     );
@@ -86,27 +96,19 @@ const styles = StyleSheet.create({
         width: '90%',
         marginTop: 20
     },
-    caracteristicaObj: {
-        backgroundColor: "#4b7099",
-        position: "absolute",
-        zIndex: 1,
-        marginTop: 400,
-        width: '70%',
-        height: 90,
-        borderRadius: 20,
-        alignItems: 'center',
-        opacity: .8
-
-    },
     objeto: {
-        color: "#fff",
+        color: "#000",
         fontWeight: 'bold',
-        margin: 2
+        margin: 2,
+        fontSize:20
     },
     containerDesc: {
         position: 'absolute',
         marginTop: 600,
         width: "90%",
+   
+        
+
 
     },
     btnAdvance: {

@@ -40,7 +40,7 @@ const FinalRegister = () => {
         };
 
         try {
-            const request = await fetch('http://192.168.1.72/services/registroObjeto.php', {
+            const request = await fetch('http://192.168.1.65/services/registroObjeto.php', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -57,7 +57,7 @@ const FinalRegister = () => {
                 idUsuario: response.idUser
             }
 
-            const postResponse = await fetch('http://192.168.1.72/services/criarPost.php', {
+            const postResponse = await fetch('http://192.168.1.65/services/criarPost.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
