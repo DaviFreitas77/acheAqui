@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View,Image, Pressable,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View,Image, Pressable,TouchableOpacity,Alert} from 'react-native';
 import { useContext } from 'react';
 import { Context } from '../../../context/provider';
 import Icon from 'react-native-vector-icons/Feather';
@@ -8,20 +8,44 @@ import axios from 'axios';
 export default function ObjectBank() {
   const { nomeAdm } = useContext(Context);
   const { emailAdm } = useContext(Context);
-  const [object,setObject] = useState([])
+  const [post,setpost] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
         try {
             const response = await axios.get('http://192.168.1.65/services/getPost.php');
-            setObject(response.data);
+            setpost(response.data);
 
         } catch (error) {
             console.error('Erro ao buscar os dados:', error);
         } 
     };
     fetchData();
-}, []);
+}, [post]);
+
+const delPost = async (id)=>{
+  try{
+   const response =  await axios.delete('http://192.168.1.65/services/deletarPost.php',{
+    data: { id: id }
+    })
+     alert('Postagem excluida com sucesso')
+  }catch(error){
+    console.log(error)
+  }
+
+}
+
+const confirmDelete = (id) => {
+  Alert.alert(
+    "Confimar Exclusão",
+    "Tem certeza que deseja excluir esta postagem?",
+    [
+      {text:"Canelar",style: "cancel"},
+      {ok:"OK",onPress: ()=> delPost(id)}
+
+    ]
+  )
+}
   return (
     <View style={styles.container}>
         <View style={{width:"90%",borderBottomWidth:1,borderBottomColor:'#888888',height:100}}>
@@ -46,16 +70,16 @@ export default function ObjectBank() {
         <View style={styles.headerRow}>
         <Text style={styles.headerText}>excluir</Text>
         <Text style={styles.headerText}>exibir</Text>
-        <Text style={styles.headerText}>ID</Text>
+        <Text style={styles.headerText}>ID Post</Text>
         <Text style={styles.headerText}>Nome</Text>
         <Text style={styles.headerText}>Cor</Text>
         <Text style={styles.headerText}>Data</Text>
       </View>
 
-      {object.length > 0 ? (
-        object.map((item) => (
+      {post.length > 0 ? (
+        post.map((item) => (
           <View key={item.id} style={styles.dataRow}>
-            <TouchableOpacity  style={styles.dataText}>
+            <TouchableOpacity  style={styles.dataText} onPress={()=> confirmDelete(item.idPost)}>
               <Text style={{paddingLeft:25}}>
                 <Icon name='trash' color="red" size={20} />
               </Text>
@@ -65,7 +89,7 @@ export default function ObjectBank() {
                 <Icon name='eye' color="#4b7099" size={20} />
               </Text>
               </TouchableOpacity>
-            <Text style={styles.dataText}>{item.idObjeto}</Text>
+            <Text style={styles.dataText}>{item.idPost}</Text>
             <Text style={styles.dataText}>{item.nomeObjeto}</Text>
             <Text style={styles.dataText}>{item.corObjeto}</Text>
             <Text style={styles.dataText}>{item.dataRegistro}</Text>

@@ -64,7 +64,7 @@ export default function EditUser() {
                 console.log('URL da imagem após o upload:', url);
                 try {
                     
-                    const response = await axios.put(`http://192.168.1.72/services/atualizaRegistro.php`, {
+                    const response = await axios.put(`http://192.168.1.65/services/atualizaRegistro.php`, {
                         id: idUser,         
                         imagem: url         
                     });
