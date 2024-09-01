@@ -12,15 +12,17 @@ export default function Provider({ children }) {
     const[idUser,setIdUser] = useState();
     const[nomeAdm,setNomeAdm] = useState()
     const[emailAdm,setEmailAdm] = useState()
+    const [data,setData] = useState()
     const [formData, setFormData] = useState({
         category: null,
         item: null,
-        images: []
+        images: [],
+       
     });
 
 
     return (
-        <Context.Provider value={{ nomeUser, setNomeUser,emailUser,setEmailUser,numeroUser,setNumeroUser,imagemUser,setImagemUser,idUser,setIdUser,formData,setFormData,setNascUser,nascUser,setLogAdm,logAdm,setNomeAdm,nomeAdm,setEmailAdm,emailAdm}}>
+        <Context.Provider value={{ nomeUser, setNomeUser,emailUser,setEmailUser,numeroUser,setNumeroUser,imagemUser,setImagemUser,idUser,setIdUser,formData,setFormData,setNascUser,nascUser,setLogAdm,logAdm,setNomeAdm,nomeAdm,setEmailAdm,emailAdm,data,setData}}>
             {children}
         </Context.Provider>
     );

@@ -10,13 +10,13 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Icon from 'react-native-vector-icons/Feather';
-
+import { useNavigation } from "@react-navigation/native";
 import { Context } from "../../context/provider";
 
 const HomeUser = () => {
   const { nomeUser } = useContext(Context);
   const {imagemUser} = useContext(Context);
-
+  const navigation = useNavigation()
   
   return (
     
@@ -49,16 +49,14 @@ const HomeUser = () => {
         <View style={styles.containerCatalogo}>
           <View style={{ flexDirection: "row", gap: 20 }}>
             <View style={{ alignItems: "center", gap: 5 }}>
-              <Pressable style={styles.BtnCatalogo}>
-                   <Icon  name="smartphone" size={50} />
-                   
+              <Pressable style={styles.BtnCatalogo} onPress={()=> navigation.navigate('EletronicScreen')}>
+                   <Icon  name="smartphone" size={50}/>
               </Pressable>
               <Text style={styles.txtBtNCatalogo}>Eletronicos</Text>
             </View>
             <View style={{ alignItems: "center", gap: 5 }}>
               <Pressable style={styles.BtnCatalogo}>
                 <Image source={require('../../imges/homeUser/veste.png')} 
-                  
                 />
               </Pressable>
               <Text style={styles.txtBtNCatalogo}>Vestimentas</Text>

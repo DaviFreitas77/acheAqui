@@ -24,7 +24,7 @@ const HomeAdm = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://192.168.1.65/services/getPost.php');
+                const response = await axios.get('http://192.168.1.70/services/getPost.php');
                 setPosts(response.data);
 
             } catch (error) {
@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
     },
     flatListContent: {
         paddingBottom: '38%',
+        flexDirection:'row-reverse'
     },
     postItem: {
         backgroundColor: "#f9f9f9",

@@ -33,6 +33,7 @@ const FinalRegister = () => {
             images: formData.images,
             cor: formData.cor,
             tamanho: formData.tamanho,
+            caracteristica: formData.caracteristica,
             local: localActive,
             livingroom: activeLivingroom,
             idUser: idUser,
@@ -40,7 +41,7 @@ const FinalRegister = () => {
         };
 
         try {
-            const request = await fetch('http://192.168.1.65/services/registroObjeto.php', {
+            const request = await fetch('http://192.168.1.70/services/registroObjeto.php', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -57,7 +58,7 @@ const FinalRegister = () => {
                 idUsuario: response.idUser
             }
 
-            const postResponse = await fetch('http://192.168.1.65/services/criarPost.php', {
+            const postResponse = await fetch('http://192.168.1.70/services/criarPost.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -107,6 +108,23 @@ const FinalRegister = () => {
                         <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
                             <Text>{formData.tamanho}</Text>
                         </View>
+                        {formData.caracteristica[0] &&(
+                              <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
+                              <Text>{formData.caracteristica[0]}</Text>
+                          </View>
+                        )}
+                        {formData.caracteristica[1] &&(
+                              <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
+                              <Text>{formData.caracteristica[1]}</Text>
+                          </View>
+                        )}
+                        {formData.caracteristica[2] &&(
+                              <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
+                              <Text>{formData.caracteristica[2]}</Text>
+                          </View>
+                        )}
+                      
+                       
                     </View>
                 </View>
 

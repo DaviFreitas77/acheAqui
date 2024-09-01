@@ -14,15 +14,13 @@ export default function RegisterComplempeted() {
                 style={{ width: 120, height: 120 }}
             />
             <Text style={{ color: '#5E5E5E' }}>O seu achado foi cadastrado com sucesso!</Text>
-            <View style={{ flexDirection: 'row', gap: 10 }}>
-                {formData.images.map((img, index) => (
-                    <Image key={index} source={{ uri: img }} style={styles.imgSmall} />
-                ))}
+            <View style={{justifyContent:"center",alignItems:"center",gap:10}}>
+                <View style={{ flexDirection: 'row', gap: 10,flexWrap:'wrap',justifyContent:"center"}}>
+                    {formData.images.map((img, index) => (
+                        <Image key={index} source={{ uri: img }} style={styles.imgSmall} />
+                    ))}
             </View>
-            <View style={{ width: '80%' }}>
-                <Text style={{ fontSize: 20, fontWeight: "bold" }}>Item:</Text>
-            </View>
-            <View style={{ flexDirection: "row", gap: 10, flexWrap: 'wrap', justifyContent: "center", marginTop: 10 }}>
+                 <View style={{ flexDirection: "row", gap: 10, flexWrap: 'wrap', marginTop: 10,justifyContent:"center"}}>
                 <View style={styles.tag}>
                     <Text>{formData.item}</Text>
                 </View>
@@ -37,6 +35,23 @@ export default function RegisterComplempeted() {
                 </View>
 
             </View>
+            </View>
+         
+           
+            {formData.caracteristica && formData.caracteristica.length > 0 && (
+
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 ,marginTop:30,paddingLeft:45}}>
+                    
+                        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Adicionais:</Text>
+                    
+                    {formData.caracteristica.map((caracteristica, index) => (
+                        <View key={index} style={styles.tag}>
+                            <Text>{caracteristica}</Text>
+                        </View>
+                    ))}
+                </View>
+            )}
+
 
             <View style={{ width: '80%', marginTop: 10 }}>
                 <Text style={{ fontSize: 20, fontWeight: "bold" }}>Complementos:</Text>

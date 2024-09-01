@@ -21,7 +21,9 @@ const InfoObject = ({ route }) => {
         style={styles.image}
         />
     );
-    
+    let caracteristicas = [];
+    caracteristicas = JSON.parse(selectedItem.caracteristicasAdicionais);
+    const caracteristicasDisplay = Array.isArray(caracteristicas) ? caracteristicas.join(', ') : '';
     return (
         <View style={styles.container}>
 
@@ -51,13 +53,19 @@ const InfoObject = ({ route }) => {
                  <Text style={{ color: '#787878', fontSize: 16 }}>
                  {selectedItem.categoriaObjeto}</Text>
              </View>
+             {selectedItem.caracteristicasAdicionais.length > 2 &&(
+                 <Text style={styles.objeto}>Adicionais: {caracteristicasDisplay}</Text>
+
+             )}
+                <Text style={styles.objeto}>
+                    andar Encontrado: {selectedItem.localidadeObjeto}
+                </Text>
+                <Text style={styles.objeto}>
+                    Local Encontrado: {selectedItem.andar}
+                </Text>
               
-                <Text style={styles.objeto}>
-                    andar Encontrado: {selectedItem.andar}
-                </Text>
-                <Text style={styles.objeto}>
-                    Local Encontrado: {selectedItem.localidadeObjeto}
-                </Text>
+              
+                 
                 <Text style={styles.objeto}>Data de registro: {selectedItem.dataRegistro}</Text>
 
                 <View style={{ flexDirection: "row", justifyContent: 'space-between', width: '100%', alignItems: 'center',marginTop:20 }}>
