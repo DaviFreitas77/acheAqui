@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, Text, View, Pressable } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, Text, View, Pressable,ScrollView} from 'react-native';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import RNPickerSelect from 'react-native-picker-select';
@@ -13,6 +13,7 @@ const EletronicScreen = () => {
   const [activeColor, setActiveColor] = useState(null);
   const [activeTam, setActiveTam] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [activeCaracteristica, setActiveCaracteristica] = useState([]);
   const [results, setResults] = useState([]);
   const navigation = useNavigation()
   const {setData} = useContext(Context)
@@ -23,13 +24,48 @@ const EletronicScreen = () => {
   const handleTamPress = (item) => {
     setActiveTam(item);
   };
+  
+  const handleCaracteristica = (item) => {
+    if (activeCaracteristica.includes(item)) {
+        setActiveCaracteristica(activeCaracteristica.filter(car => car !== item));
 
+    } else {
+        setActiveCaracteristica([...activeCaracteristica, item])
+    }
+};
+console.log(activeCaracteristica)
+  let addCaracteristica = [];
+  switch (selectedItem) {
+     
+      
+      case 'pendrive':
+          addCaracteristica = [
+              { label: 'SanDisk', value: 'sandisk' },
+              { label: 'Kingston', value: 'kingston' },
+              { label: 'Samsung', value: 'samsung' },
+              { label: 'Corsair', value: 'corsair' },
+          ];
+          break;
+      case 'celular':
+          addCaracteristica = [
+              { label: 'Motorola', value: 'motorola' },
+              { label: 'Xiaomi', value: 'xiaomi' },
+              { label: 'Samsung', value: 'samsung' },
+              { label: 'Iphone', value: 'Iphone' },
+              { label: 'Outro', value: 'Outro' },
+          ];
+          break; 
+      default:
+          addCaracteristica = [];
+          break;
+  }
   async function getObjeto() {
     try {
-        const response = await axios.post('http://192.168.1.70/services/searchObjeto.php', {
+        const response = await axios.post('http://192.168.1.71/services/searchObjeto.php', {
             item: selectedItem,
             tamanho: activeTam,
             cor: activeColor,
+            adicional:activeCaracteristica,
         }, {
             headers: {
                 'Content-Type': 'application/json'
@@ -37,6 +73,7 @@ const EletronicScreen = () => {
         });
 
         const data = response.data;
+   
 
 
      
@@ -71,62 +108,78 @@ const EletronicScreen = () => {
 
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" />
-
-      <View style={styles.inner}>
-        <View style={{ gap: 10 }}>
-          <Text style={styles.title}>O que é seu Eletronico?</Text>
-          <RNPickerSelect
-            onValueChange={(value) => setSelectedItem(value)}
-            items={getPickerItems()}
-            placeholder={{ label: 'Selecione...', value: null }}
-            style={pickerSelectStyles}
-          />
-        </View>
-
-        <View style={{ gap: 10, alignItems: 'center' }}>
-          <Text style={styles.title}>Qual a cor do seu Eletronico?</Text>
-          <View style={styles.containerTags}>
-            {['Preto', 'Branco', 'Cinza', 'Azul', 'Amarelo', 'Vermelho', 'Roxo', 'Verde', 'Rosa', 'Colorido', 'Brilhante'].map((item, index) => (
-              <Pressable
-                key={index}
-                onPress={() => handleColorPress(item)}
-                style={[styles.tag, { backgroundColor: activeColor === item ? activeTagColor : originalColor }]}
-              >
-                <Text style={{ fontSize: 12, fontWeight: '600' }}>{item}</Text>
-              </Pressable>
-            ))}
+    <ScrollView style={{ backgroundColor: "#fff" }}>
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="dark-content" />
+        <View style={styles.inner}>
+          <View style={{ gap: 10 }}>
+            <Text style={styles.title}>O que é seu Eletronico?</Text>
+            <RNPickerSelect
+              onValueChange={(value) => setSelectedItem(value)}
+              items={getPickerItems()}
+              placeholder={{ label: 'Selecione...', value: null }}
+              style={pickerSelectStyles}
+            />
           </View>
-        </View>
+          <View style={{ gap: 10, alignItems: 'center' }}>
+            <Text style={styles.title}>Qual a cor do seu Eletronico?</Text>
+            <View style={styles.containerTags}>
+              {['Preto', 'Branco', 'Cinza', 'Azul', 'Amarelo', 'Vermelho', 'Roxo', 'Verde', 'Rosa', 'Colorido', 'Brilhante'].map((item, index) => (
+                <Pressable
+                  key={index}
+                  onPress={() => handleColorPress(item)}
+                  style={[styles.tag, { backgroundColor: activeColor === item ? activeTagColor : originalColor }]}
+                >
+                  <Text style={{ fontSize: 12, fontWeight: '600' }}>{item}</Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+      
+          {(selectedItem === 'pendrive' || selectedItem === 'celular') &&  (
         <View style={{ alignItems: "center", gap: 10 }}>
-
-          <Text style={styles.title}>Qual o tamanho do seu Eletronico?</Text>
+        <Text style={styles.title}>Marca:</Text>
           <View style={styles.containerTags}>
-            {['Pequeno', 'Médio', 'Grande'].map((item, index) => (
-              <Pressable
-                key={index}
-                onPress={() => handleTamPress(item)}
-                style={[styles.tag, { backgroundColor: activeTam === item ? activeTagColor : originalColor }]}
-              >
-                <Text style={{ fontSize: 12, fontWeight: '600' }}>{item}</Text>
-              </Pressable>
-            ))}
+              {addCaracteristica.map((item, index) => (
+                  <Pressable
+                      key={index}
+                      onPress={() => handleCaracteristica(item.value)}
+                      style={[styles.tag, { backgroundColor: activeCaracteristica.includes(item.value) ? activeTagColor : originalColor }]}
+                  >
+                      <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.label}</Text>
+                  </Pressable>
+              ))}
           </View>
-        </View>
-
-        <Pressable
-          onPress={async () => {
-            await getObjeto();
-          }}
-          style={styles.btnAdvance}
-        >
-          <Text style={{ fontSize: 20, fontWeight: '600', color: "#fff" }}>Próximo</Text>
-        </Pressable>
-
       </View>
+      )}
+          <View style={{ alignItems: "center", gap: 10 }}>
+            <Text style={styles.title}>Qual o tamanho do seu Eletronico?</Text>
+            <View style={styles.containerTags}>
+              {['Pequeno', 'Médio', 'Grande'].map((item, index) => (
+                <Pressable
+                  key={index}
+                  onPress={() => handleTamPress(item)}
+                  style={[styles.tag, { backgroundColor: activeTam === item ? activeTagColor : originalColor }]}
+                >
+                  <Text style={{ fontSize: 12, fontWeight: '600' }}>{item}</Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+          {(selectedItem && activeCaracteristica.length > 0 && activeTam && activeColor) && (
+          <Pressable
+            onPress={async () => {
+              await getObjeto();
+            }}
+            style={styles.btnAdvance}
+          >
+            <Text style={{ fontSize: 20, fontWeight: '600', color: "#fff" }}>Próximo</Text>
+          </Pressable>
 
-    </SafeAreaView>
+          )}
+        </View>
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 
@@ -134,6 +187,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    paddingTop:10
   },
   inner: {
     justifyContent: 'center',
@@ -177,8 +231,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 50,
     justifyContent: "center",
-    borderRadius: 30,
-    marginTop: 30,
+    borderRadius: 30, 
+    marginBottom:60
 },
 });
 const pickerSelectStyles = StyleSheet.create({

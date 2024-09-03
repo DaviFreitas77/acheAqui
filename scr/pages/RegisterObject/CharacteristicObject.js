@@ -14,7 +14,7 @@ const RegisterObject = () => {
     const originalColor = '#ffffff';
     const activeTagColor = '#b1b1b1';
     const { setFormData } = useContext(Context);
-
+    console.log(formData.item)
     const handleColorPress = (item) => {
         setActiveColor(item);
     };
@@ -89,6 +89,34 @@ const RegisterObject = () => {
                 { label: 'Sem Mola', value: 'sem mola' },
             ];
             break;
+        case 'pendrive':
+            addCaracteristica = [
+                { label: 'SanDisk', value: 'sandisk' },
+                { label: 'Kingston', value: 'kingston' },
+                { label: 'Samsung', value: 'samsung' },
+                { label: 'Corsair', value: 'corsair' },
+            ];
+            break;
+        case 'celular':
+            addCaracteristica = [
+                { label: 'Motorola', value: 'motorola' },
+                { label: 'Xiaomi', value: 'xiaomi' },
+                { label: 'Samsung', value: 'samsung' },
+                { label: 'Iphone', value: 'Iphone' },
+                { label: 'Outro', value: 'Outro' },
+            ];
+            break;
+        case 'bone':
+            addCaracteristica = [
+                { label: 'Nike', value: 'nike' },
+                { label: 'Adidas', value: 'adidas' },
+                { label: 'Lacoste', value: 'lacoste' },
+                { label: 'Umbro', value: 'umbto' },
+                { label: 'Puma', value: 'puma' },
+                { label: 'Outro', value: 'outro' },
+            ];
+            break;
+         
         default:
             addCaracteristica = [];
             break;
@@ -143,9 +171,9 @@ const RegisterObject = () => {
                         </Pressable>
                     ))}
                 </View>
-                {(formData.item === 'moletom' || formData.item === 'caderno' || formData.item === 'camiseta' || formData.item === 'calca' || formData.item === 'oculos') && (
+                {(formData.item === 'moletom' || formData.item === 'caderno' || formData.item === 'camiseta' || formData.item === 'calca' || formData.item === 'oculos' || formData.item === 'pendrive') || formData.item === 'celular' || formData.item === 'bone'&& (
                     <View style={[styles.objectCategory]}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Características adicionais</Text>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold' }} >{formData.item === 'pendrive' || formData.item === "celular" || formData.item === 'bone' ? 'Marca': 'Caracteristicas Adicionais'}</Text>
                         <Text style={{ fontSize: 16, color: "gray" }}>Escolha 1 ou mais tags</Text>
                     </View>
                 )}
@@ -160,7 +188,7 @@ const RegisterObject = () => {
                         </Pressable>
                     ))}
                 </View>
-                {activeColor && activeTam && (
+                {activeColor && activeCaracteristica && activeTam &&  (
                     <View style={{ width: "100%", justifyContent: "center", alignItems: "center", marginBottom: 20 }}>
                         <Pressable
                             onPress={async () => {

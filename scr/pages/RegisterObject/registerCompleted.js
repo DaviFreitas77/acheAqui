@@ -40,9 +40,9 @@ export default function RegisterComplempeted() {
            
             {formData.caracteristica && formData.caracteristica.length > 0 && (
 
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 ,marginTop:30,paddingLeft:45}}>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 ,marginTop:30,paddingLeft:45,alignItems:"center"}}>
                     
-                        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Adicionais:</Text>
+                        <Text style={{ fontSize: 20, fontWeight: "bold" }}>{formData.item === 'pendrive' || formData.item === "celular"|| formData.item === 'bone' ?'Marca': 'Adicionais'}</Text>
                     
                     {formData.caracteristica.map((caracteristica, index) => (
                         <View key={index} style={styles.tag}>

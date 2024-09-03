@@ -65,11 +65,7 @@ const RegisterObject = () => {
         setActiveTag(item);
     };
 
-    useEffect(() => {
-        console.log(activeTag);
-        console.log(selectedItem);
-    }, [activeTag, selectedItem]);
-
+ 
     const getPickerItems = () => {
         switch (activeTag) {
             case 'Roupa':

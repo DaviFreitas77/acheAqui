@@ -13,7 +13,7 @@ export default function ObjectBank() {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://192.168.1.70/services/getPost.php');
+            const response = await axios.get('http://192.168.1.71/services/getPost.php');
             setpost(response.data);
 
         } catch (error) {
@@ -25,7 +25,7 @@ export default function ObjectBank() {
 
 const delPost = async (id)=>{
   try{
-   const response =  await axios.delete('http://192.168.1.70/services/deletarPost.php',{
+   const response =  await axios.delete('http://192.168.1.71/services/deletarPost.php',{
     data: { id: id }
     })
      alert('Postagem excluida com sucesso')

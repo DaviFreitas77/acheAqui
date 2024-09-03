@@ -1,14 +1,14 @@
 import { useRoute } from '@react-navigation/native';
 import React from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, Text, View, FlatList, Image, Pressable } from 'react-native';
 import { Context } from '../../context/provider';
 import { useContext } from 'react';
-
+import Icon from 'react-native-vector-icons/Ionicons';
 const LostObject = () => {
     const {data} = useContext(Context)
     
 
-   
+    console.log(data)
     const parseImages = (imagesString) => {
         let images = [];
         try {
@@ -27,7 +27,14 @@ const LostObject = () => {
         />
     );
 
+
+    function chat () {
+        alert('chat não pronto ;)')
+    }
     const renderItem = ({ item }) => {
+        let caracteristicas = [];
+        caracteristicas = JSON.parse(item.caracteristicasAdicionais);
+        const caracteristicasDisplay = Array.isArray(caracteristicas) ? caracteristicas.join(', ') : '';
         const images = parseImages(item.images); 
         return (
             <View style={styles.itemContainer}>
@@ -38,14 +45,35 @@ const LostObject = () => {
                     horizontal
                 />
                 <View style={{width:"100%"}}>
-                    <View style={{paddingTop:10,width:'100%',flexDirection:"row",justifyContent:"space-between"}}>
-                        <Text style={styles.title}>{item.nomeObjeto}</Text>
-                        <Text style={[styles.subtitle,{color:'gray'}]}>{item.categoriaObjeto}</Text>
+                 <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}>
+                 <View style={{flexDirection:'row',alignItems:"center",gap:10,marginTop:10}}>
+                     <Image
+                                source={{ uri: item.imagem}}
+                                style={{width:50,height:50,borderRadius:50}}
+                            />
+                         <Text style={styles.title}>{item.nome}</Text>
+                 </View>
+                 <Pressable style={{marginTop:10}} onPress={chat}>
+                    <Icon  name='chatbubble-ellipses' size={30} color= '#4786d3'/>
+                 </Pressable>
+                 </View>
+
+                    <View style={{paddingTop:10,width:'100%',flexDirection:"row",justifyContent:"space-between",alignItems:"center"}}>
+                    <Text  style={[styles.title,{color:'#4786d3'}]}>{item.nomeObjeto}</Text> 
+                        <Text  style={{ color: '#787878', fontSize: 16 }}>{item.categoriaObjeto}</Text>
                     </View>
                     <Text style={styles.subtitle}>Cor: {item.corObjeto}</Text>
+                    {(item.nomeObjeto === 'pendrive' || item.nomeObjeto === 'celular' || item.nomeObjeto ==='bone')? (
+
+                    <Text style={styles.subtitle}>Marca: {caracteristicasDisplay}</Text>
+                    ):
+                    
+                    <Text style={styles.subtitle}>Adicional: {item.caracteristicasAdicionais}</Text>
+                    }
                     <Text style={styles.subtitle}>Tamanho: {item.tamanhoObjeto}</Text>
                     <Text style={styles.subtitle}>andar Encontrado: {item.andar}</Text>
                     <Text style={styles.subtitle}>local Encontrado: {item.localidadeObjeto}</Text>
+                    <Text style={styles.subtitle}>Descrição:{item.descObjeto}</Text>
                 </View>
             </View>
         );
@@ -77,8 +105,7 @@ const styles = StyleSheet.create({
         padding:10
     },
     inner: {
-        flex: 1,
-        alignItems: 'center',
+        width: '100%', 
     },
     itemContainer: {
         marginBottom: 20,
@@ -89,12 +116,15 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
     subtitle: {
-        fontSize: 16,
-        color: '#333',
+       
+            color: "#000",
+            fontWeight: 'bold',
+            margin: 2,
+            fontSize: 20,
     },
     image: {
-        width: 300,
-        height: 300,
+        width: 400,
+        height: 500,
         marginHorizontal: 8,
         borderRadius: 10,
     },

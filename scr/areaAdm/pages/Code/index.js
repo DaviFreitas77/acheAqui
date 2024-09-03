@@ -15,7 +15,7 @@ export default function Code() {
     const validarAdm = async () => {
    
         try {
-            const response = await fetch('http://192.168.1.70/services/loginAdm.php', {
+            const response = await fetch('http://192.168.1.71/services/loginAdm.php', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

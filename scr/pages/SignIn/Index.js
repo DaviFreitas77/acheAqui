@@ -19,7 +19,7 @@ export default function SignIn() {
   const { setLogAdm } = useContext(Context)
   async function loginUser() {
     try {
-      let response = await fetch('http://192.168.1.70/services/login.php', {
+      let response = await fetch('http://192.168.1.71/services/login.php', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
