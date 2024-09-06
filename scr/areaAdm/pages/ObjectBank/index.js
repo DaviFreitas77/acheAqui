@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View,Image, Pressable,TouchableOpacity,Alert} from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable, TouchableOpacity, Alert } from 'react-native';
 import { useContext } from 'react';
 import { Context } from '../../../context/provider';
 import Icon from 'react-native-vector-icons/Feather';
@@ -8,92 +8,102 @@ import axios from 'axios';
 export default function ObjectBank() {
   const { nomeAdm } = useContext(Context);
   const { emailAdm } = useContext(Context);
-  const [post,setpost] = useState([])
+  const [post, setpost] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-            const response = await axios.get('http://192.168.1.71/services/getPost.php');
-            setpost(response.data);
+      try {
+        const response = await axios.get('http://192.168.1.71/services/getPost.php');
+        setpost(response.data);
 
-        } catch (error) {
-            console.error('Erro ao buscar os dados:', error);
-        } 
+      } catch (error) {
+        console.error('Erro ao buscar os dados:', error);
+      }
     };
     fetchData();
-}, [post]);
+  }, [post]);
 
-const delPost = async (id)=>{
-  try{
-   const response =  await axios.delete('http://192.168.1.71/services/deletarPost.php',{
-    data: { id: id }
-    })
-     alert('Postagem excluida com sucesso')
-  }catch(error){
-    console.log(error)
-  }
+  const togglePostStatus = async (id, currentStatus) => {
+    const atuacao = currentStatus === "ativado" ? 'desativar' : 'ativar';
+    try {
+      const response = await axios.patch('http://192.168.1.71/services/deletarPost.php', {
+        id: id,
+        atuacao: atuacao,
+      });
+      console.log(response.data);
+      alert(`Postagem ${atuacao === 'ativar' ? 'reativada' : 'desativada'} com sucesso`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-}
+  const confirmToggleStatus = (id, currentStatus) => {
 
-const confirmDelete = (id) => {
-  Alert.alert(
-    "Confimar Exclusão",
-    "Tem certeza que deseja excluir esta postagem?",
-    [
-      {text:"Canelar",style: "cancel"},
-      {ok:"OK",onPress: ()=> delPost(id)}
-
-    ]
-  )
-}
+    Alert.alert(
+      "Confirmar",
+      `Tem certeza?`,
+      [
+        { text: "Cancelar", style: "cancel" },
+        { text: "OK", onPress: () => togglePostStatus(id, currentStatus) },
+      ]
+    );
+  };
   return (
     <View style={styles.container}>
-        <View style={{width:"90%",borderBottomWidth:1,borderBottomColor:'#888888',height:100}}>
+      <View style={{ width: "90%", borderBottomWidth: 1, borderBottomColor: '#888888', height: 100 }}>
         <View style={styles.header}>
           <Image
-              source={require('../../../imges/homeAdm/adm.jpeg')}
+            source={require('../../../imges/homeAdm/adm.jpeg')}
             style={{ width: 80, height: 80, borderRadius: 100 }}
           />
           <View>
-            <Text style={{fontSize:22}}>{nomeAdm}</Text>
-            <Text style={{fontSize:14}}>{emailAdm}</Text>
+            <Text style={{ fontSize: 22 }}>{nomeAdm}</Text>
+            <Text style={{ fontSize: 14 }}>{emailAdm}</Text>
           </View>
         </View>
-        
-        </View>
-        <View style={{width:'100%',marginTop:40,borderBottomWidth:1,borderBottomColor:'#888888',height:70,padding:15}}>
-          <Text style={{fontSize:24,fontWeight:'bold'}}>
-            Objetos cadastrados
-          </Text>
-        </View>
 
-        <View style={styles.headerRow}>
-        <Text style={styles.headerText}>excluir</Text>
+      </View>
+      <View style={{ width: '100%', marginTop: 40, borderBottomWidth: 1, borderBottomColor: '#888888', height: 70, padding: 15 }}>
+        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
+          Objetos cadastrados
+        </Text>
+      </View>
+
+      <View style={styles.headerRow}>
+        <Text style={styles.headerText}>ativ/desat</Text>
         <Text style={styles.headerText}>exibir</Text>
         <Text style={styles.headerText}>ID Post</Text>
         <Text style={styles.headerText}>Nome</Text>
         <Text style={styles.headerText}>Cor</Text>
-        <Text style={styles.headerText}>Data</Text>
+        <Text style={styles.headerText}>?</Text>
       </View>
 
       {post.length > 0 ? (
         post.map((item) => (
           <View key={item.id} style={styles.dataRow}>
-            <TouchableOpacity  style={styles.dataText} onPress={()=> confirmDelete(item.idPost)}>
-              <Text style={{paddingLeft:25}}>
-                <Icon name='trash' color="red" size={20} />
+            <TouchableOpacity style={styles.dataText} onPress={() => confirmToggleStatus(item.idPost, item.nomeStatus)}>
+              <Text style={{ paddingLeft: 25 }}>
+                <Icon name="trash" color={item.nomeStatus === "ativado" ? "red" : "green"} size={20} />
               </Text>
-              </TouchableOpacity>
-              <TouchableOpacity  style={styles.dataText}>
-              <Text style={{paddingLeft:25}}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.dataText}>
+              <Text style={{ paddingLeft: 25 }}>
                 <Icon name='eye' color="#4b7099" size={20} />
               </Text>
-              </TouchableOpacity>
+            </TouchableOpacity>
             <Text style={styles.dataText}>{item.idPost}</Text>
             <Text style={styles.dataText}>{item.nomeObjeto}</Text>
             <Text style={styles.dataText}>{item.corObjeto}</Text>
-            <Text style={styles.dataText}>{item.dataRegistro}</Text>
-            
+
+
+            {item.nomeStatus === "ativado" ? (
+              <Text style={{ color: "green" }}> {item.nomeStatus} </Text>
+            ) :
+              <Text style={{ color: "red" }}> {item.nomeStatus} </Text>
+            }
+
+
+
           </View>
         ))
       ) : (
@@ -108,17 +118,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingTop:20,
+    paddingTop: 20,
     backgroundColor: '#fff',
   },
   text: {
     fontSize: 24,
     color: '#000',
   },
-  header:{
-    flexDirection:'row',
-    alignItems:'center',
-    gap:20
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 20
   },
   headerRow: {
     flexDirection: 'row',
@@ -145,7 +155,7 @@ const styles = StyleSheet.create({
   dataText: {
     flex: 1,
     textAlign: 'center',
-    
+
   },
- 
+
 });

@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 const InfoObject = ({ route }) => {
     const navigation = useNavigation();
     const { selectedItem } = route.params;
-
+   
     let images = [];
     try {
         images = JSON.parse(selectedItem.images);
@@ -43,7 +43,12 @@ const InfoObject = ({ route }) => {
                 </View>
 
                 <Pressable style={styles.btnAdvance}>
-                    <Text style={{ fontSize: 20, fontWeight: '600', color: "#fff" }}>Esse objeto é meu!!</Text>
+                    {selectedItem.nomeStatus === 'ativado' ?(
+                        <Text style={{ fontSize: 20, fontWeight: '600', color: "green" }}>{selectedItem.nomeStatus}</Text>
+                        
+                    ):(
+                        <Text style={{ fontSize: 20, fontWeight: '600', color: "red" }}>{selectedItem.nomeStatus}</Text>
+                    )}
                 </Pressable>
 
                 <View style={styles.containerDesc}>
@@ -114,7 +119,7 @@ const styles = StyleSheet.create({
     },
     btnAdvance: {
         width: '60%',
-        backgroundColor: "#4786d3",
+        backgroundColor: "#fff",
         alignItems: "center",
         height: 50,
         justifyContent: "center",
