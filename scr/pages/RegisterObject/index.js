@@ -8,6 +8,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { storage } from '../../../service/firebaseConection';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { Context } from '../../context/provider';
+import axios from 'axios';
 
 const RegisterObject = () => {
     const [image, setImage] = useState(null);
@@ -17,6 +18,10 @@ const RegisterObject = () => {
     const [activeTag, setActiveTag] = useState(null);
     const [selectedItem, setSelectedItem] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [categorias, setCategorias] = useState([]);
+    const [subCategorias, setSubCategorias] = useState([]);
+    const [activeCategoryId, setActiveCategoryId] = useState(null);
+    
 
     const originalColor = '#ffffff';
     const activeColor = '#b1b1b1';
@@ -61,80 +66,46 @@ const RegisterObject = () => {
         }
     };
 
-    const handlePress = (item) => {
+    const handlePress = (item, id) => {
         setActiveTag(item);
+        setActiveCategoryId(id); 
     };
 
- 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const categoriasResponse = await axios.get('http://192.168.1.71/services/getCategoria.php');
+                setCategorias(categoriasResponse.data);
+            } catch (error) {
+                console.error('Erro ao buscar categorias:', error);
+            }
+
+            try {
+                const subCategoriasResponse = await axios.get('http://192.168.1.71/services/getSubCategoria.php');
+                setSubCategorias(subCategoriasResponse.data);
+            } catch (error) {
+                console.error('Erro ao buscar subcategorias:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const getFilteredSubCategorias = () => {
+        return subCategorias.filter(sub => sub.idCategoria === activeCategoryId);
+    };
+
+    
+
     const getPickerItems = () => {
-        switch (activeTag) {
-            case 'Roupa':
-                return [
-                    { label: 'Camiseta', value: 'camiseta' },
-                    { label: 'Calça', value: 'calca' },
-                    { label: 'Saia', value: 'saia' },
-                    { label: 'Moletom', value: 'moletom' },
-                    { label: 'Boné', value: 'bone' },
-                    { label: 'Blusa', value: 'blusa' },
-                    { label: 'Jaqueta', value: 'jaqueta' },
-                    { label: 'Shorts', value: 'shorts' },
-                    { label: 'Vestido', value: 'vestido' },
-                    { label: 'Sandalha', value: 'sandalha' },
-                    { label: 'Bota', value: 'bota' },
-                    { label: 'Tênis', value: 'tenis' },
-                ];
-            case 'Eletrônico':
-                return [
-                    { label: 'Celular', value: 'celular' },
-                    { label: 'Notebook', value: 'notebook' },
-                    { label: 'Tablet', value: 'tablet' },
-                    { label: 'Fone de Ouvido', value: 'fone_de_ouvido' },
-                    { label: 'Carregador', value: 'carregador' },
-                    { label: 'Câmera', value: 'camera' },
-                    { label: 'Smartwatch', value: 'smartwatch' },
-                    { label: 'Caixa de Som', value: 'caixa_de_som' },
-                    { label: 'Pen Drive', value: 'pendrive' },
-                    { label: 'Teclado', value: 'teclado' },
-                    { label: 'Mouse', value: 'mouse' },
-                ];
-            case 'Documentos':
-                return [
-                    { label: 'RG', value: 'rg' },
-                    { label: 'CNH', value: 'cnh' },
-                    { label: 'CPF', value: 'cpf' },
-                    { label: 'Certidão de Nascimento', value: 'certidao_nascimento' },
-                    { label: 'Bilhete Único', value: 'bilhete_unico' },
-                ];
-            case 'Acessório Pessoal':
-                return [
-                    { label: 'Bilhete Único', value: 'bilhete_unico' },
-                    { label: 'Cartão de Crédito/Débito', value: 'cartao_credito_debito' },
-                    { label: 'Chave de Casa', value: 'chave_casa' },
-                    { label: 'Chave do Carro', value: 'chave_carro' },
-                    { label: 'Relógio', value: 'relogio' },
-                    { label: 'Óculos', value: 'oculos' },
-                    { label: 'Brinco', value: 'brinco' },
-                    { label: 'Colar', value: 'colar' },
-                    { label: 'Anel', value: 'anel' },
-                    { label: 'Máscara de Proteção', value: 'mascara_protecao' },
-                ];
-            case 'Material Escolar':
-                return [
-                    { label: 'Caderno', value: 'caderno' },
-                    { label: 'Caneta', value: 'caneta' },
-                    { label: 'Lápis', value: 'lapis' },
-                    { label: 'Borracha', value: 'borracha' },
-                    { label: 'Mochila', value: 'mochila' },
-                    { label: 'Apontador', value: 'apontador' },
-                    { label: 'Régua', value: 'regua' },
-                    { label: 'Fichário', value: 'fichario' },
-                    { label: 'Canetinha', value: 'canetinha' },
-                    { label: 'Marcador de Texto', value: 'marcador_texto' },
-                    { label: 'Pasta de Arquivo', value: 'pasta_arquivo' },
-                ];
-            default:
-                return [];
-        }
+        const items = [];
+        const filteredSubCategorias = getFilteredSubCategorias();
+        
+        filteredSubCategorias.forEach(sub => {
+            items.push({ label: sub.descSubCategoria, value: sub.idSubCategoria });
+        });
+
+        return items;
     };
 
     const handleUpload = async () => {
@@ -200,13 +171,13 @@ const RegisterObject = () => {
             </View>
 
             <View style={styles.containerTags}>
-                {['Eletrônico', 'Roupa', 'Documentos', 'Acessório Pessoal', 'Material Escolar'].map((item, index) => (
+                {categorias.map((categoria) => (
                     <Pressable
-                        key={index}
-                        onPress={() => handlePress(item)}
-                        style={[styles.tag, { backgroundColor: activeTag === item ? activeColor : originalColor }]}
+                        key={categoria.idCategoria} 
+                        onPress={() => handlePress(categoria.descCategoria, categoria.idCategoria)} // Passar o ID
+                        style={[styles.tag, { backgroundColor: activeTag === categoria.descCategoria ? activeColor : originalColor }]} 
                     >
-                        <Text style={{ fontSize: 12, fontWeight: '600' }}>{item}</Text>
+                        <Text style={{ fontSize: 12, fontWeight: '600' }}>{categoria.descCategoria}</Text> 
                     </Pressable>
                 ))}
             </View>
@@ -215,7 +186,7 @@ const RegisterObject = () => {
                 <View style={styles.pickerContainer}>
                     <RNPickerSelect
                         onValueChange={(value) => setSelectedItem(value)}
-                        items={getPickerItems()}
+                        items={getPickerItems()} 
                         placeholder={{ label: 'Selecione...', value: null }}
                         style={pickerSelectStyles}
                     />

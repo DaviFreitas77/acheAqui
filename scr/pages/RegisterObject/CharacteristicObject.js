@@ -4,17 +4,20 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Context } from '../../context/provider';
-
+import axios from 'axios';
 const RegisterObject = () => {
     const { formData } = useContext(Context);
     const navigation = useNavigation();
     const [activeColor, setActiveColor] = useState(null);
     const [activeTam, setActiveTam] = useState(null);
+    const [activeMarca, setActiveMarca] = useState(null)
     const [activeCaracteristica, setActiveCaracteristica] = useState([]);
+    const [cores, setCores] = useState([]);
+    const [tamanho, setTamanho] = useState([]);
+    const [marca, setMarca] = useState([])
     const originalColor = '#ffffff';
     const activeTagColor = '#b1b1b1';
     const { setFormData } = useContext(Context);
-    console.log(formData.item)
     const handleColorPress = (item) => {
         setActiveColor(item);
     };
@@ -23,105 +26,48 @@ const RegisterObject = () => {
         setActiveTam(item);
     };
 
-    const handleCaracteristica = (item) => {
-        if (activeCaracteristica.includes(item)) {
-            setActiveCaracteristica(activeCaracteristica.filter(car => car !== item));
-
-        } else {
-            setActiveCaracteristica([...activeCaracteristica, item])
-        }
-    };
-
+    const handleMarcaPress = (item) => {
+        setActiveMarca(item)
+    }
+ 
     async function handleUpload() {
         setFormData(prevData => ({
             ...prevData,
             cor: activeColor,
             tamanho: activeTam,
-            caracteristica: activeCaracteristica
+            caracteristica: activeMarca
         }));
     }
 
-    let addCaracteristica = [];
-    switch (formData.item) {
-        case 'moletom':
-            addCaracteristica = [
-                { label: 'Com Capuz', value: 'com capuz' },
-                { label: 'Sem Capuz', value: 'sem capuz' },
-                { label: 'Malha Fina', value: 'malha fina' },
-                { label: 'Malha Grossa', value: 'malha grossa' },
-                { label: 'Com Estampa', value: 'com estampa' },
-                { label: 'Sem Estampa', value: 'sem estampa' },
-            ];
-            break;
-        case 'oculos':
-            addCaracteristica = [
-                { label: 'Lente Escura', value: 'lente escura' },
-                { label: 'Armação Grossa', value: 'armação grossa' },
-                { label: 'Armação Fina', value: 'armação fina' },
-                { label: 'Com Grau', value: 'com grau' },
-                { label: 'Sem Grau', value: 'sem grau' },
-            ];
-            break;
-        case 'camiseta':
-            addCaracteristica = [
-                { label: 'Manga Curta', value: 'manga curta' },
-                { label: 'Manga Longa', value: 'manga longa' },
-                { label: 'Gola Alta', value: 'gola alta' },
-                { label: 'Gola V', value: 'gola v' },
-                { label: 'Com Estampa', value: 'com estampa' },
-                { label: 'Sem Estampa', value: 'sem estampa' },
-            ];
-            break;
-        case 'calca':
-            addCaracteristica = [
-                { label: 'Jeans', value: 'jeans' },
-                { label: 'Sarja', value: 'sarja' },
-                { label: 'Com Cinto', value: 'com cinto' },
-                { label: 'Sem Cinto', value: 'sem cinto' },
-                { label: 'Moletom', value: 'moletom' },
-            ];
-            break;
-        case 'caderno':
-            addCaracteristica = [
-                { label: 'Capa Dura', value: 'capa dura' },
-                { label: 'Capa Mole', value: 'capa mole' },
-                { label: 'Com Mola', value: 'com mola' },
-                { label: 'Sem Mola', value: 'sem mola' },
-            ];
-            break;
-        case 'pendrive':
-            addCaracteristica = [
-                { label: 'SanDisk', value: 'sandisk' },
-                { label: 'Kingston', value: 'kingston' },
-                { label: 'Samsung', value: 'samsung' },
-                { label: 'Corsair', value: 'corsair' },
-            ];
-            break;
-        case 'celular':
-            addCaracteristica = [
-                { label: 'Motorola', value: 'motorola' },
-                { label: 'Xiaomi', value: 'xiaomi' },
-                { label: 'Samsung', value: 'samsung' },
-                { label: 'Iphone', value: 'Iphone' },
-                { label: 'Outro', value: 'Outro' },
-            ];
-            break;
-        case 'bone':
-            addCaracteristica = [
-                { label: 'Nike', value: 'nike' },
-                { label: 'Adidas', value: 'adidas' },
-                { label: 'Lacoste', value: 'lacoste' },
-                { label: 'Umbro', value: 'umbto' },
-                { label: 'Puma', value: 'puma' },
-                { label: 'Outro', value: 'outro' },
-            ];
-            break;
-         
-        default:
-            addCaracteristica = [];
-            break;
-    }
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const corResponse = await axios.get('http://192.168.1.71/services/getcor.php')
+                setCores(corResponse.data);
+            } catch (error) {
+                console.log(error)
+            }
 
+            try {
+                const tamanhoResponse = await axios.get('http://192.168.1.71/services/getTamanho.php')
+                setTamanho(tamanhoResponse.data)
+            } catch (error) {
+                console.log('tamanho', error)
+            }
+
+            const objetoId = formData.item; 
+            if (objetoId) {
+                try {
+                    const marcaResponse = await axios.get(`http://192.168.1.71/services/getMarca.php?id=${objetoId}`); 
+                    setMarca(marcaResponse.data);
+                } catch (error) {
+                    console.log('marca', error);
+                }
+            }
+        }
+        fetchData()
+    }, [])
+  
 
     return (
         <ScrollView style={{ backgroundColor: "#fff" }}>
@@ -146,13 +92,13 @@ const RegisterObject = () => {
                     <Text style={{ fontSize: 16, color: "gray" }}>Escolha 1 tag</Text>
                 </View>
                 <View style={styles.containerTags}>
-                    {['Preto', 'Branco', 'Cinza', 'Azul', 'Amarelo', 'Vermelho', 'Roxo', 'Verde', 'Rosa', 'Colorido', 'Brilhante'].map((item, index) => (
+                    {cores.map((item, index) => (
                         <Pressable
                             key={index}
-                            onPress={() => handleColorPress(item)}
-                            style={[styles.tag, { backgroundColor: activeColor === item ? activeTagColor : originalColor }]}
+                            onPress={() => handleColorPress(item.descCor)}
+                            style={[styles.tag, { backgroundColor: activeColor === item.descCor ? activeTagColor : originalColor }]}
                         >
-                            <Text style={{ fontSize: 12, fontWeight: '600' }}>{item}</Text>
+                            <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descCor}</Text>
                         </Pressable>
                     ))}
                 </View>
@@ -161,34 +107,35 @@ const RegisterObject = () => {
                     <Text style={{ fontSize: 16, color: "gray" }}>Escolha 1 tag</Text>
                 </View>
                 <View style={styles.containerTags}>
-                    {['Pequeno', 'Médio', 'Grande'].map((item, index) => (
+                    {tamanho.map((item, index) => (
                         <Pressable
                             key={index}
-                            onPress={() => handleLocationPress(item)}
-                            style={[styles.tag, { backgroundColor: activeTam === item ? activeTagColor : originalColor }]}
+                            onPress={() => handleLocationPress(item.descTamanho)}
+                            style={[styles.tag, { backgroundColor: activeTam === item.descTamanho ? activeTagColor : originalColor }]}
                         >
-                            <Text style={{ fontSize: 12, fontWeight: '600' }}>{item}</Text>
+                            <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descTamanho}</Text>
                         </Pressable>
                     ))}
                 </View>
-                {(formData.item === 'moletom' || formData.item === 'caderno' || formData.item === 'camiseta' || formData.item === 'calca' || formData.item === 'oculos' || formData.item === 'pendrive') || formData.item === 'celular' || formData.item === 'bone'&& (
-                    <View style={[styles.objectCategory]}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold' }} >{formData.item === 'pendrive' || formData.item === "celular" || formData.item === 'bone' ? 'Marca': 'Caracteristicas Adicionais'}</Text>
-                        <Text style={{ fontSize: 16, color: "gray" }}>Escolha 1 ou mais tags</Text>
-                    </View>
-                )}
+
+                <View style={[styles.objectCategory]}>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Nos informe a marca do achado</Text>
+                    <Text style={styles.instructionText}>Escolha 1 tag</Text>
+                </View>
                 <View style={styles.containerTags}>
-                    {addCaracteristica.map((item, index) => (
+                    {marca.map((item, index) => (
                         <Pressable
                             key={index}
-                            onPress={() => handleCaracteristica(item.value)}
-                            style={[styles.tag, { backgroundColor: activeCaracteristica.includes(item.value) ? activeTagColor : originalColor }]}
+                            onPress={() => handleMarcaPress(item.descMarca)} 
+                            style={[styles.tag, { backgroundColor: activeMarca === item.descMarca ? activeTagColor : originalColor }]}  
                         >
-                            <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.label}</Text>
+                            <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descMarca}</Text>
                         </Pressable>
                     ))}
                 </View>
-                {activeColor && activeCaracteristica && activeTam &&  (
+
+
+                {activeColor && activeCaracteristica && activeTam && (
                     <View style={{ width: "100%", justifyContent: "center", alignItems: "center", marginBottom: 20 }}>
                         <Pressable
                             onPress={async () => {

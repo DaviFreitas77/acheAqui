@@ -3,27 +3,35 @@ import { StyleSheet, Text, View, Pressable, ScrollView, Image, TextInput } from 
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Feather';
 import { Context } from '../../context/provider';
+import axios from 'axios';
 
 const FinalRegister = () => {
     const navigation = useNavigation();
-    const [localActive, setLocalActive] = useState(null);
-    const [activeLivingroom, setLivingroom] = useState(null);
+    const [andarActive, setAndarActive] = useState(null);
+    const [localActive, setLocalActive] = useState(null); // Para gerenciar o local selecionado
+    const [local, setLocal] = useState([]);
     const originalColor = '#ffffff';
     const activeTagColor = '#b1b1b1';
-    const { formData } = useContext(Context);
-    const { setFormData } = useContext(Context);
-    const { idUser } = useContext(Context)
-    const { nomeUser } = useContext(Context)
-    const[desc,setDesc] = useState('')
-    const handleColorPress = (item) => {
-        setLocalActive(item);
+    const [andar, setAndar] = useState([]);
+    const { formData, setFormData, idUser, nomeUser } = useContext(Context);
+    const [desc, setDesc] = useState('');
+
+    const handleAndarPress = (item) => {
+        setAndarActive(item);
     };
 
     const handleLocationPress = (item) => {
-        setLivingroom(item);
+        setLocalActive(item); // Atualiza o local ativo
     };
+
+    console.log('categoria',formData.category)
+    console.log('item',formData.item)
+    console.log('tamanho',formData.tamanho)
+    console.log('cor',formData.cor)
+    console.log('caracteristica',formData.caracteristica)
+    console.log('andar',andarActive)
+    console.log('local',localActive)
 
 
     const handleUpload = async () => {
@@ -34,8 +42,8 @@ const FinalRegister = () => {
             cor: formData.cor,
             tamanho: formData.tamanho,
             caracteristica: formData.caracteristica,
+            andar: andarActive,
             local: localActive,
-            livingroom: activeLivingroom,
             idUser: idUser,
             desc: desc
         };
@@ -51,12 +59,12 @@ const FinalRegister = () => {
             });
 
             const response = await request.json();
-            setFormData(requestData)
+            setFormData(requestData);
 
             const newObjeto = {
                 idObjeto: response.id,
                 idUsuario: response.idUser
-            }
+            };
 
             const postResponse = await fetch('http://192.168.1.71/services/criarPost.php', {
                 method: 'POST',
@@ -69,14 +77,31 @@ const FinalRegister = () => {
 
             if (postResponse.ok) {
                 navigation.replace('RegisterComplempeted');
-
             }
-
 
         } catch (error) {
             console.error('Error while uploading data: ', error);
         }
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const andarResponse = await axios.get('http://192.168.1.71/services/getandar.php');
+                setAndar(andarResponse.data);
+            } catch (error) {
+                console.log(error);
+            }
+
+            try {
+                const localResponse = await axios.get('http://192.168.1.71/services/getLocal.php');
+                setLocal(localResponse.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
 
     return (
         <ScrollView>
@@ -91,88 +116,73 @@ const FinalRegister = () => {
                             <Image key={index} source={{ uri: img }} style={styles.imgSmall} />
                         ))}
                     </View>
-
                     <View style={{ flexDirection: "row", gap: 10, flexWrap: 'wrap', alignItems: "center", justifyContent: "center" }}>
-
                         <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
                             <Text>{formData.category}</Text>
                         </View>
                         <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
                             <Text>{formData.item}</Text>
                         </View>
-
                         <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
                             <Text>{formData.cor}</Text>
                         </View>
-
                         <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
                             <Text>{formData.tamanho}</Text>
                         </View>
-                        {formData.caracteristica[0] &&(
-                              <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
-                              <Text>{formData.caracteristica[0]}</Text>
-                          </View>
+                        {formData.caracteristica[0] && (
+                            <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
+                                <Text>{formData.caracteristica}</Text>
+                            </View>
                         )}
-                        {formData.caracteristica[1] &&(
-                              <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
-                              <Text>{formData.caracteristica[1]}</Text>
-                          </View>
-                        )}
-                        {formData.caracteristica[2] &&(
-                              <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
-                              <Text>{formData.caracteristica[2]}</Text>
-                          </View>
-                        )}
-                      
-                       
                     </View>
                 </View>
 
                 <View style={styles.containerDesc}>
-                    <TextInput 
+                    <TextInput
                         placeholder='Pequena descrição de como você o encontrou'
                         style={styles.input}
-                        onChangeText={(text)=> setDesc(text)}
+                        onChangeText={(text) => setDesc(text)}
                         maxLength={250}
                     />
                 </View>
+
                 <View style={styles.objectCategory}>
                     <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Em qual andar você o encontrou?</Text>
                     <Text style={{ fontSize: 16, color: "gray" }}>Escolha 1 tag</Text>
                 </View>
                 <View style={styles.containerTags}>
-                    {['1 Andar', '2 Andar', 'Subsolo Refeitório'].map((item, index) => (
+                    {andar.map((item, index) => (
                         <Pressable
                             key={index}
-                            onPress={() => handleColorPress(item)}
-                            style={[styles.tag, { backgroundColor: localActive === item ? activeTagColor : originalColor }]}
+                            onPress={() => handleAndarPress(item.descAndar)} 
+                            style={[styles.tag, { backgroundColor: andarActive === item.descAndar ? activeTagColor : originalColor }]}
                         >
-                            <Text style={{ fontSize: 12, fontWeight: '600' }}>{item}</Text>
+                            <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descAndar}</Text>
                         </Pressable>
                     ))}
                 </View>
-                <View style={[styles.objectCategory]}>
+
+                <View style={styles.objectCategory}>
                     <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Em qual local você o encontrou?</Text>
                     <Text style={{ fontSize: 16, color: "gray" }}>Escolha 1 tag</Text>
                 </View>
                 <View style={styles.containerTags}>
-                    {['Sala de aula adm', 'Sala de aula nutri', 'Sala de aula ds', 'Laboratório nutri', 'Laboratório ds', 'Auditório', 'Refeitório', 'Cantina', 'Outro'].map((item, index) => (
+                    {local.map((item, index) => (
                         <Pressable
                             key={index}
-                            onPress={() => handleLocationPress(item)}
-                            style={[styles.tag, { backgroundColor: activeLivingroom === item ? activeTagColor : originalColor }]}
+                            onPress={() => handleLocationPress(item.descLocal)} 
+                            style={[styles.tag, { backgroundColor: localActive === item.descLocal ? activeTagColor : originalColor }]}
                         >
-                            <Text style={{ fontSize: 12, fontWeight: '600' }}>{item}</Text>
+                            <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descLocal}</Text>
                         </Pressable>
                     ))}
                 </View>
 
-                {localActive && activeLivingroom && (
+                {(andarActive && localActive) && (
                     <View style={{ width: "100%", justifyContent: "center", alignItems: "center", marginBottom: 20 }}>
                         <Pressable
                             onPress={async () => {
                                 await handleUpload();
-
                             }}
                             style={styles.btnAdvance}
                         >
@@ -184,12 +194,12 @@ const FinalRegister = () => {
             </View>
         </ScrollView>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#ffff',
         paddingTop: 50,
         gap: 30
     },
@@ -207,14 +217,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: 10,
     },
-    imgBig: {
-        width: 130,
-        height: 210,
-        borderRadius: 10,
-        backgroundColor: '#f1f2f7',
-        alignItems: "center",
-        justifyContent: "center"
-    },
     imgSmall: {
         width: 100,
         height: 100,
@@ -222,11 +224,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#f1f2f7',
         alignItems: "center",
         justifyContent: "center"
-    },
-    containerMarca: {
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-around'
     },
     objectCategory: {
         paddingLeft: 50
@@ -250,7 +247,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         borderWidth: 1,
         borderColor: "#b1b1b1",
-
     },
     btnAdvance: {
         width: '80%',
@@ -261,20 +257,16 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         marginTop: 30
     },
-    pickerContainer: {
-        paddingHorizontal: 20,
-        marginTop: 20,
+    containerDesc: {
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
     },
-    containerDesc:{
-        width:"100%",
-        alignItems:"center",
-        justifyContent:"center",
-    },
-    input:{
-        borderBottomWidth:1,
-        padding:5,
-        width:'80%',
-        borderBottomColor:'gray'
+    input: {
+        borderBottomWidth: 1,
+        padding: 5,
+        width: '80%',
+        borderBottomColor: 'gray'
     }
 });
 
