@@ -16,16 +16,18 @@ const RegisterObject = () => {
     const [image3, setImage3] = useState(null);
     const navigation = useNavigation();
     const [activeTag, setActiveTag] = useState(null);
-    const [selectedItem, setSelectedItem] = useState(null);
+    const [selectedItem, setSelectedItem] = useState(null); // ID do item
+    const [selectedItemNome, setSelectedItemNome] = useState(null); // Nome do item
     const [loading, setLoading] = useState(false);
     const [categorias, setCategorias] = useState([]);
     const [subCategorias, setSubCategorias] = useState([]);
     const [activeCategoryId, setActiveCategoryId] = useState(null);
-    
 
     const originalColor = '#ffffff';
     const activeColor = '#b1b1b1';
     const { setFormData } = useContext(Context);
+
+    
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -67,8 +69,10 @@ const RegisterObject = () => {
     };
 
     const handlePress = (item, id) => {
-        setActiveTag(item);
+        setActiveTag(item); 
         setActiveCategoryId(id); 
+        setSelectedItem(null); 
+        setSelectedItemNome(null); 
     };
 
     useEffect(() => {
@@ -95,14 +99,15 @@ const RegisterObject = () => {
         return subCategorias.filter(sub => sub.idCategoria === activeCategoryId);
     };
 
-    
-
     const getPickerItems = () => {
         const items = [];
         const filteredSubCategorias = getFilteredSubCategorias();
         
         filteredSubCategorias.forEach(sub => {
-            items.push({ label: sub.descSubCategoria, value: sub.idSubCategoria });
+            items.push({ 
+                label: sub.descSubCategoria, 
+                value: sub.idSubCategoria 
+            });
         });
 
         return items;
@@ -117,8 +122,10 @@ const RegisterObject = () => {
         if (image3) uploadedImageUrls.push(await uploadImage(image3));
 
         setFormData({
+            categoryId: activeCategoryId,
             category: activeTag,
             item: selectedItem,
+            itemName: selectedItemNome, 
             images: uploadedImageUrls,
             cor: null,
             tamanho: null,
@@ -167,7 +174,7 @@ const RegisterObject = () => {
 
             <View style={styles.objectCategory}>
                 <Text style={{ fontSize: 18, fontWeight: 'bold' }}>O que é seu achado</Text>
-                <Text style={{ fontSize: 16, color: "gray" }}>categoria</Text>
+                <Text style={{ fontSize: 16, color: "gray" }}>Categoria</Text>
             </View>
 
             <View style={styles.containerTags}>
@@ -185,7 +192,11 @@ const RegisterObject = () => {
             {activeTag && (
                 <View style={styles.pickerContainer}>
                     <RNPickerSelect
-                        onValueChange={(value) => setSelectedItem(value)}
+                        onValueChange={(value) => {
+                            setSelectedItem(value);
+                            const selectedSubcat = subCategorias.find(sub => sub.idSubCategoria === value);
+                            if (selectedSubcat) setSelectedItemNome(selectedSubcat.descSubCategoria);
+                        }}
                         items={getPickerItems()} 
                         placeholder={{ label: 'Selecione...', value: null }}
                         style={pickerSelectStyles}

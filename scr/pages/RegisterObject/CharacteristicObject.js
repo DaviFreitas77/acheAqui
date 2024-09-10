@@ -9,8 +9,11 @@ const RegisterObject = () => {
     const { formData } = useContext(Context);
     const navigation = useNavigation();
     const [activeColor, setActiveColor] = useState(null);
+    const [colorId,setColorId] = useState(null)
     const [activeTam, setActiveTam] = useState(null);
+    const [tamanhoId,setTamanhoId] = useState(null)
     const [activeMarca, setActiveMarca] = useState(null)
+    const [marcaId,setMarcaId] = useState(null)
     const [activeCaracteristica, setActiveCaracteristica] = useState([]);
     const [cores, setCores] = useState([]);
     const [tamanho, setTamanho] = useState([]);
@@ -19,23 +22,30 @@ const RegisterObject = () => {
     const activeTagColor = '#b1b1b1';
     const { setFormData } = useContext(Context);
     const handleColorPress = (item) => {
-        setActiveColor(item);
+        setActiveColor(item.descCor);
+        setColorId(item.idCor)
     };
-
+console.log(activeMarca)
+console.log(marcaId)
     const handleLocationPress = (item) => {
-        setActiveTam(item);
+        setActiveTam(item.descTamanho);
+        setTamanhoId(item.idTamanho)
     };
 
     const handleMarcaPress = (item) => {
-        setActiveMarca(item)
+        setActiveMarca(item.descMarca)
+        setMarcaId(item.idMarca)
     }
  
     async function handleUpload() {
         setFormData(prevData => ({
             ...prevData,
             cor: activeColor,
+            corID:colorId,
             tamanho: activeTam,
-            caracteristica: activeMarca
+            tamanhoId:tamanhoId,
+            caracteristica: activeMarca,
+            marcaId:marcaId,
         }));
     }
 
@@ -84,7 +94,7 @@ const RegisterObject = () => {
                     </View>
                     <View style={{ flexDirection: "row", gap: 10 }}>
                         <View style={[styles.tag, { backgroundColor: '#b1b1b1' }]}><Text>{formData.category}</Text></View>
-                        <View style={[styles.tag, { backgroundColor: '#b1b1b1' }]}><Text>{formData.item}</Text></View>
+                        <View style={[styles.tag, { backgroundColor: '#b1b1b1' }]}><Text>{formData.itemName}</Text></View>
                     </View>
                 </View>
                 <View style={styles.objectCategory}>
@@ -95,7 +105,7 @@ const RegisterObject = () => {
                     {cores.map((item, index) => (
                         <Pressable
                             key={index}
-                            onPress={() => handleColorPress(item.descCor)}
+                            onPress={() => handleColorPress(item)}
                             style={[styles.tag, { backgroundColor: activeColor === item.descCor ? activeTagColor : originalColor }]}
                         >
                             <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descCor}</Text>
@@ -110,7 +120,7 @@ const RegisterObject = () => {
                     {tamanho.map((item, index) => (
                         <Pressable
                             key={index}
-                            onPress={() => handleLocationPress(item.descTamanho)}
+                            onPress={() => handleLocationPress(item)}
                             style={[styles.tag, { backgroundColor: activeTam === item.descTamanho ? activeTagColor : originalColor }]}
                         >
                             <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descTamanho}</Text>
@@ -126,7 +136,7 @@ const RegisterObject = () => {
                     {marca.map((item, index) => (
                         <Pressable
                             key={index}
-                            onPress={() => handleMarcaPress(item.descMarca)} 
+                            onPress={() => handleMarcaPress(item)} 
                             style={[styles.tag, { backgroundColor: activeMarca === item.descMarca ? activeTagColor : originalColor }]}  
                         >
                             <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descMarca}</Text>

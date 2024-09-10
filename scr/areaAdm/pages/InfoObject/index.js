@@ -53,21 +53,21 @@ const InfoObject = ({ route }) => {
 
                 <View style={styles.containerDesc}>
                     <View style={styles.headerContainer}>
-                        <Text style={styles.objeto}>nome: {selectedItem.nomeObjeto}</Text>
+                        <Text style={styles.objeto}>nome: {selectedItem.descSubCategoria}</Text>
                         <Text style={{ color: '#787878', fontSize: 16 }}>
-                            {selectedItem.categoriaObjeto}
+                            {selectedItem.descCategoria}
                         </Text>
                     </View>
 
                     {selectedItem.caracteristicasAdicionais.length > 2 && (
                         <Text style={styles.objeto}>
-                            {selectedItem.nomeObjeto === 'pendrive' || selectedItem.nomeObjeto === 'celular' || selectedItem.nomeObjeto === 'bone' ? 'Marca' : 'Adicional'} {caracteristicasDisplay}
+                            {selectedItem.nomeObjeto === 'pendrive' || selectedItem.descSubCategoria === 'celular' || selectedItem.nomeObjeto === 'bone' ? 'Marca' : 'Adicional'} {caracteristicasDisplay}
                         </Text>
                     )}
 
                     <Text style={styles.objeto}>Cor: {selectedItem.corObjeto}</Text>
-                    <Text style={styles.objeto}>Andar Encontrado: {selectedItem.localidadeObjeto}</Text>
-                    <Text style={styles.objeto}>Local Encontrado: {selectedItem.andar}</Text>
+                    <Text style={styles.objeto}>Andar Encontrado: {selectedItem.descLocal}</Text>
+                    <Text style={styles.objeto}>Local Encontrado: {selectedItem.descAndar}</Text>
                     <Text style={styles.objeto}>Data de registro: {selectedItem.dataRegistro}</Text>
 
                     <View style={styles.descriptionContainer}>

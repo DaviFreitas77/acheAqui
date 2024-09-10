@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function RegisterComplempeted() {
     const { formData } = useContext(Context)
     const navigation = useNavigation()
+    console.log(formData)
     return (
         <View style={styles.container}>
             <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Feito</Text>
@@ -22,16 +23,19 @@ export default function RegisterComplempeted() {
             </View>
                  <View style={{ flexDirection: "row", gap: 10, flexWrap: 'wrap', marginTop: 10,justifyContent:"center"}}>
                 <View style={styles.tag}>
-                    <Text>{formData.item}</Text>
+                    <Text>{formData.nomeItem}</Text>
                 </View>
                 <View style={styles.tag}>
-                    <Text>{formData.category}</Text>
+                    <Text>{formData.categoriaItem}</Text>
                 </View>
                 <View style={styles.tag}>
-                    <Text>{formData.cor}</Text>
+                    <Text>{formData.corItem}</Text>
                 </View>
                 <View style={styles.tag}>
-                    <Text>{formData.tamanho}</Text>
+                    <Text>{formData.tamanhoItem}</Text>
+                </View>
+                <View style={styles.tag}>
+                    <Text>{formData.marcaItem}</Text>
                 </View>
 
             </View>
@@ -59,10 +63,10 @@ export default function RegisterComplempeted() {
 
             <View style={{ flexDirection: "row", gap: 10, flexWrap: 'wrap', marginTop: 10, width: "80%" }}>
                 <View style={styles.tag}>
-                    <Text>{formData.local}</Text>
+                    <Text>{formData.localItem}</Text>
                 </View>
                 <View style={styles.tag}>
-                    <Text>{formData.livingroom}</Text>
+                    <Text>{formData.andarItem}</Text>
                 </View>
             </View>
             <Pressable
@@ -81,7 +85,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 60,
         alignItems: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: '#ffff',
         gap: 10
     },
     tag: {

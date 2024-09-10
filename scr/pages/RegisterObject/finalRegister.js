@@ -9,7 +9,9 @@ import axios from 'axios';
 const FinalRegister = () => {
     const navigation = useNavigation();
     const [andarActive, setAndarActive] = useState(null);
-    const [localActive, setLocalActive] = useState(null); // Para gerenciar o local selecionado
+    const [andarId,setAndarId] = useState(null)
+    const [localActive, setLocalActive] = useState(null); 
+    const [localId,setLocalId] = useState(null)
     const [local, setLocal] = useState([]);
     const originalColor = '#ffffff';
     const activeTagColor = '#b1b1b1';
@@ -18,34 +20,51 @@ const FinalRegister = () => {
     const [desc, setDesc] = useState('');
 
     const handleAndarPress = (item) => {
-        setAndarActive(item);
+        setAndarActive(item.descAndar);
+        setAndarId(item.idAndar)
     };
 
     const handleLocationPress = (item) => {
-        setLocalActive(item); // Atualiza o local ativo
+        setLocalActive(item.descLocal); // Atualiza o local ativo
+        setLocalId(item.idLocal)
     };
 
     console.log('categoria',formData.category)
-    console.log('item',formData.item)
-    console.log('tamanho',formData.tamanho)
-    console.log('cor',formData.cor)
-    console.log('caracteristica',formData.caracteristica)
-    console.log('andar',andarActive)
-    console.log('local',localActive)
-
+    // console.log('item',formData.item)
+    // console.log('tamanho',formData.tamanho)
+    // console.log('cor',formData.cor)
+    // console.log('caracteristica',formData.caracteristica)
+    // console.log('andar',andarActive)
+    // console.log('local',localActive)
+    // console.log(formData.categoryId)
+    console.log(formData)
+    console.log(localId)
 
     const handleUpload = async () => {
         const requestData = {
-            category: formData.category,
+            //jogar pro beckEnd
+            category: formData.categoryId,
             item: formData.item,
             images: formData.images,
-            cor: formData.cor,
-            tamanho: formData.tamanho,
-            caracteristica: formData.caracteristica,
-            andar: andarActive,
-            local: localActive,
+            cor: formData.corID,
+            tamanho: formData.tamanhoId,
+            caracteristica: formData.marcaId,
+            andar: andarId,
+            local: localId,
             idUser: idUser,
-            desc: desc
+            desc: desc,
+
+            //pegando no front para experiencia do usuario
+            nomeItem:formData.itemName,
+            marcaItem:formData.caracteristica,
+            categoriaItem:formData.category,
+            corItem:formData.cor,
+            localItem:localActive,
+            andarItem:andarActive,
+            tamanhoItem:formData.tamanho
+            
+
+
         };
 
         try {
@@ -154,7 +173,7 @@ const FinalRegister = () => {
                     {andar.map((item, index) => (
                         <Pressable
                             key={index}
-                            onPress={() => handleAndarPress(item.descAndar)} 
+                            onPress={() => handleAndarPress(item)} 
                             style={[styles.tag, { backgroundColor: andarActive === item.descAndar ? activeTagColor : originalColor }]}
                         >
                             <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descAndar}</Text>
@@ -170,7 +189,7 @@ const FinalRegister = () => {
                     {local.map((item, index) => (
                         <Pressable
                             key={index}
-                            onPress={() => handleLocationPress(item.descLocal)} 
+                            onPress={() => handleLocationPress(item)} 
                             style={[styles.tag, { backgroundColor: localActive === item.descLocal ? activeTagColor : originalColor }]}
                         >
                             <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descLocal}</Text>
@@ -199,7 +218,7 @@ const FinalRegister = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ffff',
+        backgroundColor: '#fffff',
         paddingTop: 50,
         gap: 30
     },

@@ -75,8 +75,8 @@ const HomeAdm = () => {
                     <Text style={styles.postTitle}>{item.nome}</Text>
                 </View>
 
-                <Text style={styles.postTitle}>{item.nomeObjeto}</Text>
-                <Text>{item.categoriaObjeto}</Text>
+                <Text style={styles.postTitle}>{item.descSubCategoria}</Text>
+                <Text>{item.descCategoria}</Text>
             </View>
         );
     };
