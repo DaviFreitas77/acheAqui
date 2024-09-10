@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 const InfoObject = ({ route }) => {
     const navigation = useNavigation();
     const { selectedItem } = route.params;
-   
+    
     let images = [];
     try {
         images = JSON.parse(selectedItem.images);
