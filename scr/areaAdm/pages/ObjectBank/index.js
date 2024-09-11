@@ -14,6 +14,7 @@ export default function ObjectBank() {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://192.168.1.71/services/getPost.php');
+      
         setpost(response.data);
 
       } catch (error) {
@@ -92,8 +93,8 @@ export default function ObjectBank() {
               </Text>
             </TouchableOpacity>
             <Text style={styles.dataText}>{item.idPost}</Text>
-            <Text style={styles.dataText}>{item.nomeObjeto}</Text>
-            <Text style={styles.dataText}>{item.corObjeto}</Text>
+            <Text style={styles.dataText}>{item.descSubCategoria}</Text>
+            <Text style={styles.dataText}>{item.descCor}</Text>
 
 
             {item.nomeStatus === "ativado" ? (

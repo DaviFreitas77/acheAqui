@@ -181,7 +181,7 @@ const RegisterObject = () => {
                 {categorias.map((categoria) => (
                     <Pressable
                         key={categoria.idCategoria} 
-                        onPress={() => handlePress(categoria.descCategoria, categoria.idCategoria)} // Passar o ID
+                        onPress={() => handlePress(categoria.descCategoria, categoria.idCategoria)} 
                         style={[styles.tag, { backgroundColor: activeTag === categoria.descCategoria ? activeColor : originalColor }]} 
                     >
                         <Text style={{ fontSize: 12, fontWeight: '600' }}>{categoria.descCategoria}</Text> 

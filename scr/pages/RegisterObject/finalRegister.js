@@ -30,13 +30,7 @@ const FinalRegister = () => {
     };
 
     console.log('categoria',formData.category)
-    // console.log('item',formData.item)
-    // console.log('tamanho',formData.tamanho)
-    // console.log('cor',formData.cor)
-    // console.log('caracteristica',formData.caracteristica)
-    // console.log('andar',andarActive)
-    // console.log('local',localActive)
-    // console.log(formData.categoryId)
+  
     console.log(formData)
     console.log(localId)
 

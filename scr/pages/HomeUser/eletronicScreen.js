@@ -1,111 +1,123 @@
-import React from 'react';
-import { useState } from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, Text, View, Pressable,ScrollView} from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { SafeAreaView, StatusBar, StyleSheet, Text, View, Pressable, ScrollView } from 'react-native';
 import axios from 'axios';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import RNPickerSelect from 'react-native-picker-select';
-import { Header } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import { useContext } from 'react';
 import { Context } from '../../context/provider';
-useNavigation
+
 const EletronicScreen = () => {
   const [activeColor, setActiveColor] = useState(null);
+  const [cores, setCores] = useState([])
+  const [corId, setCorId] = useState(null)
+
   const [activeTam, setActiveTam] = useState(null);
+  const [tamanho, setTamanho] = useState([]);
+
   const [selectedItem, setSelectedItem] = useState(null);
-  const [activeCaracteristica, setActiveCaracteristica] = useState([]);
+  const [itemId, setItemId] = useState(null);
+
+  const [marcas, setMarcas] = useState([]);
+  const [activeMarca,setActiveMarca] = useState(null)
+  const [subCategorias, setSubCategorias] = useState([]);
   const [results, setResults] = useState([]);
-  const navigation = useNavigation()
-  const {setData} = useContext(Context)
+  const navigation = useNavigation();
+  const { setData } = useContext(Context);
+
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+
+      try {
+        const corResponse = await axios.get('http://192.168.1.71/services/getcor.php')
+        setCores(corResponse.data)
+      } catch (error) {
+        console.log(error)
+      }
+
+      try {
+        const tamanhoResponse = await axios.get('http://192.168.1.71/services/getTamanho.php')
+        setTamanho(tamanhoResponse.data)
+      } catch (error) {
+        console.log('tamanho', error)
+      }
+
+      try {
+        const response = await axios.get('http://192.168.1.71/services/getSubCategoria.php');
+
+        const subCategoriasFiltered = response.data
+          .filter(sub => sub.idCategoria === 7)
+          .map(sub => ({
+            label: sub.descSubCategoria,
+            value: sub.idSubCategoria
+          }));
+        setSubCategorias(subCategoriasFiltered);
+      } catch (error) {
+        console.error('Erro ao buscar subcategorias:', error);
+      }
+
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchMarcas = async () => {
+      const objetoId = selectedItem; 
+      if (objetoId) {
+        try {
+          const marcaResponse = await axios.get(`http://192.168.1.71/services/getMarca.php?id=${objetoId}`);
+          setMarcas(marcaResponse.data);
+        } catch (error) {
+          console.log('marca', error);
+        }
+      }
+    };
+
+    fetchMarcas();
+  }, [selectedItem]); 
+
+
+  const handleItemPress = (item) => {
+    setSelectedItem(item)
+  }
+
   const handleColorPress = (item) => {
     setActiveColor(item);
+    setCorId(item.idCor)
   };
 
   const handleTamPress = (item) => {
     setActiveTam(item);
   };
-  
-  const handleCaracteristica = (item) => {
-    if (activeCaracteristica.includes(item)) {
-        setActiveCaracteristica(activeCaracteristica.filter(car => car !== item));
 
-    } else {
-        setActiveCaracteristica([...activeCaracteristica, item])
-    }
-};
-console.log(activeCaracteristica)
-  let addCaracteristica = [];
-  switch (selectedItem) {
-     
-      
-      case 'pendrive':
-          addCaracteristica = [
-              { label: 'SanDisk', value: 'sandisk' },
-              { label: 'Kingston', value: 'kingston' },
-              { label: 'Samsung', value: 'samsung' },
-              { label: 'Corsair', value: 'corsair' },
-          ];
-          break;
-      case 'celular':
-          addCaracteristica = [
-              { label: 'Motorola', value: 'motorola' },
-              { label: 'Xiaomi', value: 'xiaomi' },
-              { label: 'Samsung', value: 'samsung' },
-              { label: 'Iphone', value: 'Iphone' },
-              { label: 'Outro', value: 'Outro' },
-          ];
-          break; 
-      default:
-          addCaracteristica = [];
-          break;
-  }
+  const handleMarcaPress = (item) => {
+    setActiveMarca(item)
+  };
   async function getObjeto() {
     try {
-        const response = await axios.post('http://192.168.1.71/services/searchObjeto.php', {
-            item: selectedItem,
-            tamanho: activeTam,
-            cor: activeColor,
-            adicional:activeCaracteristica,
-        }, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+      const response = await axios.post('http://192.168.1.71/services/searchObjeto.php', {
+        item: selectedItem,
+        tamanho: activeTam,
+        cor: corId,
+        marca: activeMarca,
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
 
-        const data = response.data;
-   
-
-
-     
-        setData(data);
-        navigation.navigate('LostObject')
-
+      const data = response.data;
+      setData(data);
+      navigation.navigate('LostObject');
     } catch (error) {
-        console.log("Erro ao buscar os dados", error.response ? error.response.data : error.message);
+      console.log("Erro ao buscar os dados", error.response ? error.response.data : error.message);
     }
-}
-
-
-  const originalColor = '#ffffff';
-  const activeTagColor = '#b1b1b1';
-
-  const getPickerItems = () => {
-    return [
-      { label: 'Celular', value: 'celular' },
-      { label: 'Notebook', value: 'notebook' },
-      { label: 'Tablet', value: 'tablet' },
-      { label: 'Fone de Ouvido', value: 'fone_de_ouvido' },
-      { label: 'Carregador', value: 'carregador' },
-      { label: 'Câmera', value: 'camera' },
-      { label: 'Smartwatch', value: 'smartwatch' },
-      { label: 'Caixa de Som', value: 'caixa_de_som' },
-      { label: 'Pen Drive', value: 'pendrive' },
-      { label: 'Teclado', value: 'teclado' },
-      { label: 'Mouse', value: 'mouse' },
-    ]
   }
 
-
+  console.log(activeMarca)
+  const originalColor = '#ffffff';
+  const activeTagColor = '#b1b1b1';
 
   return (
     <ScrollView style={{ backgroundColor: "#fff" }}>
@@ -115,8 +127,8 @@ console.log(activeCaracteristica)
           <View style={{ gap: 10 }}>
             <Text style={styles.title}>O que é seu Eletronico?</Text>
             <RNPickerSelect
-              onValueChange={(value) => setSelectedItem(value)}
-              items={getPickerItems()}
+              onValueChange={(value) => handleItemPress(value)}
+              items={subCategorias}
               placeholder={{ label: 'Selecione...', value: null }}
               style={pickerSelectStyles}
             />
@@ -124,58 +136,65 @@ console.log(activeCaracteristica)
           <View style={{ gap: 10, alignItems: 'center' }}>
             <Text style={styles.title}>Qual a cor do seu Eletronico?</Text>
             <View style={styles.containerTags}>
-              {['Preto', 'Branco', 'Cinza', 'Azul', 'Amarelo', 'Vermelho', 'Roxo', 'Verde', 'Rosa', 'Colorido', 'Brilhante'].map((item, index) => (
+              {cores.map((item, index) => (
+
                 <Pressable
                   key={index}
                   onPress={() => handleColorPress(item)}
                   style={[styles.tag, { backgroundColor: activeColor === item ? activeTagColor : originalColor }]}
                 >
-                  <Text style={{ fontSize: 12, fontWeight: '600' }}>{item}</Text>
+                  <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descCor}</Text>
                 </Pressable>
               ))}
             </View>
           </View>
-      
-          {(selectedItem === 'pendrive' || selectedItem === 'celular') &&  (
-        <View style={{ alignItems: "center", gap: 10 }}>
-        <Text style={styles.title}>Marca:</Text>
-          <View style={styles.containerTags}>
-              {addCaracteristica.map((item, index) => (
-                  <Pressable
-                      key={index}
-                      onPress={() => handleCaracteristica(item.value)}
-                      style={[styles.tag, { backgroundColor: activeCaracteristica.includes(item.value) ? activeTagColor : originalColor }]}
-                  >
-                      <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.label}</Text>
-                  </Pressable>
-              ))}
-          </View>
-      </View>
-      )}
+
+    
+
           <View style={{ alignItems: "center", gap: 10 }}>
             <Text style={styles.title}>Qual o tamanho do seu Eletronico?</Text>
             <View style={styles.containerTags}>
-              {['Pequeno', 'Médio', 'Grande'].map((item, index) => (
+              {tamanho.map((item, index) => (
+
                 <Pressable
                   key={index}
-                  onPress={() => handleTamPress(item)}
-                  style={[styles.tag, { backgroundColor: activeTam === item ? activeTagColor : originalColor }]}
+                  onPress={() => handleTamPress(item.idTamanho)}
+                  style={[styles.tag, { backgroundColor: activeTam === item.idTamanho ? activeTagColor : originalColor }]}
                 >
-                  <Text style={{ fontSize: 12, fontWeight: '600' }}>{item}</Text>
+                  <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descTamanho}</Text>
                 </Pressable>
               ))}
             </View>
           </View>
-          {(selectedItem && activeCaracteristica.length > 0 && activeTam && activeColor) && (
-          <Pressable
-            onPress={async () => {
-              await getObjeto();
-            }}
-            style={styles.btnAdvance}
-          >
-            <Text style={{ fontSize: 20, fontWeight: '600', color: "#fff" }}>Próximo</Text>
-          </Pressable>
+          
+          {selectedItem &&(
+                <View style={{ alignItems: "center", gap: 10 }}>
+                <Text style={styles.title}>Qual a marca do seu Eletronico?</Text>
+                <View style={styles.containerTags}>
+                  {marcas.map((item, index) => (
+    
+                    <Pressable
+                      key={index}
+                      onPress={() => handleMarcaPress(item.idMarca)}
+                      style={[styles.tag, { backgroundColor: activeMarca === item.idMarca ? activeTagColor : originalColor }]}
+                    >
+                      <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descMarca}</Text>
+                    </Pressable>
+                  ))}
+                </View>
+              </View>
+          )}
+      
 
+          {(selectedItem  && activeTam && activeColor) && (
+            <Pressable
+              onPress={async () => {
+                await getObjeto();
+              }}
+              style={styles.btnAdvance}
+            >
+              <Text style={{ fontSize: 20, fontWeight: '600', color: "#fff" }}>Próximo</Text>
+            </Pressable>
           )}
         </View>
       </SafeAreaView>
@@ -187,23 +206,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop:10
+    paddingTop: 10
   },
   inner: {
     justifyContent: 'center',
     alignItems: 'center',
     gap: 50,
     paddingTop: 20
-
-
   },
   title: {
     fontSize: 20,
     fontWeight: '600',
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#333',
   },
   containerTags: {
     width: '100%',
@@ -231,10 +244,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 50,
     justifyContent: "center",
-    borderRadius: 30, 
-    marginBottom:60
-},
+    borderRadius: 30,
+    marginBottom: 60
+  },
 });
+
 const pickerSelectStyles = StyleSheet.create({
   inputAndroid: {
     fontSize: 16,
@@ -246,9 +260,7 @@ const pickerSelectStyles = StyleSheet.create({
     color: 'black',
     width: '100%',
     height: 40,
-
   },
 });
-
 
 export default EletronicScreen;
