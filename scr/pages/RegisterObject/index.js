@@ -22,7 +22,7 @@ const RegisterObject = () => {
     const [categorias, setCategorias] = useState([]);
     const [subCategorias, setSubCategorias] = useState([]);
     const [activeCategoryId, setActiveCategoryId] = useState(null);
-
+    const {urlApi} = useContext(Context)
     const originalColor = '#ffffff';
     const activeColor = '#b1b1b1';
     const { setFormData } = useContext(Context);
@@ -78,14 +78,14 @@ const RegisterObject = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const categoriasResponse = await axios.get('http://192.168.1.71/services/getCategoria.php');
+                const categoriasResponse = await axios.get( `http://${urlApi}/services/getCategoria.php`);
                 setCategorias(categoriasResponse.data);
             } catch (error) {
                 console.error('Erro ao buscar categorias:', error);
             }
 
             try {
-                const subCategoriasResponse = await axios.get('http://192.168.1.71/services/getSubCategoria.php');
+                const subCategoriasResponse = await axios.get(`http://${urlApi}/services/getSubCategoria.php`);
                 setSubCategorias(subCategoriasResponse.data);
             } catch (error) {
                 console.error('Erro ao buscar subcategorias:', error);

@@ -32,9 +32,7 @@ const LostObject = () => {
         alert('chat não pronto ;)')
     }
     const renderItem = ({ item }) => {
-        let caracteristicas = [];
-        caracteristicas = JSON.parse(item.caracteristicasAdicionais);
-        const caracteristicasDisplay = Array.isArray(caracteristicas) ? caracteristicas.join(', ') : '';
+     
         const images = parseImages(item.images); 
         return (
             <View style={styles.itemContainer}>
@@ -68,7 +66,7 @@ const LostObject = () => {
                     <Text style={styles.subtitle}>Marca: {caracteristicasDisplay}</Text>
                     ):
                     
-                    <Text style={styles.subtitle}>Adicional: {item.caracteristicasAdicionais}</Text>
+                    <Text style={styles.subtitle}>Adicional: {item.marcaObjeto}</Text>
                     }
                     <Text style={styles.subtitle}>Tamanho: {item.tamanhoObjeto}</Text>
                     <Text style={styles.subtitle}>andar Encontrado: {item.andar}</Text>

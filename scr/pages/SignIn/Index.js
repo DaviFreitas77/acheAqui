@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState, useContext } from 'react';
+import { useState, useContext,useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Image, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -17,9 +17,18 @@ export default function SignIn() {
   const { setNascUser } = useContext(Context)
   const { setIdUser } = useContext(Context)
   const { setLogAdm } = useContext(Context)
+  const {setUrlApi} = useContext(Context)
+  const {urlApi} = useContext(Context)
+
+ 
+  useEffect(() => {
+    setUrlApi('10.67.4.170'); 
+  }, [setUrlApi])
+
+
   async function loginUser() {
     try {
-      let response = await fetch('http://192.168.1.71/services/login.php', {
+      const response = await fetch(`http://${urlApi}/services/login.php`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

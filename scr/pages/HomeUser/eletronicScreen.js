@@ -6,11 +6,15 @@ import { useNavigation } from '@react-navigation/native';
 import { Context } from '../../context/provider';
 
 const EletronicScreen = () => {
+
+  const{urlApi} = useContext(Context)
+
   const [activeColor, setActiveColor] = useState(null);
   const [cores, setCores] = useState([])
   const [corId, setCorId] = useState(null)
 
   const [activeTam, setActiveTam] = useState(null);
+  const [tamNome,setTamNome] = useState(null)
   const [tamanho, setTamanho] = useState([]);
 
   const [selectedItem, setSelectedItem] = useState(null);
@@ -29,21 +33,21 @@ const EletronicScreen = () => {
     const fetchData = async () => {
 
       try {
-        const corResponse = await axios.get('http://192.168.1.71/services/getcor.php')
+        const corResponse = await axios.get(`http://${urlApi}/services/getcor.php`)
         setCores(corResponse.data)
       } catch (error) {
         console.log(error)
       }
 
       try {
-        const tamanhoResponse = await axios.get('http://192.168.1.71/services/getTamanho.php')
+        const tamanhoResponse = await axios.get(`http://${urlApi}/services/getTamanho.php`)
         setTamanho(tamanhoResponse.data)
       } catch (error) {
         console.log('tamanho', error)
       }
 
       try {
-        const response = await axios.get('http://192.168.1.71/services/getSubCategoria.php');
+        const response = await axios.get(`http://${urlApi}/services/getSubCategoria.php`);
 
         const subCategoriasFiltered = response.data
           .filter(sub => sub.idCategoria === 7)
@@ -66,7 +70,7 @@ const EletronicScreen = () => {
       const objetoId = selectedItem; 
       if (objetoId) {
         try {
-          const marcaResponse = await axios.get(`http://192.168.1.71/services/getMarca.php?id=${objetoId}`);
+          const marcaResponse = await axios.get(`http://${urlApi}/services/getMarca.php?id=${objetoId}`);
           setMarcas(marcaResponse.data);
         } catch (error) {
           console.log('marca', error);
@@ -88,16 +92,18 @@ const EletronicScreen = () => {
   };
 
   const handleTamPress = (item) => {
-    setActiveTam(item);
+    setActiveTam(item.idTamanho);
+    setTamNome(item.descTamanho)
   };
 
   const handleMarcaPress = (item) => {
     setActiveMarca(item)
   };
   async function getObjeto() {
+    console.log(selectedItem, activeTam, corId, activeMarca); 
     try {
-      const response = await axios.post('http://192.168.1.71/services/searchObjeto.php', {
-        item: selectedItem,
+      const response = await axios.post(`http://${urlApi}/services/searchObjeto.php`, {
+        item: selectedItem, 
         tamanho: activeTam,
         cor: corId,
         marca: activeMarca,
@@ -106,18 +112,24 @@ const EletronicScreen = () => {
           'Content-Type': 'application/json'
         }
       });
-
-      const data = response.data;
-      setData(data);
+  
+      
       navigation.navigate('LostObject');
     } catch (error) {
       console.log("Erro ao buscar os dados", error.response ? error.response.data : error.message);
     }
   }
 
-  console.log(activeMarca)
+  console.log(tamNome)
+const itensNome = {
+  tamanhoObjeto:tamNome,
+}
+
+  setData(itensNome)
+  
   const originalColor = '#ffffff';
   const activeTagColor = '#b1b1b1';
+  
 
   return (
     <ScrollView style={{ backgroundColor: "#fff" }}>
@@ -158,8 +170,8 @@ const EletronicScreen = () => {
 
                 <Pressable
                   key={index}
-                  onPress={() => handleTamPress(item.idTamanho)}
-                  style={[styles.tag, { backgroundColor: activeTam === item.idTamanho ? activeTagColor : originalColor }]}
+                  onPress={() => handleTamPress(item)}
+                  style={[styles.tag, { backgroundColor: activeTam === item ? activeTagColor : originalColor }]}
                 >
                   <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descTamanho}</Text>
                 </Pressable>

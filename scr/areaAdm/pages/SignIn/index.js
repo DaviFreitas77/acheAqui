@@ -15,7 +15,9 @@ import { StatusBar } from "expo-status-bar";
 import { Context } from "../../../context/provider";
 import { useNavigation } from "@react-navigation/native";
 
+
 const HomeAdm = () => {
+    const {urlApi} = useContext(Context)
     const navigation = useNavigation()
     const { nomeAdm } = useContext(Context);
     const [posts, setPosts] = useState([]);
@@ -24,7 +26,7 @@ const HomeAdm = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://192.168.1.71/services/getPost.php');
+                const response = await axios.get(`http://${urlApi}/services/getPost.php`);
  
                 setPosts(response.data);
 

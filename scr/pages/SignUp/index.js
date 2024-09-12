@@ -17,7 +17,7 @@ const SignUp = () => {
   const [data, setData] = useState(new Date());
   const [modalVisible, setModalVisible] = useState(false);
   const [show, setShow] = useState(false);
-
+  const {urlApi} = useContext(Context)
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || data;
     setShow(false);
@@ -34,7 +34,7 @@ const SignUp = () => {
       return;
     } else {
       try {
-        let response = await fetch('http://192.168.1.71/services/register.php', {
+        let response = await fetch( `http://${urlApi}/services/register.php`, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',

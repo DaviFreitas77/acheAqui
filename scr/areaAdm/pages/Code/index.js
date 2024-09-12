@@ -9,13 +9,13 @@ export default function Code() {
     const {setLogAdm} = useContext(Context);
     const {setNomeAdm} = useContext(Context);
     const {setEmailAdm} = useContext(Context);
-    
+    const{urlApi} = useContext(Context)
     const[code,setCode] = useState('');
     const navigation = useNavigation();
     const validarAdm = async () => {
    
         try {
-            const response = await fetch('http://192.168.1.71/services/loginAdm.php', {
+            const response = await fetch(`http://${urlApi}/services/loginAdm.php`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

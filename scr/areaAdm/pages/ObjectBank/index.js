@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 
 export default function ObjectBank() {
+  const {urlApi} = useContext(Context)
   const { nomeAdm } = useContext(Context);
   const { emailAdm } = useContext(Context);
   const [post, setpost] = useState([])
@@ -13,7 +14,7 @@ export default function ObjectBank() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://192.168.1.71/services/getPost.php');
+        const response = await axios.get(`http://${urlApi}/services/getPost.php`);
       
         setpost(response.data);
 
@@ -27,7 +28,7 @@ export default function ObjectBank() {
   const togglePostStatus = async (id, currentStatus) => {
     const atuacao = currentStatus === "ativado" ? 'desativar' : 'ativar';
     try {
-      const response = await axios.patch('http://192.168.1.71/services/deletarPost.php', {
+      const response = await axios.patch(`http://${urlApi}/services/deletarPost.php`, {
         id: id,
         atuacao: atuacao,
       });

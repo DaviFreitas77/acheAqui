@@ -18,6 +18,7 @@ const FinalRegister = () => {
     const [andar, setAndar] = useState([]);
     const { formData, setFormData, idUser, nomeUser } = useContext(Context);
     const [desc, setDesc] = useState('');
+    const {urlApi} =useContext(Context)
 
     const handleAndarPress = (item) => {
         setAndarActive(item.descAndar);
@@ -62,7 +63,7 @@ const FinalRegister = () => {
         };
 
         try {
-            const request = await fetch('http://192.168.1.71/services/registroObjeto.php', {
+            const request = await fetch( `http://${urlApi}/services/registroObjeto.php`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -79,7 +80,7 @@ const FinalRegister = () => {
                 idUsuario: response.idUser
             };
 
-            const postResponse = await fetch('http://192.168.1.71/services/criarPost.php', {
+            const postResponse = await fetch( `http://${urlApi}/services/criarPost.php`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,14 +101,14 @@ const FinalRegister = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const andarResponse = await axios.get('http://192.168.1.71/services/getandar.php');
+                const andarResponse = await axios.get( `http://${urlApi}/services/getandar.php`);
                 setAndar(andarResponse.data);
             } catch (error) {
                 console.log(error);
             }
 
             try {
-                const localResponse = await axios.get('http://192.168.1.71/services/getLocal.php');
+                const localResponse = await axios.get( `http://${urlApi}/services/getLocal.php`);
                 setLocal(localResponse.data);
             } catch (error) {
                 console.log(error);

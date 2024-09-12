@@ -21,6 +21,7 @@ const RegisterObject = () => {
     const originalColor = '#ffffff';
     const activeTagColor = '#b1b1b1';
     const { setFormData } = useContext(Context);
+    const {urlApi} = useContext(Context)
     const handleColorPress = (item) => {
         setActiveColor(item.descCor);
         setColorId(item.idCor)
@@ -52,14 +53,14 @@ console.log(marcaId)
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const corResponse = await axios.get('http://192.168.1.71/services/getcor.php')
+                const corResponse = await axios.get(`http://${urlApi}/services/getcor.php`)
                 setCores(corResponse.data);
             } catch (error) {
                 console.log(error)
             }
 
             try {
-                const tamanhoResponse = await axios.get('http://192.168.1.71/services/getTamanho.php')
+                const tamanhoResponse = await axios.get( `http://${urlApi}/services/getTamanho.php`)
                 setTamanho(tamanhoResponse.data)
             } catch (error) {
                 console.log('tamanho', error)
@@ -68,7 +69,7 @@ console.log(marcaId)
             const objetoId = formData.item; 
             if (objetoId) {
                 try {
-                    const marcaResponse = await axios.get(`http://192.168.1.71/services/getMarca.php?id=${objetoId}`); 
+                    const marcaResponse = await axios.get(`http://${urlApi}/services/getMarca.php?id=${objetoId}`); 
                     setMarca(marcaResponse.data);
                 } catch (error) {
                     console.log('marca', error);
