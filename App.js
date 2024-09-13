@@ -28,7 +28,10 @@ import RegisterComplempeted from './scr/pages/RegisterObject/registerCompleted';
 import EletronicScreen from './scr/pages/HomeUser/categorias/eletronicScreen';
 import Roupas from './scr/pages/HomeUser/categorias/vestes.js';
 import LostObject from './scr/pages/HomeUser/LostObject';
-
+import Acessorio from './scr/pages/HomeUser/categorias/acessorioPessoal.js';
+import MaterialEscolar from './scr/pages/HomeUser/categorias/materialEscolar.js';
+import Documento from './scr/pages/HomeUser/categorias/documentos.js';
+import Outros from './scr/pages/HomeUser/categorias/outros.js';
 
 //adm
 import Code from './scr/areaAdm/pages/Code';
@@ -167,7 +170,13 @@ function MyStack() {
             backgroundColor: '#005AC5',
           },
           headerTitleContainerStyle: {
-            paddingLeft: '40%'
+            
+            width:'70%',
+            justifyContent:"center",
+            alignItems:"center",
+ 
+            
+            
           },
           headerTitleStyle: {
             fontSize: 22
@@ -237,6 +246,30 @@ function MyStack() {
           },
           headerTitleContainerStyle: {
             paddingLeft: '55%'
+          },}} />
+          <Stack.Screen  name='Acessorio' component={Acessorio} options={{headerTitle:'Acessorio',headerTintColor:'white',headerStyle:{
+            backgroundColor:"#4786d3"
+          },
+          headerTitleContainerStyle: {
+            paddingLeft: '55%'
+          },}} />
+          <Stack.Screen  name='MaterialEscolar' component={MaterialEscolar} options={{headerTitle:'Acessorio',headerTintColor:'white',headerStyle:{
+            backgroundColor:"#4786d3"
+          },
+          headerTitleContainerStyle: {
+            paddingLeft: '55%'
+          },}} />
+          <Stack.Screen  name='Documento' component={Documento} options={{headerTitle:'Documentos',headerTintColor:'white',headerStyle:{
+            backgroundColor:"#4786d3"
+          },
+          headerTitleContainerStyle: {
+            paddingLeft: '45%'
+          },}} />
+          <Stack.Screen  name='Outros' component={Outros} options={{headerTitle:'Documentos',headerTintColor:'white',headerStyle:{
+            backgroundColor:"#4786d3"
+          },
+          headerTitleContainerStyle: {
+            paddingLeft: '45%'
           },}} />
 
          

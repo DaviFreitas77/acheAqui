@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useContext,useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, Pressable } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, Pressable,ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
@@ -22,7 +22,7 @@ export default function SignIn() {
 
  
   useEffect(() => {
-    setUrlApi('192.168.1.71'); 
+    setUrlApi('10.67.4.54'); 
   }, [setUrlApi])
 
 
@@ -60,76 +60,73 @@ export default function SignIn() {
   }
 
   return (
-    <View style={styles.container}>
-      <LinearGradient
-        colors={['#fff', '#4786d3']}
-        style={styles.gradient}
-        start={{ x: 2, y: 1 }}
-        end={{ x: 3, y: 0 }}
-      />
-      <Image
-        source={require('../../imges/signUp/logo.png')}
-        style={{ width: 238, height: 238 }}
-      />
-
-      <View style={styles.containerInput}>
-        <View style={{ width: '85%' }}>
-          <Text style={styles.txtEntrar}>Entrar</Text>
-        </View>
-
-        <View style={{ width: '85%', gap: 5 }}>
-          <View style={{ gap: 20 }}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Icon name='at-outline' size={25} color="#707070" />
-              <TextInput
-                placeholder='Entre com o seu email'
-                placeholderTextColor="#707070"
-                style={styles.input}
-                onChangeText={(text) => setEmail(text)}
-              />
+    <ScrollView>
+      <View style={styles.container}>
+        <LinearGradient
+          colors={['#fff', '#4786d3']}
+          style={styles.gradient}
+          start={{ x: 2, y: 1 }}
+          end={{ x: 3, y: 0 }}
+        />
+        <Image
+          source={require('../../imges/signUp/logo.png')}
+          style={{ width: 238, height: 238 }}
+        />
+        <View style={styles.containerInput}>
+          <View style={{ width: '85%' }}>
+            <Text style={styles.txtEntrar}>Entrar</Text>
+          </View>
+          <View style={{ width: '85%', gap: 5 }}>
+            <View style={{ gap: 20 }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Icon name='at-outline' size={25} color="#707070" />
+                <TextInput
+                  placeholder='Entre com o seu email'
+                  placeholderTextColor="#707070"
+                  style={styles.input}
+                  onChangeText={(text) => setEmail(text)}
+                />
+              </View>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Icon name='lock-closed-outline' size={25} color="#707070" />
+                <TextInput
+                  placeholder='Digite sua senha'
+                  placeholderTextColor="#707070"
+                  style={styles.input}
+                  secureTextEntry={true}
+                  onChangeText={(text) => setSenha(text)}
+                  value={senha}
+                />
+              </View>
             </View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Icon name='lock-closed-outline' size={25} color="#707070" />
-              <TextInput
-                placeholder='Digite sua senha'
-                placeholderTextColor="#707070"
-                style={styles.input}
-                secureTextEntry={true}
-                onChangeText={(text) => setSenha(text)}
-                value={senha}
-              />
+            <View style={styles.containerEsqSenha}>
+              <Text style={styles.txtEsqSenha}>
+                Esqueceu a senha?
+              </Text>
             </View>
           </View>
-          <View style={styles.containerEsqSenha}>
-            <Text style={styles.txtEsqSenha}>
-              Esqueceu a senha?
+        </View>
+        <View style={styles.containerBtn}>
+          <Pressable style={styles.btn} onPress={loginUser}>
+            <Text style={styles.txtBtn}>Acessar</Text>
+          </Pressable>
+          <Text style={{ fontSize: 15, fontWeight: 'bold' }}>ou</Text>
+          <Pressable style={styles.btnGoogle}>
+            <Icon name='logo-google' size={30} />
+            <Text style={styles.txtBtn}>Entrar com o Google</Text>
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate('SignUp')}>
+            <Text style={{ fontWeight: 'bold', fontSize: 12 }}>
+              Ainda não tem uma conta? CADASTRE-SE
             </Text>
-          </View>
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate('Code')} style={styles.btnAdm}>
+            <Text style={{ fontSize: 10, color: 'white' }}>Admins</Text>
+          </Pressable>
         </View>
+        <StatusBar style="auto" />
       </View>
-      <View style={styles.containerBtn}>
-        <Pressable style={styles.btn} onPress={loginUser}>
-          <Text style={styles.txtBtn}>Acessar</Text>
-        </Pressable>
-        <Text style={{ fontSize: 15, fontWeight: 'bold' }}>ou</Text>
-        <Pressable style={styles.btnGoogle}>
-          <Icon name='logo-google' size={30} />
-          <Text style={styles.txtBtn}>Entrar com o Google</Text>
-        </Pressable>
-
-        <Pressable onPress={() => navigation.navigate('SignUp')}>
-          <Text style={{ fontWeight: 'bold', fontSize: 12 }}>
-            Ainda não tem uma conta? CADASTRE-SE
-          </Text>
-        </Pressable>
-
-        <Pressable onPress={() => navigation.navigate('Code')} style={styles.btnAdm}>
-          <Text style={{ fontSize: 10, color: 'white' }}>Admins</Text>
-        </Pressable>
-      </View>
-
-      <StatusBar style="auto" />
-    </View>
+    </ScrollView>
   );
 }
 
@@ -139,7 +136,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: 80,
+    paddingTop: 50,
     gap: 40
   },
   gradient: {

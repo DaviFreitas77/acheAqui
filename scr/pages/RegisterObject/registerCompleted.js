@@ -11,7 +11,7 @@ export default function RegisterComplempeted() {
         <View style={styles.container}>
             <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Feito</Text>
             <Image
-                source={require('../../imges/registerObject/feito.png')}
+                source={require('../../imges/registerObject/feito.jpeg')}
                 style={{ width: 120, height: 120 }}
             />
             <Text style={{ color: '#5E5E5E' }}>O seu achado foi cadastrado com sucesso!</Text>
@@ -23,19 +23,19 @@ export default function RegisterComplempeted() {
             </View>
                  <View style={{ flexDirection: "row", gap: 10, flexWrap: 'wrap', marginTop: 10,justifyContent:"center"}}>
                 <View style={styles.tag}>
-                    <Text>{formData.nomeItem}</Text>
+                    <Text  style={styles.txtItem} >{formData.nomeItem}</Text>
                 </View>
                 <View style={styles.tag}>
-                    <Text>{formData.categoriaItem}</Text>
+                    <Text  style={styles.txtItem}>{formData.categoriaItem}</Text>
                 </View>
                 <View style={styles.tag}>
-                    <Text>{formData.corItem}</Text>
+                    <Text style={styles.txtItem}>{formData.corItem}</Text>
                 </View>
                 <View style={styles.tag}>
-                    <Text>{formData.tamanhoItem}</Text>
+                    <Text  style={styles.txtItem}>{formData.tamanhoItem}</Text>
                 </View>
                 <View style={styles.tag}>
-                    <Text>{formData.marcaItem}</Text>
+                    <Text  style={styles.txtItem}>{formData.marcaItem}</Text>
                 </View>
 
             </View>
@@ -63,10 +63,10 @@ export default function RegisterComplempeted() {
 
             <View style={{ flexDirection: "row", gap: 10, flexWrap: 'wrap', marginTop: 10, width: "80%" }}>
                 <View style={styles.tag}>
-                    <Text>{formData.localItem}</Text>
+                    <Text  style={styles.txtItem}>{formData.localItem}</Text>
                 </View>
                 <View style={styles.tag}>
-                    <Text>{formData.andarItem}</Text>
+                    <Text  style={styles.txtItem}>{formData.andarItem}</Text>
                 </View>
             </View>
             <Pressable
@@ -99,7 +99,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#b1b1b1',
         fontWeight: "bold",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+
 
     },
     imgSmall: {
@@ -108,7 +109,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: '#f1f2f7',
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        
     },
     btnAdvance: {
         width: '80%',
@@ -120,6 +122,10 @@ const styles = StyleSheet.create({
         marginTop: 30,
         flexDirection: "row"
     },
+    txtItem:{
+        fontWeight:'bold',
+        textAlign:"center",
+    }
 
 
 });

@@ -5,7 +5,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import { useNavigation } from '@react-navigation/native';
 import { Context } from '../../../context/provider';
 
-const EletronicScreen = () => {
+const Documento = () => {
 
   const{urlApi} = useContext(Context)
   
@@ -50,7 +50,7 @@ const EletronicScreen = () => {
         const response = await axios.get(`http://${urlApi}/services/getSubCategoria.php`);
 
         const subCategoriasFiltered = response.data
-          .filter(sub => sub.idCategoria === 7)
+          .filter(sub => sub.idCategoria === 11)
           .map(sub => ({
             label: sub.descSubCategoria,
             value: sub.idSubCategoria
@@ -148,7 +148,7 @@ const EletronicScreen = () => {
         <StatusBar barStyle="dark-content" />
         <View style={styles.inner}>
           <View style={{ gap: 10 }}>
-            <Text style={styles.title}>O que é seu Eletronico?</Text>
+            <Text style={styles.title}>Qual seu Documento??</Text>
             <RNPickerSelect
              onValueChange={(value) => handleItemPress(value)}
               items={subCategorias}
@@ -157,7 +157,7 @@ const EletronicScreen = () => {
             />
           </View>
           <View style={{ gap: 10, alignItems: 'center' }}>
-            <Text style={styles.title}>Qual a cor do seu Eletronico?</Text>
+            <Text style={styles.title}>Qual a cor do seu Documento?</Text>
             <View style={styles.containerTags}>
               {cores.map((item, index) => (
 
@@ -175,7 +175,7 @@ const EletronicScreen = () => {
     
 
           <View style={{ alignItems: "center", gap: 10 }}>
-            <Text style={styles.title}>Qual o tamanho do seu Eletronico?</Text>
+            <Text style={styles.title}>Qual o tamanho do seu Documento?</Text>
             <View style={styles.containerTags}>
               {tamanho.map((item, index) => (
 
@@ -192,7 +192,7 @@ const EletronicScreen = () => {
           
           {selectedItem &&(
                 <View style={{ alignItems: "center", gap: 10 }}>
-                <Text style={styles.title}>Qual a marca do seu Eletronico?</Text>
+                <Text style={styles.title}>Qual a marca do seu Documento?</Text>
                 <View style={styles.containerTags}>
                   {marcas.map((item, index) => (
     
@@ -286,4 +286,4 @@ const pickerSelectStyles = StyleSheet.create({
   },
 });
 
-export default EletronicScreen;
+export default Documento;

@@ -197,6 +197,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
         borderRadius: 10,
         elevation: 3,
+
+   
     },
     postImage: {
         width: 250,

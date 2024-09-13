@@ -207,6 +207,7 @@ const RegisterObject = () => {
             {loading ? (
                 <ActivityIndicator size="small" color="#0000ff" style={styles.loadingIndicator} />
             ) : (
+          
                 (selectedItem && image && image2 && image3) && (
                     <View style={{ width: "100%", justifyContent: "center", alignItems: "center" }}>
                         <Pressable

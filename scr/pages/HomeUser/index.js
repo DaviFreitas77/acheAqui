@@ -7,6 +7,7 @@ import {
   Image,
   Pressable,
   TextInput,
+  ScrollView
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Icon from 'react-native-vector-icons/Feather';
@@ -20,87 +21,88 @@ const HomeUser = () => {
   
   return (
     
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Image
-          source={{ uri: imagemUser }}
-          style={{ width: 80, height: 80, borderRadius: 100 }}
-        />
-        <View style={{ width: "55%" }}>
-          <Text style={styles.textHeaderTiltle}>Olá,{nomeUser}</Text>
-          <Text style={styles.textHeader}>Perdeu algo? </Text>
-          <Text style={styles.textHeader}>
-            Faça uma breve busca para reencontrar !!{" "}
-          </Text>
+    <ScrollView style={{backgroundColor:"white"}}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Image
+            source={{ uri: imagemUser }}
+            style={{ width: 80, height: 80, borderRadius: 100 }}
+          />
+          <View style={{ width: "55%" }}>
+            <Text style={styles.textHeaderTiltle}>Olá,{nomeUser}</Text>
+            <Text style={styles.textHeader}>Perdeu algo? </Text>
+            <Text style={styles.textHeader}>
+              Faça uma breve busca para reencontrar !!{" "}
+            </Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.inputView}>
+        <View style={styles.inputView}>
       
-        <TextInput
-          placeholder="Pesquise pelo seu objeto"
-          style={styles.input}
-          placeholderTextColor="#fff"
-        />
-      </View>
-      <View style={{ gap: 15 }}>
-        <Text style={{ fontSize: 25, fontWeight: "bold", paddingLeft: 10 }}>
-          Nosso Catálogo
-        </Text>
-        <View style={styles.containerCatalogo}>
-          <View style={{ flexDirection: "row", gap: 20 }}>
-            <View style={{ alignItems: "center", gap: 5 }}>
-              <Pressable style={styles.BtnCatalogo} onPress={()=> navigation.navigate('EletronicScreen')}>
-                   <Icon  name="smartphone" size={50}/>
-              </Pressable>
-              <Text style={styles.txtBtNCatalogo}>Eletronicos</Text>
-            </View>
-            <View style={{ alignItems: "center", gap: 5 }}>
-              <Pressable style={styles.BtnCatalogo}    onPress={()=> navigation.navigate('Roupas')}  >
-                <Image source={require('../../imges/homeUser/veste.png')} 
-                />
-              </Pressable>
-              <Text style={styles.txtBtNCatalogo}>Vestimentas</Text>
-            </View>
-            <View style={{ alignItems: "center", gap: 5 }}>
-              <Pressable style={styles.BtnCatalogo}>
-              <Image source={require('../../imges/homeUser/pessoal.png')} 
-                  
+          <TextInput
+            placeholder="Pesquise pelo seu objeto"
+            style={styles.input}
+            placeholderTextColor="#fff"
+          />
+        </View>
+        <View style={{ gap: 15 }}>
+          <Text style={{ fontSize: 25, fontWeight: "bold", paddingLeft: 10 }}>
+            Nosso Catálogo
+          </Text>
+          <View style={styles.containerCatalogo}>
+            <View style={{ flexDirection: "row", gap: 20 }}>
+              <View style={{ alignItems: "center", gap: 5 }}>
+                <Pressable style={styles.BtnCatalogo} onPress={()=> navigation.navigate('EletronicScreen')}>
+                     <Icon  name="smartphone" size={50}/>
+                </Pressable>
+                <Text style={styles.txtBtNCatalogo}>Eletronicos</Text>
+              </View>
+              <View style={{ alignItems: "center", gap: 5 }}>
+                <Pressable style={styles.BtnCatalogo}    onPress={()=> navigation.navigate('Roupas')}  >
+                  <Image source={require('../../imges/homeUser/veste.png')}
                   />
-              </Pressable>
-              <Text style={styles.txtBtNCatalogo}>Acessorio Pessoal</Text>
+                </Pressable>
+                <Text style={styles.txtBtNCatalogo}>Vestimentas</Text>
+              </View>
+              <View style={{ alignItems: "center", gap: 5 }}>
+                <Pressable style={styles.BtnCatalogo}  onPress={()=> navigation.navigate('Acessorio')}  > 
+                <Image source={require('../../imges/homeUser/pessoal.png')}
+      
+                    />
+                </Pressable>
+                <Text style={styles.txtBtNCatalogo}>Acessorio Pessoal</Text>
+              </View>
             </View>
-          </View>
-
-          <View style={{ flexDirection: "row", gap: 20 }}>
-            <View style={{ alignItems: "center", gap: 5 }}>
-              <Pressable style={styles.BtnCatalogo}>
-              <Image source={require('../../imges/homeUser/caderno.png')} 
-                  
-                  />
-              </Pressable>
-              <Text style={styles.txtBtNCatalogo}>Material escolar</Text>
-            </View>
-            <View style={{ alignItems: "center", gap: 5 }}>
-              <Pressable style={styles.BtnCatalogo}>
-              <Image source={require('../../imges/homeUser/documento.png')} 
-                  
-                  />
-              </Pressable>
-              <Text style={styles.txtBtNCatalogo}>Documentos</Text>
-            </View>
-            <View style={{ alignItems: "center", gap: 5 }}>
-              <Pressable style={styles.BtnCatalogo}>
-              <Image source={require('../../imges/homeUser/pesquisa.png')} 
-                  
-                  />
-              </Pressable>
-              <Text style={styles.txtBtNCatalogo}>Outros</Text>
+            <View style={{ flexDirection: "row", gap: 20 }}>
+              <View style={{ alignItems: "center", gap: 5 }}>
+                <Pressable style={styles.BtnCatalogo}  onPress={()=> navigation.navigate('MaterialEscolar')}  > 
+                <Image source={require('../../imges/homeUser/caderno.png')}
+      
+                    />
+                </Pressable>
+                <Text style={styles.txtBtNCatalogo}>Material escolar</Text>
+              </View>
+              <View style={{ alignItems: "center", gap: 5 }}>
+                <Pressable style={styles.BtnCatalogo}  onPress={()=> navigation.navigate('Documento')} >
+                <Image source={require('../../imges/homeUser/documento.png')}
+      
+                    />
+                </Pressable>
+                <Text style={styles.txtBtNCatalogo}>Documentos</Text>
+              </View>
+              <View style={{ alignItems: "center", gap: 5 }}>
+                <Pressable style={styles.BtnCatalogo}   onPress={()=> navigation.navigate('Outros')}>
+                <Image source={require('../../imges/homeUser/pesquisa.png')}
+      
+                    />
+                </Pressable>
+                <Text style={styles.txtBtNCatalogo}>Outros</Text>
+              </View>
             </View>
           </View>
         </View>
+        <StatusBar style="auto" />
       </View>
-      <StatusBar style="auto" />
-    </View>
+    </ScrollView>
   );
 };
 
@@ -109,7 +111,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     backgroundColor: "#fff",
-
+    paddingTop:20,
     gap: 60,
   },
   header: {
