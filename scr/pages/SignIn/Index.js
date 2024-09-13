@@ -22,7 +22,7 @@ export default function SignIn() {
 
  
   useEffect(() => {
-    setUrlApi('10.67.4.170'); 
+    setUrlApi('192.168.1.71'); 
   }, [setUrlApi])
 
 

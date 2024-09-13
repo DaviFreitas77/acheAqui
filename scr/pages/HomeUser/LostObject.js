@@ -5,10 +5,10 @@ import { Context } from '../../context/provider';
 import { useContext } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 const LostObject = () => {
+
     const {data} = useContext(Context)
     
 
-    console.log(data)
     const parseImages = (imagesString) => {
         let images = [];
         try {
@@ -57,20 +57,17 @@ const LostObject = () => {
                  </View>
 
                     <View style={{paddingTop:10,width:'100%',flexDirection:"row",justifyContent:"space-between",alignItems:"center"}}>
-                    <Text  style={[styles.title,{color:'#4786d3'}]}>{item.nomeObjeto}</Text> 
-                        <Text  style={{ color: '#787878', fontSize: 16 }}>{item.categoriaObjeto}</Text>
+                    <Text  style={[styles.title,{color:'#4786d3'}]}>{item.descSubCategoria}</Text> 
+                        <Text  style={{ color: '#787878', fontSize: 16 }}>{item.descCategoria}</Text>
                     </View>
-                    <Text style={styles.subtitle}>Cor: {item.corObjeto}</Text>
-                    {(item.nomeObjeto === 'pendrive' || item.nomeObjeto === 'celular' || item.nomeObjeto ==='bone')? (
+                    <Text style={styles.subtitle}>Cor: {item.descCor}</Text>
+                  
+                    <Text style={styles.subtitle}>Marca: {item.descMarca}</Text>
 
-                    <Text style={styles.subtitle}>Marca: {caracteristicasDisplay}</Text>
-                    ):
                     
-                    <Text style={styles.subtitle}>Adicional: {item.marcaObjeto}</Text>
-                    }
-                    <Text style={styles.subtitle}>Tamanho: {item.tamanhoObjeto}</Text>
-                    <Text style={styles.subtitle}>andar Encontrado: {item.andar}</Text>
-                    <Text style={styles.subtitle}>local Encontrado: {item.localidadeObjeto}</Text>
+                    <Text style={styles.subtitle}>Tamanho: {item.descTamanho}</Text>
+                    <Text style={styles.subtitle}>andar Encontrado: {item.descAndar}</Text>
+                    <Text style={styles.subtitle}>local Encontrado: {item.descLocal}</Text>
                     <Text style={styles.subtitle}>Descrição:{item.descObjeto}</Text>
                 </View>
             </View>

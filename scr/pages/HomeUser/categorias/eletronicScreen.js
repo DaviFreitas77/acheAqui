@@ -3,12 +3,12 @@ import { SafeAreaView, StatusBar, StyleSheet, Text, View, Pressable, ScrollView 
 import axios from 'axios';
 import RNPickerSelect from 'react-native-picker-select';
 import { useNavigation } from '@react-navigation/native';
-import { Context } from '../../context/provider';
+import { Context } from '../../../context/provider';
 
 const EletronicScreen = () => {
 
   const{urlApi} = useContext(Context)
-
+  
   const [activeColor, setActiveColor] = useState(null);
   const [cores, setCores] = useState([])
   const [corId, setCorId] = useState(null)
@@ -18,7 +18,7 @@ const EletronicScreen = () => {
   const [tamanho, setTamanho] = useState([]);
 
   const [selectedItem, setSelectedItem] = useState(null);
-  const [itemId, setItemId] = useState(null);
+  const [nomeItem, setNomeItem] = useState(null);
 
   const [marcas, setMarcas] = useState([]);
   const [activeMarca,setActiveMarca] = useState(null)
@@ -82,12 +82,16 @@ const EletronicScreen = () => {
   }, [selectedItem]); 
 
 
-  const handleItemPress = (item) => {
-    setSelectedItem(item)
-  }
-
+  const handleItemPress = (value) => {
+    const selectedSubcategoria = subCategorias.find(sub => sub.value === value);
+    if (selectedSubcategoria) {
+      setNomeItem(selectedSubcategoria.label);  
+        setSelectedItem(selectedSubcategoria.value);      
+      
+    }
+};
   const handleColorPress = (item) => {
-    setActiveColor(item);
+    setActiveColor(item.descCor);
     setCorId(item.idCor)
   };
 
@@ -112,20 +116,27 @@ const EletronicScreen = () => {
           'Content-Type': 'application/json'
         }
       });
+      
+      const data = response.data
+      const itensNome = {
+        nomeTamanho:tamNome,
+        nomeCor:activeColor,
+        nomeitem:nomeItem,
+      }
   
+      setData(data)
       
       navigation.navigate('LostObject');
     } catch (error) {
       console.log("Erro ao buscar os dados", error.response ? error.response.data : error.message);
     }
   }
+  console.log(selectedItem)
 
-  console.log(tamNome)
-const itensNome = {
-  tamanhoObjeto:tamNome,
-}
 
-  setData(itensNome)
+  
+
+
   
   const originalColor = '#ffffff';
   const activeTagColor = '#b1b1b1';
@@ -139,7 +150,7 @@ const itensNome = {
           <View style={{ gap: 10 }}>
             <Text style={styles.title}>O que é seu Eletronico?</Text>
             <RNPickerSelect
-              onValueChange={(value) => handleItemPress(value)}
+             onValueChange={(value) => handleItemPress(value)}
               items={subCategorias}
               placeholder={{ label: 'Selecione...', value: null }}
               style={pickerSelectStyles}
@@ -153,7 +164,7 @@ const itensNome = {
                 <Pressable
                   key={index}
                   onPress={() => handleColorPress(item)}
-                  style={[styles.tag, { backgroundColor: activeColor === item ? activeTagColor : originalColor }]}
+                  style={[styles.tag, { backgroundColor: activeColor === item.descCor ? activeTagColor : originalColor }]}
                 >
                   <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descCor}</Text>
                 </Pressable>
@@ -171,7 +182,7 @@ const itensNome = {
                 <Pressable
                   key={index}
                   onPress={() => handleTamPress(item)}
-                  style={[styles.tag, { backgroundColor: activeTam === item ? activeTagColor : originalColor }]}
+                  style={[styles.tag, { backgroundColor: activeTam === item.idTamanho ? activeTagColor : originalColor }]}
                 >
                   <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descTamanho}</Text>
                 </Pressable>

@@ -25,7 +25,8 @@ import RegisterObject from './scr/pages/RegisterObject';
 import CharactObject from './scr/pages/RegisterObject/CharacteristicObject';
 import FinalRegister from './scr/pages/RegisterObject/finalRegister';
 import RegisterComplempeted from './scr/pages/RegisterObject/registerCompleted';
-import EletronicScreen from './scr/pages/HomeUser/eletronicScreen';
+import EletronicScreen from './scr/pages/HomeUser/categorias/eletronicScreen';
+import Roupas from './scr/pages/HomeUser/categorias/vestes.js';
 import LostObject from './scr/pages/HomeUser/LostObject';
 
 
@@ -226,6 +227,12 @@ function MyStack() {
           },}} />
           
           <Stack.Screen  name='LostObject' component={LostObject} options={{headerTitle:'Achados',headerTintColor:'white',headerStyle:{
+            backgroundColor:"#4786d3"
+          },
+          headerTitleContainerStyle: {
+            paddingLeft: '55%'
+          },}} />
+          <Stack.Screen  name='Roupas' component={Roupas} options={{headerTitle:'Roupas',headerTintColor:'white',headerStyle:{
             backgroundColor:"#4786d3"
           },
           headerTitleContainerStyle: {

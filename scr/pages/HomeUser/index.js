@@ -55,7 +55,7 @@ const HomeUser = () => {
               <Text style={styles.txtBtNCatalogo}>Eletronicos</Text>
             </View>
             <View style={{ alignItems: "center", gap: 5 }}>
-              <Pressable style={styles.BtnCatalogo}>
+              <Pressable style={styles.BtnCatalogo}    onPress={()=> navigation.navigate('Roupas')}  >
                 <Image source={require('../../imges/homeUser/veste.png')} 
                 />
               </Pressable>
