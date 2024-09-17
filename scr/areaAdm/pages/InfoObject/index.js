@@ -1,17 +1,19 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, FlatList, Pressable, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, Pressable, ScrollView, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from "@react-navigation/native";
 
 const InfoObject = ({ route }) => {
     const navigation = useNavigation();
     const { selectedItem } = route.params;
-    
+
+    // Tratamento de imagens
     let images = [];
     try {
-        images = JSON.parse(selectedItem.images);
+        images = JSON.parse(selectedItem.images) || [];
     } catch (error) {
         console.error('Erro ao converter images:', error);
+        Alert.alert('Erro', 'As imagens não puderam ser carregadas.');
     }
 
     const renderImage = ({ item }) => (
@@ -21,9 +23,9 @@ const InfoObject = ({ route }) => {
         />
     );
 
-    let caracteristicas = [];
-    caracteristicas = JSON.parse(selectedItem.caracteristicasAdicionais);
-    const caracteristicasDisplay = Array.isArray(caracteristicas) ? caracteristicas.join(', ') : '';
+  
+
+
 
     return (
         <View style={styles.container}>
@@ -43,39 +45,33 @@ const InfoObject = ({ route }) => {
                 </View>
 
                 <Pressable style={styles.btnAdvance}>
-                    {selectedItem.nomeStatus === 'ativado' ?(
-                        <Text style={{ fontSize: 20, fontWeight: '600', color: "green" }}>{selectedItem.nomeStatus}</Text>
-                        
-                    ):(
-                        <Text style={{ fontSize: 20, fontWeight: '600', color: "red" }}>{selectedItem.nomeStatus}</Text>
-                    )}
+                    <Text style={{
+                        fontSize: 20,
+                        fontWeight: '600',
+                        color: selectedItem.nomeStatus === 'ativado' ? "green" : "red"
+                    }}>
+                        {selectedItem.nomeStatus}
+                    </Text>
                 </Pressable>
 
                 <View style={styles.containerDesc}>
                     <View style={styles.headerContainer}>
-                        <Text style={styles.objeto}>nome: {selectedItem.descSubCategoria}</Text>
-                        <Text style={{ color: '#787878', fontSize: 16 }}>
-                            {selectedItem.descCategoria}
-                        </Text>
+                        <Text style={styles.objeto}>Nome: {selectedItem.descSubCategoria}</Text>
+                        <Text style={styles.subTitle}>{selectedItem.descCategoria}</Text>
                     </View>
 
-                    {selectedItem.caracteristicasAdicionais.length > 2 && (
-                        <Text style={styles.objeto}>
-                            {selectedItem.nomeObjeto === 'pendrive' || selectedItem.descSubCategoria === 'celular' || selectedItem.nomeObjeto === 'bone' ? 'Marca' : 'Adicional'} {caracteristicasDisplay}
-                        </Text>
-                    )}
-
-                    <Text style={styles.objeto}>Cor: {selectedItem.corObjeto}</Text>
+                 
+                    <Text style={styles.objeto}>Cor: {selectedItem.descCor}</Text>
                     <Text style={styles.objeto}>Andar Encontrado: {selectedItem.descLocal}</Text>
                     <Text style={styles.objeto}>Local Encontrado: {selectedItem.descAndar}</Text>
-                    <Text style={styles.objeto}>Data de registro: {selectedItem.dataRegistro}</Text>
+                    <Text style={styles.objeto}>Data de Registro: {selectedItem.dataRegistro}</Text>
 
                     <View style={styles.descriptionContainer}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Descrição do objeto</Text>
+                        <Text style={styles.descriptionHeader}>Descrição do Objeto</Text>
                     </View>
 
                     <View style={{ marginTop: 10 }}>
-                        <Text style={{ fontSize: 16 }}>{selectedItem.descObjeto}</Text>
+                        <Text style={styles.descriptionText}>{selectedItem.descObjeto}</Text>
                     </View>
                 </View>
             </ScrollView>
@@ -99,7 +95,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     imageContainer: {
-        width: '100%',  // Ajuste a largura conforme necessário
+        width: '100%',
     },
     btn: {
         position: 'absolute',
@@ -125,7 +121,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         borderRadius: 30,
         marginTop: 30,
-        alignSelf: 'center',  // Centraliza o botão
+        alignSelf: 'center',
     },
     headerContainer: {
         flexDirection: "row",
@@ -134,11 +130,18 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     descriptionContainer: {
-        flexDirection: "row",
-        justifyContent: 'space-between',
-        width: '100%',
-        alignItems: 'center',
         marginTop: 20,
+    },
+    descriptionHeader: {
+        fontWeight: 'bold',
+        fontSize: 18,
+    },
+    descriptionText: {
+        fontSize: 16,
+    },
+    subTitle: {
+        color: '#787878',
+        fontSize: 16,
     },
 });
 

@@ -5,31 +5,28 @@ import {
     Text,
     StyleSheet,
     Image,
-    TextInput,
     ActivityIndicator,
     FlatList,
     Pressable,
-    
+    ScrollView,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Context } from "../../../context/provider";
 import { useNavigation } from "@react-navigation/native";
 
-
 const HomeAdm = () => {
-    const {urlApi} = useContext(Context)
-    const navigation = useNavigation()
+    const { urlApi } = useContext(Context);
+    const navigation = useNavigation();
     const { nomeAdm } = useContext(Context);
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedTag, setSelectedTag] = useState('Tudo');
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`http://${urlApi}/services/getPost.php`);
- 
                 setPosts(response.data);
-
             } catch (error) {
                 console.error('Erro ao buscar os dados:', error);
             } finally {
@@ -37,7 +34,15 @@ const HomeAdm = () => {
             }
         };
         fetchData();
-    }, [posts]);
+    }, [urlApi]);
+
+    const handleTagPress = (tag) => {
+        setSelectedTag(tag);
+    };
+
+    const filteredPosts = posts.filter(post => 
+        selectedTag === 'Tudo' || post.descCategoria === selectedTag
+    );
 
     const renderItem = ({ item }) => {
         let images;
@@ -54,15 +59,13 @@ const HomeAdm = () => {
         return (
             <View style={styles.postItem}>
                 {imageUrl ? (
-                    <Pressable onPress={()=> navigation.navigate('InfoObject',{selectedItem:item})}>
+                    <Pressable onPress={() => navigation.navigate('InfoObject', { selectedItem: item })}>
                         <Image
                             source={{ uri: imageUrl }}
                             style={styles.postImage}
                         />
                     </Pressable>
-
                 ) : (
-    
                     <Text style={styles.postTitle}>Sem imagem disponível</Text>
                 )}
 
@@ -84,9 +87,6 @@ const HomeAdm = () => {
         );
     };
 
-    const bnt = () => {
-        alert('não pronto ;)')
-    }
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -103,34 +103,72 @@ const HomeAdm = () => {
                 </View>
             </View>
 
-            {/* <View style={styles.inputView}>
-                <TextInput
-                    placeholder="Pesquise pelo seu objeto"
-                    style={styles.input}
-                    placeholderTextColor="#fff"
-                />
-            </View> */}
-            <View style={{ flexDirection: "row", gap: 10, margin: 10 }}>
-                <Pressable onPress={bnt} style={styles.tag}>
-                    <Text style={{ color: 'white', fontSize: 17 }}>Tudo</Text>
-                </Pressable>
-                <Pressable onPress={bnt} style={[styles.tag, { backgroundColor: '#4786d3' }]}>
-                    <Text style={{ color: 'white', fontSize: 17 }}>Eletronico</Text>
-                </Pressable>
-                <Pressable onPress={bnt} style={[styles.tag, { backgroundColor: '#4786d3' }]}>
-                    <Text style={{ color: 'white', fontSize: 17 }}>Documentos</Text>
-                </Pressable>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                
+                <View style={{ flexDirection: "row", gap: 10, margin: 10 }}>
+                    <Pressable
+                        onPress={() => handleTagPress('Tudo')}
+                        style={[styles.tag, selectedTag === 'Tudo' && styles.tagActive]}
+                    >
+                        <Text style={{ color: 'white', fontSize: 17 }}>Tudo</Text>
+                    </Pressable>
+                    <Pressable
+                        onPress={() => handleTagPress('Eletronico')}
+                        style={[styles.tag, selectedTag === 'Eletronico' && styles.tagActive]}
+                    >
+                        <Text style={{ color: 'white', fontSize: 17 }}>Eletrônico</Text>
+                    </Pressable>
+                    <Pressable
+                        onPress={() => handleTagPress('Documentos')}
+                        style={[styles.tag, selectedTag === 'Documentos' && styles.tagActive]}
+                    >
+                        <Text style={{ color: 'white', fontSize: 17 }}>Documentos</Text>
+                    </Pressable>
+                    <Pressable
+                        onPress={() => handleTagPress('Roupas')}
+                        style={[styles.tag, selectedTag === 'Roupas' && styles.tagActive]}
+                    >
+                        <Text style={{ color: 'white', fontSize: 17 }}>Roupas</Text>
+                    </Pressable>
+                    <Pressable
+                        onPress={() => handleTagPress('Acessorio Pessoal')}
+                        style={[styles.tag, selectedTag === 'Acessorio Pessoal' && styles.tagActive]}
+                    >
+                        <Text style={{ color: 'white', fontSize: 17 }}>Acessorio Pessoal</Text>
+                    </Pressable>
+                    <Pressable
+                        onPress={() => handleTagPress('Material Escolar')}
+                        style={[styles.tag, selectedTag === 'Material Escolar' && styles.tagActive]}
+                    >
+                        <Text style={{ color: 'white', fontSize: 17 }}>Material Escolar</Text>
+                    </Pressable>
+                    <Pressable
+                        onPress={() => handleTagPress('Outros')}
+                        style={[styles.tag, selectedTag === 'Outros' && styles.tagActive]}
+                    >
+                        <Text style={{ color: 'white', fontSize: 17 }}>Outros</Text>
+                    </Pressable>
+                </View>
+            </ScrollView>
+            {filteredPosts.length === 0 ? (
+                <View style={{ width: "90%",alignItems:'center'}}>
+                <Text style={{ fontWeight: 'bold', fontSize: 19 }}>Nenhum Objeto Perdido</Text>
             </View>
+         
+            ):
 
-            <View style={{ width: "90%" }}>
-                <Text style={{ fontWeight: 'bold', fontSize: 19 }}>Objetos perdidos recentemente</Text>
-            </View>
+            <View style={{ width: "90%",alignItems:'center'}}>
+            <Text style={{ fontWeight: 'bold', fontSize: 19 }}>Objetos perdidos recentemente</Text>
+        </View>
+            }
+            
 
             {loading ? (
                 <ActivityIndicator size="large" color="#4786d3" />
             ) : (
+                
                 <FlatList
-                    data={posts}
+                    data={filteredPosts}
                     keyExtractor={(item) => item.idPost.toString()}
                     renderItem={renderItem}
                     contentContainerStyle={styles.flatListContent}
@@ -166,29 +204,9 @@ const styles = StyleSheet.create({
         color: "gray",
         fontSize: 20,
     },
-    inputView: {
-        backgroundColor: "#4786d3",
-        width: "90%",
-        borderRadius: 15,
-        borderWidth: 1,
-        borderColor: "gray",
-        alignItems: "center",
-        flexDirection: "row-reverse",
-        justifyContent: "space-evenly",
-        height: 45,
-        paddingRight: 8
-    },
-    input: {
-        backgroundColor: "#4786d3",
-        width: "100%",
-        borderRadius: 15,
-        borderColor: "gray",
-        height: 45,
-        paddingLeft: 15,
-    },
     flatListContent: {
         paddingBottom: '38%',
-        flexDirection:'row-reverse'
+        flexDirection: 'row-reverse'
     },
     postItem: {
         backgroundColor: "#f9f9f9",
@@ -197,8 +215,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
         borderRadius: 10,
         elevation: 3,
-
-   
     },
     postImage: {
         width: 250,
@@ -219,6 +235,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#b1b1b1",
         backgroundColor: "#2f2f2f"
+    },
+    tagActive: {
+        backgroundColor: '#4786d3', // Cor ativa do botão
+        borderColor: '#4786d3', // Cor da borda ativa do botão
     },
 });
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11/09/2024 às 05:17
+-- Tempo de geração: 17/09/2024 às 04:57
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -45,6 +45,34 @@ INSERT INTO `adm` (`id`, `nome`, `email`, `senha`, `token`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL,
+  `sender_id` int(11) NOT NULL,
+  `recipient_id` int(11) NOT NULL,
+  `mensagem` text NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `messages`
+--
+
+INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `mensagem`, `item_id`, `created_at`) VALUES
+(1, 245, 246, 'Jk', 240, '2024-09-17 00:51:29'),
+(2, 245, 246, 'K', 240, '2024-09-17 00:55:47'),
+(3, 245, 246, 'V', 240, '2024-09-17 01:37:24'),
+(4, 245, 246, 'N', 240, '2024-09-17 01:40:37'),
+(5, 245, 246, 'J', 240, '2024-09-17 01:40:41'),
+(6, 245, 246, 'Aaa', 240, '2024-09-17 01:47:50'),
+(7, 246, 245, 'Aaa', 238, '2024-09-17 01:48:22');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `objeto`
 --
 
@@ -68,9 +96,7 @@ CREATE TABLE `objeto` (
 --
 
 INSERT INTO `objeto` (`idObjeto`, `categoriaObjeto`, `nomeObjeto`, `tamanhoObjeto`, `localidadeObjeto`, `descObjeto`, `marcaObjeto`, `andar`, `corObjeto`, `images`, `usuario`, `dataRegistro`) VALUES
-(235, 7, 12, 4, 1, '', 1, 1, 1, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F17cf5e6a-6954-4a91-ab4c-6173595a6c56.png?alt=media&token=cd83cf4e-d7ff-46f5-95f0-10d15752878a\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F54d9fd03-55c0-42d2-b952-d4ef31e59cae.png?alt=media&token=a8af22d6-543e-43f4-99f5-41eed1160690\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F9b4a169a-6f0d-4df0-a715-bad8be2f8dda.png?alt=media&token=7940890d-da1c-41e1-9bd9-6ef14ac645a5\"]', 245, '2024-09-09'),
-(236, 8, 19, 5, 1, '', 76, 1, 4, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Ffa973a65-db18-4393-80eb-8fda95c4ec0c.png?alt=media&token=717a2bd4-e556-4c67-a30f-fb46201a8936\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F3429868a-7200-49d4-8c75-c8e140d9544b.png?alt=media&token=66e728fb-e343-4d07-aa85-173f3c7b19b6\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F18cafe47-9d38-4fc5-b41d-aaabcde65925.png?alt=media&token=bb8c595d-1922-4023-91ac-b5db7a676cb1\"]', 245, '2024-09-09'),
-(237, 7, 12, 6, 1, '', 1, 1, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fb5e6cd88-134e-4f2f-a756-15906a973b83.jpeg?alt=media&token=5e2a6cd4-8665-45ed-8b25-192e0029b4c5\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F13caf844-c94e-43b3-b88f-0f1ac97befd0.jpeg?alt=media&token=ca152b98-01a2-483c-b094-d5224bbcbe92\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F39639424-5fc6-4cc2-b88f-dc94fc58b179.jpeg?alt=media&token=ef7a669b-6189-42a7-9941-93022c3bf2e5\"]', 245, '2024-09-10');
+(242, 7, 10, 5, 1, '', 51, 2, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fe9b04a7e-1ffc-4f0a-ac6f-1c44dce2b22c.png?alt=media&token=6d4dfeca-30d3-473d-837e-ce07e0c50d2d\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F0b2ef197-0685-41c7-a01d-8d05086c2eeb.png?alt=media&token=1014082e-fa46-4d04-a311-f3e9ede2c8cc\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fb2dee19a-078e-47aa-a518-389e5197c659.png?alt=media&token=7e724f6e-f67d-4623-9532-238ea981d92e\"]', 245, '2024-09-16');
 
 -- --------------------------------------------------------
 
@@ -90,9 +116,7 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`idPost`, `idObjeto`, `idUsuario`, `statusPost`) VALUES
-(78, 235, 245, 4),
-(79, 236, 245, 3),
-(80, 237, 245, 4);
+(85, 242, 245, 3);
 
 -- --------------------------------------------------------
 
@@ -486,7 +510,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nome`, `email`, `senha`, `numeroCelular`, `dataNascimento`, `imagem`, `createdAt`, `updatedAt`) VALUES
-(245, 'Davi Freitas', 'davifreitaz999@gmail.com', '$2y$10$HO3QI.QpDwchMFh9r1RnMuehtn/gNKwIpK20WYv0JkA3gUBlhtl/i', '11952041573', '2004-07-27 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F621569ed-ed05-4598-acc6-7f88ce898525.jpeg?alt=media&token=cd3c99bd-402d-4a59-9d11-1d5b4d6870de', '2024-08-24 00:28:46', '2024-08-24 00:28:46'),
+(245, 'Davi Freitasz', 'davifreitaz999@gmail.com', '$2y$10$HO3QI.QpDwchMFh9r1RnMuehtn/gNKwIpK20WYv0JkA3gUBlhtl/i', '11952041573', '2004-07-27 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F621569ed-ed05-4598-acc6-7f88ce898525.jpeg?alt=media&token=cd3c99bd-402d-4a59-9d11-1d5b4d6870de', '2024-08-24 00:28:46', '2024-08-24 00:28:46'),
 (246, 'Sarah', 'freitaadavia20@etec.sp.gov.br', '$2y$10$mXQ5fA/ZpF6cfH3biouF9OSjzZk6XqhxHz/R7IRxVKEa5hYse/AK6', '11952041573', '2004-07-27 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2Ff25d16d4-4ea0-4a5f-81d9-5dff69a58f49.jpeg?alt=media&token=c6ca676e-9d1c-4c7b-8392-ee0cac4691a0', '2024-08-24 00:30:30', '2024-08-24 00:30:30'),
 (247, 'Davi Freitas ', 'freitaadavi20@gmail.com', '$2y$10$Aww0lzE.5k97DhEYXpyrQO1vVc0eNOiE4Jaev.txwaOIu82ttpydu', '11952041573', '2004-08-23 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F26d4e672-c479-4d38-8b1e-3f6f35155c78.jpeg?alt=media&token=9e91987c-617b-4322-ac28-397efba2d0a1', '2024-08-24 01:58:46', '2024-08-24 01:58:46'),
 (248, 'Davi Freitas ', 'paulo.freitas74@etec.sp.gov.br', '$2y$10$hvcEmDO5s/WerPgu.294tOvEBAy/Ym6ZtIeIY0Z/8CAax/Cqm1tt2', '11942041574', '2004-08-25 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F24854126-bf06-4d39-a423-e329792d8795.jpeg?alt=media&token=33842ed4-ef36-4f4e-a0d7-bd6be76bb367', '2024-08-24 05:28:19', '2024-08-24 05:28:19'),
@@ -502,6 +526,14 @@ INSERT INTO `users` (`id`, `nome`, `email`, `senha`, `numeroCelular`, `dataNasci
 --
 ALTER TABLE `adm`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sender_id` (`sender_id`),
+  ADD KEY `recipient_id` (`recipient_id`);
 
 --
 -- Índices de tabela `objeto`
@@ -593,16 +625,22 @@ ALTER TABLE `adm`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de tabela `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT de tabela `objeto`
 --
 ALTER TABLE `objeto`
-  MODIFY `idObjeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=238;
+  MODIFY `idObjeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
 
 --
 -- AUTO_INCREMENT de tabela `post`
 --
 ALTER TABLE `post`
-  MODIFY `idPost` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `idPost` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT de tabela `tbandar`
@@ -661,6 +699,13 @@ ALTER TABLE `users`
 --
 -- Restrições para tabelas despejadas
 --
+
+--
+-- Restrições para tabelas `messages`
+--
+ALTER TABLE `messages`
+  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`recipient_id`) REFERENCES `users` (`id`);
 
 --
 -- Restrições para tabelas `objeto`

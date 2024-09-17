@@ -22,7 +22,7 @@ export default function SignIn() {
 
  
   useEffect(() => {
-    setUrlApi('10.67.4.54'); 
+    setUrlApi('192.168.1.71'); 
   }, [setUrlApi])
 
 
@@ -60,7 +60,7 @@ export default function SignIn() {
   }
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor:"white"}}>
       <View style={styles.container}>
         <LinearGradient
           colors={['#fff', '#4786d3']}
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: 50,
+    paddingTop: 80,
     gap: 40
   },
   gradient: {

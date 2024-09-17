@@ -137,7 +137,13 @@ function MyStack() {
 
           },
           headerTitleContainerStyle: {
-            paddingLeft: '50%'
+            
+            width:'70%',
+            justifyContent:"center",
+            alignItems:"center",
+ 
+            
+            
           },
           headerTitleStyle: {
             fontSize: 22
@@ -152,7 +158,13 @@ function MyStack() {
 
           },
           headerTitleContainerStyle: {
-            paddingLeft: '40%'
+            
+            width:'70%',
+            justifyContent:"center",
+            alignItems:"center",
+ 
+            
+            
           },
           headerTitleStyle: {
             fontSize: 22
@@ -192,7 +204,13 @@ function MyStack() {
             backgroundColor: '#005AC5',
           },
           headerTitleContainerStyle: {
-            paddingLeft: '40%'
+            
+            width:'70%',
+            justifyContent:"center",
+            alignItems:"center",
+ 
+            
+            
           },
           headerTitleStyle: {
             fontSize: 22
@@ -203,10 +221,20 @@ function MyStack() {
         <Stack.Screen name="Code" component={Code} options={{ headerShown: true,
           headerTitle:'Autentificando-se',
           headerTintColor:"#fff",
+          headerTitleContainerStyle: {
+            
+            width:'70%',
+            justifyContent:"center",
+            alignItems:"center",
+ 
+            
+            
+          },
           headerStyle:{
             backgroundColor:'#6d9fdc'
           }
          }} />
+         
            <Stack.Screen name="AdminDrawer" component={AdminDrawerNavigator} options={{ headerShown: false }} />
 
 
@@ -225,51 +253,99 @@ function MyStack() {
             backgroundColor:"#4786d3"
           },
           headerTitleContainerStyle: {
-            paddingLeft: '40%'
+            
+            width:'70%',
+            justifyContent:"center",
+            alignItems:"center",
+ 
+            
+            
           },}} />
 
-          <Stack.Screen  name='EletronicScreen' component={EletronicScreen} options={{headerTitle:'Eletronicos',headerTintColor:'white',headerStyle:{
+          <Stack.Screen  name='EletronicScreen' component={EletronicScreen} options={{headerTitle:'Eletrônicos',headerTintColor:'white',headerStyle:{
             backgroundColor:"#4786d3"
           },
           headerTitleContainerStyle: {
-            paddingLeft: '55%'
+            
+            width:'70%',
+            justifyContent:"center",
+            alignItems:"center",
+ 
+            
+            
           },}} />
           
           <Stack.Screen  name='LostObject' component={LostObject} options={{headerTitle:'Achados',headerTintColor:'white',headerStyle:{
             backgroundColor:"#4786d3"
           },
           headerTitleContainerStyle: {
-            paddingLeft: '55%'
+            
+            width:'70%',
+            justifyContent:"center",
+            alignItems:"center",
+ 
+            
+            
           },}} />
           <Stack.Screen  name='Roupas' component={Roupas} options={{headerTitle:'Roupas',headerTintColor:'white',headerStyle:{
             backgroundColor:"#4786d3"
           },
           headerTitleContainerStyle: {
-            paddingLeft: '55%'
+            
+            width:'70%',
+            justifyContent:"center",
+            alignItems:"center",
+ 
+            
+            
           },}} />
-          <Stack.Screen  name='Acessorio' component={Acessorio} options={{headerTitle:'Acessorio',headerTintColor:'white',headerStyle:{
+          <Stack.Screen  name='Acessorio' component={Acessorio} options={{headerTitle:'Acesório Pessoal',headerTintColor:'white',headerStyle:{
             backgroundColor:"#4786d3"
           },
           headerTitleContainerStyle: {
-            paddingLeft: '55%'
+            
+            width:'70%',
+            justifyContent:"center",
+            alignItems:"center",
+ 
+            
+            
           },}} />
-          <Stack.Screen  name='MaterialEscolar' component={MaterialEscolar} options={{headerTitle:'Acessorio',headerTintColor:'white',headerStyle:{
+          <Stack.Screen  name='MaterialEscolar' component={MaterialEscolar} options={{headerTitle:'Material Escolar',headerTintColor:'white',headerStyle:{
             backgroundColor:"#4786d3"
           },
           headerTitleContainerStyle: {
-            paddingLeft: '55%'
+            
+            width:'70%',
+            justifyContent:"center",
+            alignItems:"center",
+ 
+            
+            
           },}} />
           <Stack.Screen  name='Documento' component={Documento} options={{headerTitle:'Documentos',headerTintColor:'white',headerStyle:{
             backgroundColor:"#4786d3"
           },
           headerTitleContainerStyle: {
-            paddingLeft: '45%'
+            
+            width:'70%',
+            justifyContent:"center",
+            alignItems:"center",
+ 
+            
+            
           },}} />
-          <Stack.Screen  name='Outros' component={Outros} options={{headerTitle:'Documentos',headerTintColor:'white',headerStyle:{
+          <Stack.Screen  name='Outros' component={Outros} options={{headerTitle:'Outros',headerTintColor:'white',headerStyle:{
             backgroundColor:"#4786d3"
           },
           headerTitleContainerStyle: {
-            paddingLeft: '45%'
+            
+            width:'70%',
+            justifyContent:"center",
+            alignItems:"center",
+ 
+            
+            
           },}} />
 
          

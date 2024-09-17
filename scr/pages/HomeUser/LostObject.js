@@ -4,8 +4,9 @@ import { SafeAreaView, StatusBar, StyleSheet, Text, View, FlatList, Image, Press
 import { Context } from '../../context/provider';
 import { useContext } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 const LostObject = () => {
-
+    const navigation = useNavigation()
     const {data} = useContext(Context)
     
 
@@ -28,9 +29,10 @@ const LostObject = () => {
     );
 
 
-    function chat () {
-        alert('chat não pronto ;)')
-    }
+    const chat = (userId, itemId) => {
+        navigation.navigate('ChatScreen', { recipientId: userId, itemId: itemId });
+    };
+
     const renderItem = ({ item }) => {
      
         const images = parseImages(item.images); 
@@ -51,7 +53,7 @@ const LostObject = () => {
                             />
                          <Text style={styles.title}>{item.nome}</Text>
                  </View>
-                 <Pressable style={{marginTop:10}} onPress={chat}>
+                 <Pressable style={{marginTop:10}}  onPress={() => chat(item.id, item.idObjeto)}>
                     <Icon  name='chatbubble-ellipses' size={30} color= '#4786d3'/>
                  </Pressable>
                  </View>
