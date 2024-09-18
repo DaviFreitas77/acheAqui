@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { View, Text,Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -18,7 +19,8 @@ import Provider, { Context } from './scr/context/provider';
 import SignUp from './scr/pages/SignUp';
 import SignIn from './scr/pages/SignIn/Index';
 import HomeScreen from './scr/pages/HomeUser';
-import ChatScreen from './scr/pages/ChatScreen';
+import MeusPosts from './scr/pages/MeusPosts/index.js';
+import Chat from './scr/pages/chat/index.js';
 import CustomDrawerContent from './scr/CustomDrawer/customDrawer';
 import EditUser from './scr/pages/EditUser';
 import RegisterObject from './scr/pages/RegisterObject';
@@ -63,8 +65,8 @@ function TabNavigator() {
         }} />
 
       <Tab.Screen
-        name='ChatScreen'
-        component={ChatScreen}
+        name='MeusPosts'
+        component={MeusPosts}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -103,6 +105,7 @@ function StackInsideDrawer() {
         options={{
           headerShown: false
         }} />
+     
     </Stack.Navigator>
   );
 }
@@ -347,7 +350,30 @@ function MyStack() {
             
             
           },}} />
-
+    <Stack.Screen
+    name="Chat"
+    component={Chat}
+    options={({ route }) => ({
+        headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center',gap:10 }}>
+           
+                <Image
+                    source={{ uri: route.params.userImagem }}
+                    style={{ width: 40, height: 40, borderRadius: 20 }} 
+                />
+               
+                <Text style={{ fontSize: 20, marginRight: 10,color:"white" }}>{route.params ? route.params.userNome : 'Chat'}</Text>
+              
+            </View>
+        ),
+        
+        headerStyle:{
+           backgroundColor:"#4786d3",
+ 
+        },
+       
+    })}
+/>
          
         
 

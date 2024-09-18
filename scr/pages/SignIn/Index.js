@@ -124,6 +124,7 @@ export default function SignIn() {
             <Text style={{ fontSize: 10, color: 'white' }}>Admins</Text>
           </Pressable>
         </View>
+        
         <StatusBar style="auto" />
       </View>
     </ScrollView>

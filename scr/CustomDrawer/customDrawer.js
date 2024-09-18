@@ -8,11 +8,26 @@ import Icon from 'react-native-vector-icons/Feather';
 
 function CustomDrawerContent(props) {
     const navigation = useNavigation();
-    const { nomeUser } = useContext(Context);
-    const { emailUser } = useContext(Context)
+    const { 
+        nomeUser, 
+        emailUser, 
+        setNomeUser, 
+        setEmailUser, 
+        setIdUser, 
+        setNumeroUser, 
+        setImagemUser 
+    } = useContext(Context);
     const {imagemUser} = useContext(Context);
     const handleLogout = () => {
+
+        setNomeUser(null);
+        setEmailUser(null);
+        setIdUser(null);
+        setNumeroUser(null);
+        setImagemUser(null);
         navigation.navigate('SignIn');
+      
+
     };
 
     return (

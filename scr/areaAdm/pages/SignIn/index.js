@@ -34,7 +34,7 @@ const HomeAdm = () => {
             }
         };
         fetchData();
-    }, [urlApi]);
+    }, [urlApi,posts]);
 
     const handleTagPress = (tag) => {
         setSelectedTag(tag);
@@ -82,7 +82,15 @@ const HomeAdm = () => {
                 </View>
 
                 <Text style={styles.postTitle}>{item.descSubCategoria}</Text>
-                <Text>{item.descCategoria}</Text>
+                <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                    <Text>{item.descCategoria}</Text>
+                
+                        
+                <Text>ID: {item.idPost}</Text>
+                    
+                 
+                   
+                </View>
             </View>
         );
     };
@@ -185,7 +193,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        backgroundColor: "#fff",
+        backgroundColor: "#ffff",
         gap: 30,
         paddingTop: 20
     },

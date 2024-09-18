@@ -2,13 +2,12 @@ import React from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const ChatScreen = () => {
+const MeusPosts = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <View style={styles.inner}>
-        <Text style={styles.title}>Welcome to React Native!</Text>
-        <Text style={styles.subtitle}>To get started, edit App.js</Text>
+        <Text style={styles.title}>Meus Posts</Text>
       </View>
     </SafeAreaView>
   );
@@ -34,4 +33,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChatScreen;
+export default MeusPosts;

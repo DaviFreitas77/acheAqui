@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 const LostObject = () => {
     const navigation = useNavigation()
     const {data} = useContext(Context)
-    
+        console.log(data)
 
     const parseImages = (imagesString) => {
         let images = [];
@@ -29,8 +29,15 @@ const LostObject = () => {
     );
 
 
-    const chat = (userId, itemId) => {
-        navigation.navigate('ChatScreen', { recipientId: userId, itemId: itemId });
+    const chat = (userId, itemId,itemNome,imagemUser,imagemItem,descSubCategoria) => {
+        navigation.navigate('Chat', { recipientId: userId,
+             itemId: itemId,
+             userNome:itemNome,
+             userImagem:imagemUser,
+             itemImagem:imagemItem,
+             itemSubCateogiria:descSubCategoria
+            
+            });
     };
 
     const renderItem = ({ item }) => {
@@ -53,7 +60,7 @@ const LostObject = () => {
                             />
                          <Text style={styles.title}>{item.nome}</Text>
                  </View>
-                 <Pressable style={{marginTop:10}}  onPress={() => chat(item.id, item.idObjeto)}>
+                 <Pressable style={{marginTop:10}}  onPress={() => chat(item.id, item.idObjeto,item.nome,item.imagem,item.images,item.descSubCategoria)}>
                     <Icon  name='chatbubble-ellipses' size={30} color= '#4786d3'/>
                  </Pressable>
                  </View>
