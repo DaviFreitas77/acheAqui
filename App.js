@@ -5,7 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, Text,Image } from 'react-native';
+import { View, Text,Image,Pressable } from 'react-native';
+import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -34,6 +35,7 @@ import Acessorio from './scr/pages/HomeUser/categorias/acessorioPessoal.js';
 import MaterialEscolar from './scr/pages/HomeUser/categorias/materialEscolar.js';
 import Documento from './scr/pages/HomeUser/categorias/documentos.js';
 import Outros from './scr/pages/HomeUser/categorias/outros.js';
+import Conversations from './scr/pages/Conversas/index.js';
 
 //adm
 import Code from './scr/areaAdm/pages/Code';
@@ -113,9 +115,15 @@ function StackInsideDrawer() {
 function DrawerNavigator() {
   return (
     <Drawer.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name="StackInsideDrawer" component={StackInsideDrawer} options={{
-        headerTitle: ''
-      }} />
+      <Drawer.Screen name="StackInsideDrawer" component={StackInsideDrawer}   options={({ navigation }) => ({
+        headerTitle:'',
+          headerRight: () => (
+            <Pressable style={{paddingRight:20}} onPress={() => navigation.navigate('Conversations')}>
+              <Feather name="message-circle" size={30} color="#005AC5" />
+            </Pressable>
+          )
+        })}
+      />
     </Drawer.Navigator>
   );
 }
@@ -339,6 +347,18 @@ function MyStack() {
             
           },}} />
           <Stack.Screen  name='Outros' component={Outros} options={{headerTitle:'Outros',headerTintColor:'white',headerStyle:{
+            backgroundColor:"#4786d3"
+          },
+          headerTitleContainerStyle: {
+            
+            width:'70%',
+            justifyContent:"center",
+            alignItems:"center",
+ 
+            
+            
+          },}} />
+          <Stack.Screen  name='Conversations' component={Conversations}options={{headerTitle:'Conversa',headerTintColor:'white',headerStyle:{
             backgroundColor:"#4786d3"
           },
           headerTitleContainerStyle: {

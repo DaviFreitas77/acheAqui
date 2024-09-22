@@ -3,6 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 export const Context = createContext();
 
 export default function Provider({ children }) {
+    const [recipientId,setRecipientId] = useState('')
     const [urlApi,setUrlApi] = useState('')
     const [item,setItem] = useState('')
     const [logAdm,setLogAdm] = useState('')
@@ -24,7 +25,7 @@ export default function Provider({ children }) {
 
 
     return (
-        <Context.Provider value={{ nomeUser, setNomeUser,emailUser,setEmailUser,numeroUser,setNumeroUser,imagemUser,setImagemUser,idUser,setIdUser,formData,setFormData,setNascUser,nascUser,setLogAdm,logAdm,setNomeAdm,nomeAdm,setEmailAdm,emailAdm,data,setData,setUrlApi,urlApi,item,setItem}}>
+        <Context.Provider value={{ nomeUser, setNomeUser,emailUser,setEmailUser,numeroUser,setNumeroUser,imagemUser,setImagemUser,idUser,setIdUser,formData,setFormData,setNascUser,nascUser,setLogAdm,logAdm,setNomeAdm,nomeAdm,setEmailAdm,emailAdm,data,setData,setUrlApi,urlApi,item,setItem,setRecipientId,recipientId}}>
             {children}
         </Context.Provider>
     );

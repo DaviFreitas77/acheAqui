@@ -16,12 +16,12 @@ import { Context } from "../../context/provider";
 
 const HomeUser = () => {
   const { nomeUser } = useContext(Context);
-  const {imagemUser} = useContext(Context);
+  const { imagemUser } = useContext(Context);
   const navigation = useNavigation()
-  
+
   return (
-    
-    <ScrollView style={{backgroundColor:"white"}}>
+
+    <ScrollView style={{ backgroundColor: "white" }}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Image
@@ -29,15 +29,20 @@ const HomeUser = () => {
             style={{ width: 80, height: 80, borderRadius: 100 }}
           />
           <View style={{ width: "55%" }}>
-            <Text style={styles.textHeaderTiltle}>Olá,{nomeUser}</Text>
+            <View style={{flexDirection:"row",justifyContent:"space-between"}}>
+              <Text style={styles.textHeaderTiltle}>Olá,{nomeUser}</Text>
+             
+            </View>
             <Text style={styles.textHeader}>Perdeu algo? </Text>
             <Text style={styles.textHeader}>
               Faça uma breve busca para reencontrar !!{" "}
             </Text>
+
           </View>
         </View>
+
         <View style={styles.inputView}>
-      
+
           <TextInput
             placeholder="Pesquise pelo seu objeto"
             style={styles.input}
@@ -51,49 +56,49 @@ const HomeUser = () => {
           <View style={styles.containerCatalogo}>
             <View style={{ flexDirection: "row", gap: 20 }}>
               <View style={{ alignItems: "center", gap: 5 }}>
-                <Pressable style={styles.BtnCatalogo} onPress={()=> navigation.navigate('EletronicScreen')}>
-                     <Icon  name="smartphone" size={50}/>
+                <Pressable style={styles.BtnCatalogo} onPress={() => navigation.navigate('EletronicScreen')}>
+                  <Icon name="smartphone" size={50} />
                 </Pressable>
                 <Text style={styles.txtBtNCatalogo}>Eletronicos</Text>
               </View>
               <View style={{ alignItems: "center", gap: 5 }}>
-                <Pressable style={styles.BtnCatalogo}    onPress={()=> navigation.navigate('Roupas')}  >
+                <Pressable style={styles.BtnCatalogo} onPress={() => navigation.navigate('Roupas')}  >
                   <Image source={require('../../imges/homeUser/veste.png')}
                   />
                 </Pressable>
                 <Text style={styles.txtBtNCatalogo}>Vestimentas</Text>
               </View>
               <View style={{ alignItems: "center", gap: 5 }}>
-                <Pressable style={styles.BtnCatalogo}  onPress={()=> navigation.navigate('Acessorio')}  > 
-                <Image source={require('../../imges/homeUser/pessoal.png')}
-      
-                    />
+                <Pressable style={styles.BtnCatalogo} onPress={() => navigation.navigate('Acessorio')}  >
+                  <Image source={require('../../imges/homeUser/pessoal.png')}
+
+                  />
                 </Pressable>
                 <Text style={styles.txtBtNCatalogo}>Acessorio Pessoal</Text>
               </View>
             </View>
             <View style={{ flexDirection: "row", gap: 20 }}>
               <View style={{ alignItems: "center", gap: 5 }}>
-                <Pressable style={styles.BtnCatalogo}  onPress={()=> navigation.navigate('MaterialEscolar')}  > 
-                <Image source={require('../../imges/homeUser/caderno.png')}
-      
-                    />
+                <Pressable style={styles.BtnCatalogo} onPress={() => navigation.navigate('MaterialEscolar')}  >
+                  <Image source={require('../../imges/homeUser/caderno.png')}
+
+                  />
                 </Pressable>
                 <Text style={styles.txtBtNCatalogo}>Material escolar</Text>
               </View>
               <View style={{ alignItems: "center", gap: 5 }}>
-                <Pressable style={styles.BtnCatalogo}  onPress={()=> navigation.navigate('Documento')} >
-                <Image source={require('../../imges/homeUser/documento.png')}
-      
-                    />
+                <Pressable style={styles.BtnCatalogo} onPress={() => navigation.navigate('Documento')} >
+                  <Image source={require('../../imges/homeUser/documento.png')}
+
+                  />
                 </Pressable>
                 <Text style={styles.txtBtNCatalogo}>Documentos</Text>
               </View>
               <View style={{ alignItems: "center", gap: 5 }}>
-                <Pressable style={styles.BtnCatalogo}   onPress={()=> navigation.navigate('Outros')}>
-                <Image source={require('../../imges/homeUser/pesquisa.png')}
-      
-                    />
+                <Pressable style={styles.BtnCatalogo} onPress={() => navigation.navigate('Outros')}>
+                  <Image source={require('../../imges/homeUser/pesquisa.png')}
+
+                  />
                 </Pressable>
                 <Text style={styles.txtBtNCatalogo}>Outros</Text>
               </View>
@@ -110,8 +115,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#fff",
-    paddingTop:20,
+    backgroundColor: "#ffff",
+    paddingTop: 20,
     gap: 60,
   },
   header: {
@@ -131,13 +136,13 @@ const styles = StyleSheet.create({
   },
   containerCatalogo: {
     gap: 20,
-    justifyContent:"center",
-    alignItems:"center"
+    justifyContent: "center",
+    alignItems: "center"
   },
   BtnCatalogo: {
     backgroundColor: "#4787d4",
     padding: 30,
-    borderRadius:100
+    borderRadius: 100
   },
   txtBtNCatalogo: {
     fontWeight: "bold",
@@ -152,7 +157,7 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
     justifyContent: "space-evenly",
     height: 45,
-    paddingRight:8
+    paddingRight: 8
   },
   input: {
     backgroundColor: "#4786d3",
