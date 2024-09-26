@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17/09/2024 às 04:57
--- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- Tempo de geração: 26-Set-2024 às 19:58
+-- Versão do servidor: 10.4.28-MariaDB
+-- versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `adm`
+-- Estrutura da tabela `adm`
 --
 
 CREATE TABLE `adm` (
@@ -36,7 +36,7 @@ CREATE TABLE `adm` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `adm`
+-- Extraindo dados da tabela `adm`
 --
 
 INSERT INTO `adm` (`id`, `nome`, `email`, `senha`, `token`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `adm` (`id`, `nome`, `email`, `senha`, `token`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `messages`
+-- Estrutura da tabela `messages`
 --
 
 CREATE TABLE `messages` (
@@ -58,22 +58,18 @@ CREATE TABLE `messages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `messages`
+-- Extraindo dados da tabela `messages`
 --
 
 INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `mensagem`, `item_id`, `created_at`) VALUES
-(1, 245, 246, 'Jk', 240, '2024-09-17 00:51:29'),
-(2, 245, 246, 'K', 240, '2024-09-17 00:55:47'),
-(3, 245, 246, 'V', 240, '2024-09-17 01:37:24'),
-(4, 245, 246, 'N', 240, '2024-09-17 01:40:37'),
-(5, 245, 246, 'J', 240, '2024-09-17 01:40:41'),
-(6, 245, 246, 'Aaa', 240, '2024-09-17 01:47:50'),
-(7, 246, 245, 'Aaa', 238, '2024-09-17 01:48:22');
+(13, 251, 245, 'Ola tudo bem,sobre o pendrive da SanDisk que você postou,ele é meu,poderia se encontrar comigo para devolvelo?', 0, '2024-09-26 17:52:53'),
+(14, 245, 251, 'Ola Carlens,podemos sim', 0, '2024-09-26 17:53:48'),
+(15, 245, 251, '🥰🥰', 0, '2024-09-26 17:53:55');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `objeto`
+-- Estrutura da tabela `objeto`
 --
 
 CREATE TABLE `objeto` (
@@ -92,16 +88,19 @@ CREATE TABLE `objeto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `objeto`
+-- Extraindo dados da tabela `objeto`
 --
 
 INSERT INTO `objeto` (`idObjeto`, `categoriaObjeto`, `nomeObjeto`, `tamanhoObjeto`, `localidadeObjeto`, `descObjeto`, `marcaObjeto`, `andar`, `corObjeto`, `images`, `usuario`, `dataRegistro`) VALUES
-(242, 7, 10, 5, 1, '', 51, 2, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fe9b04a7e-1ffc-4f0a-ac6f-1c44dce2b22c.png?alt=media&token=6d4dfeca-30d3-473d-837e-ce07e0c50d2d\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F0b2ef197-0685-41c7-a01d-8d05086c2eeb.png?alt=media&token=1014082e-fa46-4d04-a311-f3e9ede2c8cc\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fb2dee19a-078e-47aa-a518-389e5197c659.png?alt=media&token=7e724f6e-f67d-4623-9532-238ea981d92e\"]', 245, '2024-09-16');
+(242, 7, 10, 5, 1, '', 51, 2, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fe9b04a7e-1ffc-4f0a-ac6f-1c44dce2b22c.png?alt=media&token=6d4dfeca-30d3-473d-837e-ce07e0c50d2d\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F0b2ef197-0685-41c7-a01d-8d05086c2eeb.png?alt=media&token=1014082e-fa46-4d04-a311-f3e9ede2c8cc\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fb2dee19a-078e-47aa-a518-389e5197c659.png?alt=media&token=7e724f6e-f67d-4623-9532-238ea981d92e\"]', 245, '2024-09-16'),
+(243, 8, 19, 5, 1, '', 76, 1, 4, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Ff666d0b9-9c25-4fcd-b370-9f4ebedf6147.png?alt=media&token=9e4e0970-b703-4009-942e-5d0d47549920\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F4183528b-4eec-40e4-8512-d90a14ce7fd2.png?alt=media&token=7a77c526-fded-49a8-b010-71ba70ffbec9\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Ff00d9644-73d2-4ea4-82f2-6388ec9b2e82.png?alt=media&token=0ec58115-e3a9-41af-8046-81dc739ff80d\"]', 245, '2024-09-26'),
+(244, 7, 12, 6, 2, '', 2, 1, 1, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F91b4888b-8c45-4bde-8608-97293668919d.webp?alt=media&token=2349aa02-39dc-4220-9580-39b4083f5939\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F0821dd91-cf9e-4138-95eb-6c10e1a6a9a6.webp?alt=media&token=55c1b71a-1e8a-41a4-ba9b-0088fb66c2d1\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F8b9963d0-b8ec-4f23-a236-5f9fa7d8fb77.webp?alt=media&token=ee94195c-2264-445b-b56b-f64181651211\"]', 245, '2024-09-26'),
+(245, 7, 12, 6, 1, '', 1, 1, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fd54c53a9-9f30-485d-897b-14240f82fcbc.jpeg?alt=media&token=c7bd1360-df5a-48bd-841e-66787189f088\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fe62775de-8953-4fb5-939f-ee01386a1c17.jpeg?alt=media&token=8e685da2-285f-4c75-925c-d50d50428192\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F5c13a113-ab27-4061-ae4e-bc7316e7865c.jpeg?alt=media&token=42a8a6ef-dfc9-463e-aaf1-9214a71ee4b4\"]', 245, '2024-09-26');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `post`
+-- Estrutura da tabela `post`
 --
 
 CREATE TABLE `post` (
@@ -112,16 +111,19 @@ CREATE TABLE `post` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `post`
+-- Extraindo dados da tabela `post`
 --
 
 INSERT INTO `post` (`idPost`, `idObjeto`, `idUsuario`, `statusPost`) VALUES
-(85, 242, 245, 3);
+(85, 242, 245, 3),
+(86, 243, 245, 3),
+(87, 244, 245, 3),
+(88, 245, 245, 3);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tbandar`
+-- Estrutura da tabela `tbandar`
 --
 
 CREATE TABLE `tbandar` (
@@ -130,7 +132,7 @@ CREATE TABLE `tbandar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `tbandar`
+-- Extraindo dados da tabela `tbandar`
 --
 
 INSERT INTO `tbandar` (`idAndar`, `descAndar`) VALUES
@@ -141,7 +143,7 @@ INSERT INTO `tbandar` (`idAndar`, `descAndar`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tbcategoria`
+-- Estrutura da tabela `tbcategoria`
 --
 
 CREATE TABLE `tbcategoria` (
@@ -150,7 +152,7 @@ CREATE TABLE `tbcategoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `tbcategoria`
+-- Extraindo dados da tabela `tbcategoria`
 --
 
 INSERT INTO `tbcategoria` (`idCategoria`, `descCategoria`) VALUES
@@ -164,7 +166,7 @@ INSERT INTO `tbcategoria` (`idCategoria`, `descCategoria`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tbcor`
+-- Estrutura da tabela `tbcor`
 --
 
 CREATE TABLE `tbcor` (
@@ -173,7 +175,7 @@ CREATE TABLE `tbcor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `tbcor`
+-- Extraindo dados da tabela `tbcor`
 --
 
 INSERT INTO `tbcor` (`idCor`, `descCor`) VALUES
@@ -186,7 +188,7 @@ INSERT INTO `tbcor` (`idCor`, `descCor`) VALUES
 (7, 'Dourado'),
 (8, 'Prata'),
 (9, 'Vermelho'),
-(10, 'vermelhor e preto'),
+(10, 'vermelho e preto'),
 (11, 'Preto e Branco'),
 (12, 'cinza'),
 (13, 'Preto'),
@@ -196,7 +198,7 @@ INSERT INTO `tbcor` (`idCor`, `descCor`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tblocal`
+-- Estrutura da tabela `tblocal`
 --
 
 CREATE TABLE `tblocal` (
@@ -205,17 +207,24 @@ CREATE TABLE `tblocal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `tblocal`
+-- Extraindo dados da tabela `tblocal`
 --
 
 INSERT INTO `tblocal` (`idLocal`, `descLocal`) VALUES
-(1, 'Sala de Aula de adm'),
-(2, 'Sala de Aula de nutr');
+(1, 'Sala de aula adm'),
+(2, 'Sala de aula nutri'),
+(3, 'Laboratório ds'),
+(4, 'Laboratório nutri'),
+(5, 'Auditório'),
+(6, 'Cantina'),
+(7, 'Refeitório'),
+(8, 'Sala de aula Ds'),
+(9, 'Outro');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tbmarca`
+-- Estrutura da tabela `tbmarca`
 --
 
 CREATE TABLE `tbmarca` (
@@ -225,12 +234,12 @@ CREATE TABLE `tbmarca` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `tbmarca`
+-- Extraindo dados da tabela `tbmarca`
 --
 
 INSERT INTO `tbmarca` (`idMarca`, `descMarca`, `idSubcategoria`) VALUES
 (1, 'Sandisk', 12),
-(2, 'Samsuns', 12),
+(2, 'Samsung', 12),
 (3, 'Corsair', 12),
 (4, 'HP', 12),
 (5, 'Outro', 12),
@@ -384,7 +393,7 @@ INSERT INTO `tbmarca` (`idMarca`, `descMarca`, `idSubcategoria`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tbstatus`
+-- Estrutura da tabela `tbstatus`
 --
 
 CREATE TABLE `tbstatus` (
@@ -393,7 +402,7 @@ CREATE TABLE `tbstatus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `tbstatus`
+-- Extraindo dados da tabela `tbstatus`
 --
 
 INSERT INTO `tbstatus` (`idStatus`, `nomeStatus`) VALUES
@@ -403,7 +412,7 @@ INSERT INTO `tbstatus` (`idStatus`, `nomeStatus`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tbsubcategoria`
+-- Estrutura da tabela `tbsubcategoria`
 --
 
 CREATE TABLE `tbsubcategoria` (
@@ -413,7 +422,7 @@ CREATE TABLE `tbsubcategoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `tbsubcategoria`
+-- Extraindo dados da tabela `tbsubcategoria`
 --
 
 INSERT INTO `tbsubcategoria` (`idSubCategoria`, `descSubCategoria`, `idCategoria`) VALUES
@@ -470,7 +479,7 @@ INSERT INTO `tbsubcategoria` (`idSubCategoria`, `descSubCategoria`, `idCategoria
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tbtamanho`
+-- Estrutura da tabela `tbtamanho`
 --
 
 CREATE TABLE `tbtamanho` (
@@ -479,7 +488,7 @@ CREATE TABLE `tbtamanho` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `tbtamanho`
+-- Extraindo dados da tabela `tbtamanho`
 --
 
 INSERT INTO `tbtamanho` (`idTamanho`, `descTamanho`) VALUES
@@ -490,7 +499,7 @@ INSERT INTO `tbtamanho` (`idTamanho`, `descTamanho`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `users`
+-- Estrutura da tabela `users`
 --
 
 CREATE TABLE `users` (
@@ -506,7 +515,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `users`
+-- Extraindo dados da tabela `users`
 --
 
 INSERT INTO `users` (`id`, `nome`, `email`, `senha`, `numeroCelular`, `dataNascimento`, `imagem`, `createdAt`, `updatedAt`) VALUES
@@ -515,20 +524,21 @@ INSERT INTO `users` (`id`, `nome`, `email`, `senha`, `numeroCelular`, `dataNasci
 (247, 'Davi Freitas ', 'freitaadavi20@gmail.com', '$2y$10$Aww0lzE.5k97DhEYXpyrQO1vVc0eNOiE4Jaev.txwaOIu82ttpydu', '11952041573', '2004-08-23 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F26d4e672-c479-4d38-8b1e-3f6f35155c78.jpeg?alt=media&token=9e91987c-617b-4322-ac28-397efba2d0a1', '2024-08-24 01:58:46', '2024-08-24 01:58:46'),
 (248, 'Davi Freitas ', 'paulo.freitas74@etec.sp.gov.br', '$2y$10$hvcEmDO5s/WerPgu.294tOvEBAy/Ym6ZtIeIY0Z/8CAax/Cqm1tt2', '11942041574', '2004-08-25 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F24854126-bf06-4d39-a423-e329792d8795.jpeg?alt=media&token=33842ed4-ef36-4f4e-a0d7-bd6be76bb367', '2024-08-24 05:28:19', '2024-08-24 05:28:19'),
 (249, 'joao freitas', 'joao123@gmail.com', '$2y$10$SIAXg5SWXU96GsluK5v2Q.B29wChsehMXlwT6dknwWrliEtuxD6Qy', '11848559343', '2024-08-31 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F995234bd-4cfa-4796-91c2-7b43b7390f33.jpeg?alt=media&token=2cd8be0d-c16e-4440-ab1e-8cf0043e9d56', '2024-08-31 23:02:12', '2024-08-31 23:02:12'),
-(250, 'Faixa', 'davifreitaz999@gmail.comm', '$2y$10$M8yBb9mtDSWubTRje1ygEeuMD9zuO5hRchS66gEiEqRzKjYSdBZc.', '11952041573', '2004-09-03 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2Ff25d16d4-4ea0-4a5f-81d9-5dff69a58f49.jpeg?alt=media&token=c6ca676e-9d1c-4c7b-8392-ee0cac4691a0', '2024-09-03 04:02:01', '2024-09-03 04:02:01');
+(250, 'Faixa', 'davifreitaz999@gmail.comm', '$2y$10$M8yBb9mtDSWubTRje1ygEeuMD9zuO5hRchS66gEiEqRzKjYSdBZc.', '11952041573', '2004-09-03 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2Ff25d16d4-4ea0-4a5f-81d9-5dff69a58f49.jpeg?alt=media&token=c6ca676e-9d1c-4c7b-8392-ee0cac4691a0', '2024-09-03 04:02:01', '2024-09-03 04:02:01'),
+(251, 'Carlens', 'carlens.romelus@etec.sp.gov.br', '$2y$10$7SjUz24bsgTow2/KikTlv.2CGRfLxgl4j76cJ2RMu1SZjescVVEVG', '11954783565', '2004-07-02 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F30db62fd-b44f-4149-8fa3-471a5ed970c1.jpeg?alt=media&token=a4bd3637-d317-4c2b-90eb-e7ac8967a758', '2024-09-26 18:43:35', '2024-09-26 18:43:35');
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices de tabela `adm`
+-- Índices para tabela `adm`
 --
 ALTER TABLE `adm`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `messages`
+-- Índices para tabela `messages`
 --
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`),
@@ -536,7 +546,7 @@ ALTER TABLE `messages`
   ADD KEY `recipient_id` (`recipient_id`);
 
 --
--- Índices de tabela `objeto`
+-- Índices para tabela `objeto`
 --
 ALTER TABLE `objeto`
   ADD PRIMARY KEY (`idObjeto`),
@@ -550,7 +560,7 @@ ALTER TABLE `objeto`
   ADD KEY `tamanhoObjeto` (`tamanhoObjeto`);
 
 --
--- Índices de tabela `post`
+-- Índices para tabela `post`
 --
 ALTER TABLE `post`
   ADD PRIMARY KEY (`idPost`),
@@ -559,63 +569,63 @@ ALTER TABLE `post`
   ADD KEY `post_ibfk_1` (`statusPost`);
 
 --
--- Índices de tabela `tbandar`
+-- Índices para tabela `tbandar`
 --
 ALTER TABLE `tbandar`
   ADD PRIMARY KEY (`idAndar`);
 
 --
--- Índices de tabela `tbcategoria`
+-- Índices para tabela `tbcategoria`
 --
 ALTER TABLE `tbcategoria`
   ADD PRIMARY KEY (`idCategoria`);
 
 --
--- Índices de tabela `tbcor`
+-- Índices para tabela `tbcor`
 --
 ALTER TABLE `tbcor`
   ADD PRIMARY KEY (`idCor`);
 
 --
--- Índices de tabela `tblocal`
+-- Índices para tabela `tblocal`
 --
 ALTER TABLE `tblocal`
   ADD PRIMARY KEY (`idLocal`);
 
 --
--- Índices de tabela `tbmarca`
+-- Índices para tabela `tbmarca`
 --
 ALTER TABLE `tbmarca`
   ADD PRIMARY KEY (`idMarca`),
   ADD KEY `idSubcategoria` (`idSubcategoria`);
 
 --
--- Índices de tabela `tbstatus`
+-- Índices para tabela `tbstatus`
 --
 ALTER TABLE `tbstatus`
   ADD PRIMARY KEY (`idStatus`);
 
 --
--- Índices de tabela `tbsubcategoria`
+-- Índices para tabela `tbsubcategoria`
 --
 ALTER TABLE `tbsubcategoria`
   ADD PRIMARY KEY (`idSubCategoria`),
   ADD KEY `idCategoria` (`idCategoria`);
 
 --
--- Índices de tabela `tbtamanho`
+-- Índices para tabela `tbtamanho`
 --
 ALTER TABLE `tbtamanho`
   ADD PRIMARY KEY (`idTamanho`);
 
 --
--- Índices de tabela `users`
+-- Índices para tabela `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
@@ -628,19 +638,19 @@ ALTER TABLE `adm`
 -- AUTO_INCREMENT de tabela `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `objeto`
 --
 ALTER TABLE `objeto`
-  MODIFY `idObjeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
+  MODIFY `idObjeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
 
 --
 -- AUTO_INCREMENT de tabela `post`
 --
 ALTER TABLE `post`
-  MODIFY `idPost` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `idPost` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT de tabela `tbandar`
@@ -664,7 +674,7 @@ ALTER TABLE `tbcor`
 -- AUTO_INCREMENT de tabela `tblocal`
 --
 ALTER TABLE `tblocal`
-  MODIFY `idLocal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idLocal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `tbmarca`
@@ -694,21 +704,21 @@ ALTER TABLE `tbtamanho`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=251;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
 
 --
--- Restrições para tabelas despejadas
+-- Restrições para despejos de tabelas
 --
 
 --
--- Restrições para tabelas `messages`
+-- Limitadores para a tabela `messages`
 --
 ALTER TABLE `messages`
   ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`recipient_id`) REFERENCES `users` (`id`);
 
 --
--- Restrições para tabelas `objeto`
+-- Limitadores para a tabela `objeto`
 --
 ALTER TABLE `objeto`
   ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`usuario`) REFERENCES `users` (`id`),
@@ -721,7 +731,7 @@ ALTER TABLE `objeto`
   ADD CONSTRAINT `objeto_ibfk_7` FOREIGN KEY (`tamanhoObjeto`) REFERENCES `tbtamanho` (`idTamanho`);
 
 --
--- Restrições para tabelas `post`
+-- Limitadores para a tabela `post`
 --
 ALTER TABLE `post`
   ADD CONSTRAINT `fk_objeto` FOREIGN KEY (`idObjeto`) REFERENCES `objeto` (`idObjeto`),
@@ -729,13 +739,13 @@ ALTER TABLE `post`
   ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`statusPost`) REFERENCES `tbstatus` (`idStatus`);
 
 --
--- Restrições para tabelas `tbmarca`
+-- Limitadores para a tabela `tbmarca`
 --
 ALTER TABLE `tbmarca`
   ADD CONSTRAINT `tbmarca_ibfk_1` FOREIGN KEY (`idSubcategoria`) REFERENCES `tbsubcategoria` (`idSubCategoria`);
 
 --
--- Restrições para tabelas `tbsubcategoria`
+-- Limitadores para a tabela `tbsubcategoria`
 --
 ALTER TABLE `tbsubcategoria`
   ADD CONSTRAINT `tbsubcategoria_ibfk_1` FOREIGN KEY (`idCategoria`) REFERENCES `tbcategoria` (`idCategoria`);
