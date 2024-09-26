@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, Pressable, ActivityIndicator, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable, ActivityIndicator, Alert,ScrollView } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
@@ -136,92 +136,86 @@ const RegisterObject = () => {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.tittle}>Primeiro passo</Text>
-                <Text style={{ color: 'gray' }}>Envie algumas fotos do achado e descreva sua categoria</Text>
-            </View>
-
-            <View style={styles.containerImages}>
-                {image ? (
-                    <Image source={{ uri: image }} style={styles.imgBig} />
-                ) : (
-                    <Pressable onPress={pickImage} style={styles.imgBig}>
-                        <Icon name='camera' size={20} />
-                    </Pressable>
-                )}
-
-                <View style={{ flexDirection: 'row', gap: 6 }}>
-                    <View style={{ gap: 6 }}>
-                        {image2 ? (
-                            <Image source={{ uri: image2 }} style={styles.imgSmall} />
-                        ) : (
-                            <Pressable onPress={pickImage} style={styles.imgSmall}>
-                                <Icon name='camera' size={20} />
-                            </Pressable>
-                        )}
-
-                        {image3 ? (
-                            <Image source={{ uri: image3 }} style={styles.imgSmall} />
-                        ) : (
-                            <Pressable onPress={pickImage} style={styles.imgSmall}>
-                                <Icon name='camera' size={20} />
-                            </Pressable>
-                        )}
-                    </View>
+        <ScrollView style={{backgroundColor:'white'}}>
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <Text style={styles.tittle}>Primeiro passo</Text>
+                    <Text style={{ color: 'gray' }}>Envie algumas fotos do achado e descreva sua categoria</Text>
                 </View>
-            </View>
-
-            <View style={styles.objectCategory}>
-                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>O que é seu achado</Text>
-                <Text style={{ fontSize: 16, color: "gray" }}>Categoria</Text>
-            </View>
-
-            <View style={styles.containerTags}>
-                {categorias.map((categoria) => (
-                    <Pressable
-                        key={categoria.idCategoria} 
-                        onPress={() => handlePress(categoria.descCategoria, categoria.idCategoria)} 
-                        style={[styles.tag, { backgroundColor: activeTag === categoria.descCategoria ? activeColor : originalColor }]} 
-                    >
-                        <Text style={{ fontSize: 12, fontWeight: '600' }}>{categoria.descCategoria}</Text> 
-                    </Pressable>
-                ))}
-            </View>
-
-            {activeTag && (
-                <View style={styles.pickerContainer}>
-                    <RNPickerSelect
-                        onValueChange={(value) => {
-                            setSelectedItem(value);
-                            const selectedSubcat = subCategorias.find(sub => sub.idSubCategoria === value);
-                            if (selectedSubcat) setSelectedItemNome(selectedSubcat.descSubCategoria);
-                        }}
-                        items={getPickerItems()} 
-                        placeholder={{ label: 'Selecione...', value: null }}
-                        style={pickerSelectStyles}
-                    />
-                </View>
-            )}
-
-            {loading ? (
-                <ActivityIndicator size="small" color="#0000ff" style={styles.loadingIndicator} />
-            ) : (
-          
-                (selectedItem && image && image2 && image3) && (
-                    <View style={{ width: "100%", justifyContent: "center", alignItems: "center" }}>
-                        <Pressable
-                            onPress={handleUpload}
-                            style={styles.btnAdvance}
-                        >
-                            <Text style={{ fontSize: 20, fontWeight: '600', color: "#fff" }}>Próximo</Text>
+                <View style={styles.containerImages}>
+                    {image ? (
+                        <Image source={{ uri: image }} style={styles.imgBig} />
+                    ) : (
+                        <Pressable onPress={pickImage} style={styles.imgBig}>
+                            <Icon name='camera' size={20} />
                         </Pressable>
+                    )}
+                    <View style={{ flexDirection: 'row', gap: 6 }}>
+                        <View style={{ gap: 6 }}>
+                            {image2 ? (
+                                <Image source={{ uri: image2 }} style={styles.imgSmall} />
+                            ) : (
+                                <Pressable onPress={pickImage} style={styles.imgSmall}>
+                                    <Icon name='camera' size={20} />
+                                </Pressable>
+                            )}
+                            {image3 ? (
+                                <Image source={{ uri: image3 }} style={styles.imgSmall} />
+                            ) : (
+                                <Pressable onPress={pickImage} style={styles.imgSmall}>
+                                    <Icon name='camera' size={20} />
+                                </Pressable>
+                            )}
+                        </View>
                     </View>
-                )
-            )}
-
-            <StatusBar style="auto" />
-        </View>
+                </View>
+                <View style={styles.objectCategory}>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold' }}>O que é seu achado</Text>
+                    <Text style={{ fontSize: 16, color: "gray" }}>Categoria</Text>
+                </View>
+                <View style={styles.containerTags}>
+                    {categorias.map((categoria) => (
+                        <Pressable
+                            key={categoria.idCategoria}
+                            onPress={() => handlePress(categoria.descCategoria, categoria.idCategoria)}
+                            style={[styles.tag, { backgroundColor: activeTag === categoria.descCategoria ? activeColor : originalColor }]}
+                        >
+                            <Text style={{ fontSize: 12, fontWeight: '600' }}>{categoria.descCategoria}</Text>
+                        </Pressable>
+                    ))}
+                </View>
+                {activeTag && (
+                    <View style={styles.pickerContainer}>
+                        <RNPickerSelect
+                            onValueChange={(value) => {
+                                setSelectedItem(value);
+                                const selectedSubcat = subCategorias.find(sub => sub.idSubCategoria === value);
+                                if (selectedSubcat) setSelectedItemNome(selectedSubcat.descSubCategoria);
+                            }}
+                            items={getPickerItems()}
+                            placeholder={{ label: 'Selecione...', value: null }}
+                            style={pickerSelectStyles}
+                        />
+                    </View>
+                )}
+                {loading ? (
+                    <ActivityIndicator size="small" color="#0000ff" style={styles.loadingIndicator} />
+                ) : (
+            
+                    (selectedItem && image && image2 && image3) && (
+                        <View style={{ width: "100%", justifyContent: "center", alignItems: "center" }}>
+                            <Pressable
+                                onPress={handleUpload}
+                                style={styles.btnAdvance}
+                            >
+                                <Text style={{ fontSize: 20, fontWeight: '600', color: "#fff" }}>Próximo</Text>
+                            </Pressable>
+                        </View>
+                    )
+                )}
+                <StatusBar style="auto" />
+            </View>
+        </ScrollView>
     );
 };
 
@@ -273,12 +267,12 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        paddingHorizontal: 40
+        paddingHorizontal: 20
     },
     tag: {
         width: 100,
         height: 38,
-        borderRadius: 20,
+        borderRadius: 10,
         alignItems: "center",
         justifyContent: "center",
         borderWidth: 1,
@@ -291,7 +285,8 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: "center",
         borderRadius: 30,
-        marginTop: 30
+        marginTop: 30,
+        marginBottom:20
     },
     pickerContainer: {
         paddingHorizontal: 20,

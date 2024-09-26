@@ -36,7 +36,7 @@ const Conversations = () => {
                     style={{ width: 50, height: 50, borderRadius: 50 }}
                 />
                 <View>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", width: '90%' }}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", width: '100%' }}>
                         <Text style={styles.sender}>{item.sender_nome}</Text>
                     </View>
                     <Text style={styles.message}>{item.last_message || 'No messages'}</Text>

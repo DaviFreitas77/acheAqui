@@ -96,96 +96,94 @@ const HomeAdm = () => {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Image
-                    source={require('../../../imges/homeAdm/adm.jpeg')}
-                    style={{ width: 80, height: 80, borderRadius: 100 }}
-                />
-                <View style={{ width: "55%" }}>
-                    <Text style={styles.textHeaderTiltle}>Olá, {nomeAdm}</Text>
-                    <Text style={styles.textHeader}>Perdeu algo? </Text>
-                    <Text style={styles.textHeader}>
-                        Faça uma breve busca para reencontrar!!
-                    </Text>
+        <ScrollView style={{backgroundColor:"white"}}>
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <Image
+                        source={require('../../../imges/homeAdm/adm.jpeg')}
+                        style={{ width: 80, height: 80, borderRadius: 100 }}
+                    />
+                    <View style={{ width: "55%" }}>
+                        <Text style={styles.textHeaderTiltle}>Olá, {nomeAdm}</Text>
+                        <Text style={styles.textHeader}>Perdeu algo? </Text>
+                        <Text style={styles.textHeader}>
+                            Faça uma breve busca para reencontrar!!
+                        </Text>
+                    </View>
                 </View>
-            </View>
-
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                
-                <View style={{ flexDirection: "row", gap: 10, margin: 10 }}>
-                    <Pressable
-                        onPress={() => handleTagPress('Tudo')}
-                        style={[styles.tag, selectedTag === 'Tudo' && styles.tagActive]}
-                    >
-                        <Text style={{ color: 'white', fontSize: 17 }}>Tudo</Text>
-                    </Pressable>
-                    <Pressable
-                        onPress={() => handleTagPress('Eletronico')}
-                        style={[styles.tag, selectedTag === 'Eletronico' && styles.tagActive]}
-                    >
-                        <Text style={{ color: 'white', fontSize: 17 }}>Eletrônico</Text>
-                    </Pressable>
-                    <Pressable
-                        onPress={() => handleTagPress('Documentos')}
-                        style={[styles.tag, selectedTag === 'Documentos' && styles.tagActive]}
-                    >
-                        <Text style={{ color: 'white', fontSize: 17 }}>Documentos</Text>
-                    </Pressable>
-                    <Pressable
-                        onPress={() => handleTagPress('Roupas')}
-                        style={[styles.tag, selectedTag === 'Roupas' && styles.tagActive]}
-                    >
-                        <Text style={{ color: 'white', fontSize: 17 }}>Roupas</Text>
-                    </Pressable>
-                    <Pressable
-                        onPress={() => handleTagPress('Acessorio Pessoal')}
-                        style={[styles.tag, selectedTag === 'Acessorio Pessoal' && styles.tagActive]}
-                    >
-                        <Text style={{ color: 'white', fontSize: 17 }}>Acessorio Pessoal</Text>
-                    </Pressable>
-                    <Pressable
-                        onPress={() => handleTagPress('Material Escolar')}
-                        style={[styles.tag, selectedTag === 'Material Escolar' && styles.tagActive]}
-                    >
-                        <Text style={{ color: 'white', fontSize: 17 }}>Material Escolar</Text>
-                    </Pressable>
-                    <Pressable
-                        onPress={() => handleTagPress('Outros')}
-                        style={[styles.tag, selectedTag === 'Outros' && styles.tagActive]}
-                    >
-                        <Text style={{ color: 'white', fontSize: 17 }}>Outros</Text>
-                    </Pressable>
-                </View>
-            </ScrollView>
-            {filteredPosts.length === 0 ? (
-                <View style={{ width: "90%",alignItems:'center'}}>
-                <Text style={{ fontWeight: 'bold', fontSize: 19 }}>Nenhum Objeto Perdido</Text>
-            </View>
-         
-            ):
-
-            <View style={{ width: "90%",alignItems:'center'}}>
-            <Text style={{ fontWeight: 'bold', fontSize: 19 }}>Objetos perdidos recentemente</Text>
-        </View>
-            }
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             
-
-            {loading ? (
-                <ActivityIndicator size="large" color="#4786d3" />
-            ) : (
-                
-                <FlatList
-                    data={filteredPosts}
-                    keyExtractor={(item) => item.idPost.toString()}
-                    renderItem={renderItem}
-                    contentContainerStyle={styles.flatListContent}
-                    horizontal={true}
-                />
-            )}
-
-            <StatusBar style="auto" />
-        </View>
+                    <View style={{ flexDirection: "row", gap: 10, margin: 10 }}>
+                        <Pressable
+                            onPress={() => handleTagPress('Tudo')}
+                            style={[styles.tag, selectedTag === 'Tudo' && styles.tagActive]}
+                        >
+                            <Text style={{ color: 'white', fontSize: 17 }}>Tudo</Text>
+                        </Pressable>
+                        <Pressable
+                            onPress={() => handleTagPress('Eletronico')}
+                            style={[styles.tag, selectedTag === 'Eletronico' && styles.tagActive]}
+                        >
+                            <Text style={{ color: 'white', fontSize: 17 }}>Eletrônico</Text>
+                        </Pressable>
+                        <Pressable
+                            onPress={() => handleTagPress('Documentos')}
+                            style={[styles.tag, selectedTag === 'Documentos' && styles.tagActive]}
+                        >
+                            <Text style={{ color: 'white', fontSize: 17 }}>Documentos</Text>
+                        </Pressable>
+                        <Pressable
+                            onPress={() => handleTagPress('Roupas')}
+                            style={[styles.tag, selectedTag === 'Roupas' && styles.tagActive]}
+                        >
+                            <Text style={{ color: 'white', fontSize: 17 }}>Roupas</Text>
+                        </Pressable>
+                        <Pressable
+                            onPress={() => handleTagPress('Acessorio Pessoal')}
+                            style={[styles.tag, selectedTag === 'Acessorio Pessoal' && styles.tagActive]}
+                        >
+                            <Text style={{ color: 'white', fontSize: 17 }}>Acessorio Pessoal</Text>
+                        </Pressable>
+                        <Pressable
+                            onPress={() => handleTagPress('Material Escolar')}
+                            style={[styles.tag, selectedTag === 'Material Escolar' && styles.tagActive]}
+                        >
+                            <Text style={{ color: 'white', fontSize: 17 }}>Material Escolar</Text>
+                        </Pressable>
+                        <Pressable
+                            onPress={() => handleTagPress('Outros')}
+                            style={[styles.tag, selectedTag === 'Outros' && styles.tagActive]}
+                        >
+                            <Text style={{ color: 'white', fontSize: 17 }}>Outros</Text>
+                        </Pressable>
+                    </View>
+                </ScrollView>
+                {filteredPosts.length === 0 ? (
+                    <View style={{ width: "90%",alignItems:'center'}}>
+                    <Text style={{ fontWeight: 'bold', fontSize: 19 }}>Nenhum Objeto Perdido</Text>
+                </View>
+            
+                ):
+                <View style={{ width: "90%",alignItems:'center'}}>
+                <Text style={{ fontWeight: 'bold', fontSize: 19 }}>Objetos perdidos recentemente</Text>
+            </View>
+                }
+            
+                {loading ? (
+                    <ActivityIndicator size="large" color="#4786d3" />
+                ) : (
+            
+                    <FlatList
+                        data={filteredPosts}
+                        keyExtractor={(item) => item.idPost.toString()}
+                        renderItem={renderItem}
+                        contentContainerStyle={styles.flatListContent}
+                        horizontal={true}
+                    />
+                )}
+                <StatusBar style="auto" />
+            </View>
+        </ScrollView>
     );
 };
 

@@ -109,7 +109,7 @@ console.log(marcaId)
                             onPress={() => handleColorPress(item)}
                             style={[styles.tag, { backgroundColor: activeColor === item.descCor ? activeTagColor : originalColor }]}
                         >
-                            <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descCor}</Text>
+                        <Text style={{ fontSize: 12, fontWeight: '600',textAlign:"center" }}>{item.descCor}</Text>
                         </Pressable>
                     ))}
                 </View>
@@ -218,13 +218,14 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        paddingHorizontal: 40,
+        paddingHorizontal: 20,
         marginBottom: 40,
+      
     },
     tag: {
         width: 100,
         height: 38,
-        borderRadius: 20,
+        borderRadius: 10,
         alignItems: "center",
         justifyContent: "center",
         borderWidth: 1,

@@ -250,13 +250,13 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        paddingHorizontal: 40,
+        paddingHorizontal: 5,
         marginBottom: 45
     },
     tag: {
         width: 110,
         height: 38,
-        borderRadius: 20,
+        borderRadius: 10,
         alignItems: "center",
         justifyContent: "center",
         borderWidth: 1,
