@@ -1,24 +1,29 @@
-import React, { useContext, useEffect } from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { SafeAreaView, StatusBar, StyleSheet, Text, View ,FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import { Context } from '../../context/provider';
 
 const MeusPosts = () => {
   const {idUser,urlApi} = useContext(Context)
+  const [posts,setPosts] = useState([])
+
+
+ 
   useEffect(()=>{
     const fetchPost = async () =>{
       try{
         const response = await axios.get(`http://${urlApi}/services/getPostUsuario.php`,{
           params:{id:idUser}
         })
-
         console.log(response.data)
+        setPosts(response.data)
       }catch(error){
         console.log(error)
       }
     
     }
+
     fetchPost()
   },[])
  
@@ -27,6 +32,8 @@ const MeusPosts = () => {
       <StatusBar barStyle="dark-content" />
       <View style={styles.inner}>
         <Text style={styles.title}>Meus Posts</Text>
+
+      
       </View>
     </SafeAreaView>
   );
