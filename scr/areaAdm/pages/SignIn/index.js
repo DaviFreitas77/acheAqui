@@ -55,11 +55,12 @@ const HomeAdm = () => {
 
         const imageUrl = images.length > 0 ? images[0] : null;
         const userImage = item.imagem ? item.imagem : null;
-
+        
         return (
             <View style={styles.postItem}>
                 {imageUrl ? (
-                    <Pressable onPress={() => navigation.navigate('InfoObject', { selectedItem: item })}>
+                    <Pressable onPress={() => navigation.navigate('InfoObject', { selectedItem: item} )}>
+                        
                         <Image
                             source={{ uri: imageUrl }}
                             style={styles.postImage}

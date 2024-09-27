@@ -10,28 +10,13 @@ const InfoObject = () => {
     const navigation = useNavigation();
     const route = useRoute();
     const { selectedItem } = route.params;
+   
 
-    const [itemDetails, setItemDetails] = useState(selectedItem);
-
-    useFocusEffect(
-        useCallback(() => {
-            const fetchData = async () => {
-                try {
-                    const response = await axios.get(`http://${urlApi}/services/getPost.php?id=${itemDetails.idPost}`);
-                    setItemDetails(response.data[0]); 
-                } catch (error) {
-                    console.error('Erro ao buscar os detalhes do objeto:', error);
-                    Alert.alert('Erro', 'Não foi possível atualizar os detalhes do objeto.');
-                }
-            };
-
-            fetchData();
-        }, [itemDetails.idPost])
-    );
-
+    
+ 
     let images = [];
     try {
-        images = JSON.parse(itemDetails.images) || [];
+        images = JSON.parse(selectedItem.images) || [];
     } catch (error) {
         console.error('Erro ao converter images:', error);
         Alert.alert('Erro', 'As imagens não puderam ser carregadas.');
@@ -65,30 +50,30 @@ const InfoObject = () => {
                     <Text style={{
                         fontSize: 20,
                         fontWeight: '600',
-                        color: itemDetails.nomeStatus === 'ativado' ? "green" : "red"
+                        color: selectedItem.nomeStatus === 'ativado' ? "green" : "red"
                     }}>
-                        {itemDetails.nomeStatus}
+                        {selectedItem.nomeStatus}
                     </Text>
                 </Pressable>
 
                 <View style={styles.containerDesc}>
                     <View style={styles.headerContainer}>
-                        <Text style={styles.objeto}>Nome: {itemDetails.descSubCategoria}</Text>
-                        <Text style={styles.subTitle}>{itemDetails.descCategoria}</Text>
+                        <Text style={styles.objeto}>Nome: {selectedItem.descSubCategoria}</Text>
+                        <Text style={styles.subTitle}>{selectedItem.descCategoria}</Text>
                     </View>
 
-                    <Text style={styles.objeto}>Marca: {itemDetails.descMarca}</Text>
-                    <Text style={styles.objeto}>Cor: {itemDetails.descCor}</Text>
-                    <Text style={styles.objeto}>Andar Encontrado: {itemDetails.descLocal}</Text>
-                    <Text style={styles.objeto}>Local Encontrado: {itemDetails.descAndar}</Text>
-                    <Text style={styles.objeto}>Data de Registro: {itemDetails.dataRegistro}</Text>
+                    <Text style={styles.objeto}>Marca: {selectedItem.descMarca}</Text>
+                    <Text style={styles.objeto}>Cor: {selectedItem.descCor}</Text>
+                    <Text style={styles.objeto}>Andar Encontrado: {selectedItem.descLocal}</Text>
+                    <Text style={styles.objeto}>Local Encontrado: {selectedItem.descAndar}</Text>
+                    <Text style={styles.objeto}>Data de Registro: {selectedItem.dataRegistro}</Text>
 
                     <View style={styles.descriptionContainer}>
                         <Text style={styles.descriptionHeader}>Descrição do Objeto</Text>
                     </View>
 
                     <View style={{ marginTop: 10 }}>
-                        <Text style={styles.descriptionText}>{itemDetails.descObjeto}</Text>
+                        <Text style={styles.descriptionText}>{selectedItem.descObjeto}</Text>
                     </View>
                 </View>
             </ScrollView>
