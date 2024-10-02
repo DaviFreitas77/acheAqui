@@ -18,6 +18,15 @@ const SignUp = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [show, setShow] = useState(false);
   const {urlApi} = useContext(Context)
+
+  const [errors, setErrors] = useState({
+    nome: false,
+    numero: false,
+    email: false,
+    senha: false,
+    data: false,
+  });
+
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || data;
     setShow(false);
@@ -29,12 +38,29 @@ const SignUp = () => {
   };
 
   async function registerUser() {
-    if (nome.length < 2 || numero.length <= 10 || senha.length <= 5 || !data || !isEnabled) {
+    // Reset errors
+    setErrors({
+      nome: nome.length < 2,
+      numero: numero.length <= 10,
+      senha: senha.length <= 5,
+      data: !data,
+      email: !email.includes('@etec.sp.gov.br'), 
+      isEnabled:! isEnabled
+    });
+
+    if (
+      nome.length < 2 ||
+      numero.length <= 10 ||
+      senha.length <= 5 ||
+      !data ||
+      !isEnabled ||
+      !email.includes('@etec.sp.gov.br')
+    ) {
       alert('Preencha todos os campos corretamente');
       return;
     } else {
       try {
-        let response = await fetch( `http://${urlApi}/services/register.php`, {
+        let response = await fetch(`http://${urlApi}/services/register.php`, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -86,7 +112,7 @@ const SignUp = () => {
             <TextInput
               placeholder='Nome e Sobrenome'
               placeholderTextColor="#707070"
-              style={styles.input}
+              style={[styles.input, errors.nome && styles.errorInput]}
               onChangeText={(text) => setNome(text)}
               value={nome}
             />
@@ -96,9 +122,10 @@ const SignUp = () => {
             <TextInput
               placeholder='ex: 11964928492'
               placeholderTextColor="#707070"
-              style={styles.input}
+              style={[styles.input, errors.numero && styles.errorInput]}
               onChangeText={(text) => setNumero(text)}
               value={numero}
+              keyboardType='number-pad'
             />
           </View>
           <View style={styles.viewInput}>
@@ -106,7 +133,7 @@ const SignUp = () => {
             <TextInput
               placeholder='ex: clodoaldo@gmail.com'
               placeholderTextColor="#707070"
-              style={styles.input}
+              style={[styles.input, errors.email && styles.errorInput]}
               onChangeText={(text) => setEmail(text)}
               value={email}
             />
@@ -116,7 +143,7 @@ const SignUp = () => {
             <TextInput
               placeholder='No mínimo 6 caracteres'
               placeholderTextColor="#707070"
-              style={styles.input}
+              style={[styles.input, errors.senha && styles.errorInput]}
               onChangeText={(text) => setSenha(text)}
               secureTextEntry={true}
               value={senha}
@@ -124,7 +151,7 @@ const SignUp = () => {
           </View>
           <View style={styles.viewInput}>
             <Text style={styles.labelInput}>Insira sua Data de nascimento</Text>
-            <Pressable onPress={showDatePicker} style={styles.input}>
+            <Pressable onPress={showDatePicker} style={[styles.input, errors.data && styles.errorInput]}>
               <Text style={{ paddingLeft: 10 }}>
                 {data ? data.toLocaleDateString() : 'Data de nascimento'}
               </Text>
@@ -188,7 +215,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: 45,
     paddingLeft: 10,
-    justifyContent:"center"
+    justifyContent: "center"
+  },
+  errorInput: {
+    borderColor: 'red',
   },
   labelInput: {
     fontWeight: 'bold',
@@ -211,21 +241,6 @@ const styles = StyleSheet.create({
   },
   txtTerms: {
     width: '80%',
-  },
-  overlayImage: {
-    position: 'absolute',
-    width: 110,
-    height: 110,
-    borderRadius: 100,
-    top: 0,
-    left: -60,
-  },
-  txtEditFoto: {
-    fontWeight: "bold",
-    fontSize: 22,
-    color: "#005AC5",
-    borderBottomWidth: 1,
-    borderBottomColor: '#005AC5'
   },
 });
 

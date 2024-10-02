@@ -11,8 +11,7 @@ import axios from 'axios';
 export default function EditUser() {
    
     const { nomeUser, setNomeUser, emailUser, numeroUser, setImagemUser, imagemUser, nascUser, idUser,setNumeroUser,urlApi } = useContext(Context);
-      console.log(nomeUser)
-      console.log(imagemUser)
+     
     const [edit, setEdit] = useState(false);
     const [newName, setNewName] = useState(nomeUser);
     const[newNumero,setNewNumero] = useState(numeroUser)
@@ -61,7 +60,7 @@ export default function EditUser() {
             const url = await uploadImage(uri); 
             if (url) {
                
-                console.log('URL da imagem após o upload:', url);
+           
                 try {
                     
                     const response = await axios.put(`http://${urlApi}/services/atualizaRegistro.php`, {
