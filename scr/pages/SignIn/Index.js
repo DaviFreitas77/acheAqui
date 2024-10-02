@@ -111,10 +111,7 @@ export default function SignIn() {
             <Text style={styles.txtBtn}>Acessar</Text>
           </Pressable>
           <Text style={{ fontSize: 15, fontWeight: 'bold' }}>ou</Text>
-          <Pressable style={styles.btnGoogle}>
-            <Icon name='logo-google' size={30} />
-            <Text style={styles.txtBtn}>Entrar com o Google</Text>
-          </Pressable>
+       
           <Pressable onPress={() => navigation.navigate('SignUp')}>
             <Text style={{ fontWeight: 'bold', fontSize: 12 }}>
               Ainda não tem uma conta? CADASTRE-SE

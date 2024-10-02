@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { SafeAreaView, Text, StyleSheet, FlatList,View,Image} from 'react-native';
+import { SafeAreaView, Text, StyleSheet, FlatList,View,Image,Pressable} from 'react-native';
 import axios from 'axios';
 import { Context } from '../../../context/provider';
 
@@ -25,13 +25,23 @@ const Usuarios = () => {
 
     const renderItem = ({ item }) => (
         <View style={{height:50,justifyContent:"center",marginBottom:25}}>
-            <View style={{flexDirection:"row",gap:10,borderBottomWidth:1}}>
-                <Image
-                    source={{uri:item.imagem}}
-                    style={{width:40,height:40,borderRadius:20,marginBottom:10}}
-                />
-                 <Text style={{margin:10}}>{item.nome}</Text>
+            <View style={{flexDirection:"row",alignItems:"center",marginTop:20,gap:10,justifyContent:"space-between"}}>
+                <View style={{flexDirection:"row",alignItems:"center",marginTop:20,gap:10}}>
+                  <Image
+                      source={{uri:item.imagem}}
+                      style={{width:60,height:60,borderRadius:30,marginBottom:10}}
+                  />
+                   <View style={{marginBottom:10}}>
+                     <Text style={{marginLeft:10}} >{item.nome}</Text>
+                     <Text style={{color:'gray',marginLeft:10}}>{item.email}</Text>
+                   </View>
+                </View>
+
+                 <Pressable style={styles.btn}>
+                  <Text style={{color:"white"}}>Remover</Text>
+                 </Pressable>
             </View>
+
         </View>
       );
     
@@ -51,17 +61,13 @@ const Usuarios = () => {
         </View>
 
       </View>
-      <View style={{ width: '100%', padding: 15 }}>
-        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
-          Usuarios Ativos
-        </Text>
-      </View>
+      
 
             <FlatList
                data={users}
                renderItem={renderItem}
                keyExtractor={item=> item.id.toString()}
-                style={{width:"90%"}}
+                style={{width:"90%",flex:1}}
                 showsVerticalScrollIndicator={false}
             />
         </SafeAreaView>
@@ -85,6 +91,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 20
       },
+      btn:{
+        backgroundColor:"red",
+        padding:8,
+    
+      }
 });
 
 export default Usuarios;
