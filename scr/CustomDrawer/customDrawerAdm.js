@@ -6,6 +6,7 @@ import { Context } from '../context/provider';
 import { useContext } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 
+
 function CustomDrawerAdmin(props) {
     const navigation = useNavigation();
     const { nomeAdm } = useContext(Context);
@@ -33,6 +34,10 @@ function CustomDrawerAdmin(props) {
                 <Pressable onPress={() => props.navigation.navigate('ObjectBank')} style={styles.menuItem}>
                 <Icon   name='user' size={30}/>
                     <Text>Banco de objetos</Text>
+                </Pressable>
+                <Pressable onPress={() => props.navigation.navigate('Usuarios')} style={styles.menuItem}>
+                <Icon name="users" size={30} color="black" />
+                    <Text>Banco de usuarios</Text>
                 </Pressable>
                 <Pressable onPress={() => props.navigation.navigate('RegisterObject')} style={styles.menuItem}>
                     <Icon  name='upload-cloud' size={30}/>

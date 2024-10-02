@@ -43,6 +43,7 @@ import AdminDrawerNavigator from './adminDrawer';
 import InfoObject from './scr/areaAdm/pages/InfoObject';
 import HomeAdm from './scr/areaAdm/pages/SignIn';
 import ObjectBank from './scr/areaAdm/pages/ObjectBank';
+import Usuarios from './scr/areaAdm/pages/Usuarios/index.js';
 
 function TabNavigator() {
   return (
@@ -359,6 +360,18 @@ function MyStack() {
             
           },}} />
           <Stack.Screen  name='Conversations' component={Conversations}options={{headerTitle:'Conversa',headerTintColor:'white',headerStyle:{
+            backgroundColor:"#4786d3"
+          },
+          headerTitleContainerStyle: {
+            
+            width:'70%',
+            justifyContent:"center",
+            alignItems:"center",
+ 
+            
+            
+          },}} />
+          <Stack.Screen  name='Usuarios' component={Usuarios}options={{headerTitle:'Banco de usuarios',headerTintColor:'white',headerStyle:{
             backgroundColor:"#4786d3"
           },
           headerTitleContainerStyle: {

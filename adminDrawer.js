@@ -9,12 +9,14 @@ const Drawer = createDrawerNavigator();
 
 import InfoObject from './scr/areaAdm/pages/InfoObject';
 
+
 function AdminDrawerNavigator() {
     return (
       <Drawer.Navigator drawerContent={(props) => <CustomDrawerAdmin {...props} />}  >
         <Drawer.Screen name="HomeAdm" component={HomeAdm} options={{ headerTitle: '' }} />
         <Drawer.Screen name="InfoObject" component={InfoObject} options={{ headerTitle: '' }} />
        
+     
       </Drawer.Navigator>
     );
   }

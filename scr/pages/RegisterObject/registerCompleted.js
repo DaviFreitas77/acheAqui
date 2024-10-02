@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     tag: {
         width: 110,
         height: 38,
-        borderRadius: 20,
+        borderRadius: 10,
         alignItems: "center",
         justifyContent: "center",
         borderWidth: 1,
