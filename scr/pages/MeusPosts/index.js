@@ -32,6 +32,7 @@ const MeusPosts = () => {
       <StatusBar barStyle="dark-content" />
       <View style={styles.inner}>
         <Text style={styles.title}>Meus Posts</Text>
+        <Text style={styles.title}>Em desenvolvimento</Text>
 
       
       </View>

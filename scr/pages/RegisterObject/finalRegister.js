@@ -135,7 +135,7 @@ const FinalRegister = () => {
                             <Text>{formData.category}</Text>
                         </View>
                         <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
-                            <Text>{formData.item}</Text>
+                            <Text>{formData.itemName}</Text>
                         </View>
                         <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
                             <Text>{formData.cor}</Text>

@@ -10,10 +10,13 @@ const RegisterObject = () => {
     const navigation = useNavigation();
     const [activeColor, setActiveColor] = useState(null);
     const [colorId,setColorId] = useState(null)
+
     const [activeTam, setActiveTam] = useState(null);
     const [tamanhoId,setTamanhoId] = useState(null)
+
     const [activeMarca, setActiveMarca] = useState(null)
     const [marcaId,setMarcaId] = useState(null)
+    
     const [activeCaracteristica, setActiveCaracteristica] = useState([]);
     const [cores, setCores] = useState([]);
     const [tamanho, setTamanho] = useState([]);
