@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 26-Set-2024 às 19:58
--- Versão do servidor: 10.4.28-MariaDB
--- versão do PHP: 8.2.4
+-- Tempo de geração: 03/10/2024 às 04:08
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `adm`
+-- Estrutura para tabela `adm`
 --
 
 CREATE TABLE `adm` (
@@ -36,7 +36,7 @@ CREATE TABLE `adm` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `adm`
+-- Despejando dados para a tabela `adm`
 --
 
 INSERT INTO `adm` (`id`, `nome`, `email`, `senha`, `token`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `adm` (`id`, `nome`, `email`, `senha`, `token`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `messages`
+-- Estrutura para tabela `messages`
 --
 
 CREATE TABLE `messages` (
@@ -57,19 +57,10 @@ CREATE TABLE `messages` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Extraindo dados da tabela `messages`
---
-
-INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `mensagem`, `item_id`, `created_at`) VALUES
-(13, 251, 245, 'Ola tudo bem,sobre o pendrive da SanDisk que você postou,ele é meu,poderia se encontrar comigo para devolvelo?', 0, '2024-09-26 17:52:53'),
-(14, 245, 251, 'Ola Carlens,podemos sim', 0, '2024-09-26 17:53:48'),
-(15, 245, 251, '🥰🥰', 0, '2024-09-26 17:53:55');
-
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `objeto`
+-- Estrutura para tabela `objeto`
 --
 
 CREATE TABLE `objeto` (
@@ -88,19 +79,22 @@ CREATE TABLE `objeto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `objeto`
+-- Despejando dados para a tabela `objeto`
 --
 
 INSERT INTO `objeto` (`idObjeto`, `categoriaObjeto`, `nomeObjeto`, `tamanhoObjeto`, `localidadeObjeto`, `descObjeto`, `marcaObjeto`, `andar`, `corObjeto`, `images`, `usuario`, `dataRegistro`) VALUES
-(242, 7, 10, 5, 1, '', 51, 2, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fe9b04a7e-1ffc-4f0a-ac6f-1c44dce2b22c.png?alt=media&token=6d4dfeca-30d3-473d-837e-ce07e0c50d2d\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F0b2ef197-0685-41c7-a01d-8d05086c2eeb.png?alt=media&token=1014082e-fa46-4d04-a311-f3e9ede2c8cc\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fb2dee19a-078e-47aa-a518-389e5197c659.png?alt=media&token=7e724f6e-f67d-4623-9532-238ea981d92e\"]', 245, '2024-09-16'),
-(243, 8, 19, 5, 1, '', 76, 1, 4, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Ff666d0b9-9c25-4fcd-b370-9f4ebedf6147.png?alt=media&token=9e4e0970-b703-4009-942e-5d0d47549920\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F4183528b-4eec-40e4-8512-d90a14ce7fd2.png?alt=media&token=7a77c526-fded-49a8-b010-71ba70ffbec9\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Ff00d9644-73d2-4ea4-82f2-6388ec9b2e82.png?alt=media&token=0ec58115-e3a9-41af-8046-81dc739ff80d\"]', 245, '2024-09-26'),
-(244, 7, 12, 6, 2, '', 2, 1, 1, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F91b4888b-8c45-4bde-8608-97293668919d.webp?alt=media&token=2349aa02-39dc-4220-9580-39b4083f5939\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F0821dd91-cf9e-4138-95eb-6c10e1a6a9a6.webp?alt=media&token=55c1b71a-1e8a-41a4-ba9b-0088fb66c2d1\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F8b9963d0-b8ec-4f23-a236-5f9fa7d8fb77.webp?alt=media&token=ee94195c-2264-445b-b56b-f64181651211\"]', 245, '2024-09-26'),
-(245, 7, 12, 6, 1, '', 1, 1, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fd54c53a9-9f30-485d-897b-14240f82fcbc.jpeg?alt=media&token=c7bd1360-df5a-48bd-841e-66787189f088\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fe62775de-8953-4fb5-939f-ee01386a1c17.jpeg?alt=media&token=8e685da2-285f-4c75-925c-d50d50428192\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F5c13a113-ab27-4061-ae4e-bc7316e7865c.jpeg?alt=media&token=42a8a6ef-dfc9-463e-aaf1-9214a71ee4b4\"]', 245, '2024-09-26');
+(248, 7, 12, 6, 1, '', 1, 1, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F3048ce07-5215-4f4d-9401-fe86ab7b2ac4.jpeg?alt=media&token=0644f474-450a-459d-9a1f-32d53ea305f3\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F0efbda5b-04b0-495d-bf81-8a46161588bf.jpeg?alt=media&token=e05c2ed9-a4bc-4bdc-a76e-7f67ea907b3b\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F127608f0-4a22-497c-b9a7-76a9c6917423.jpeg?alt=media&token=5dc41a6d-1a19-4a5d-9871-542ded2de53a\"]', 248, '2024-10-02'),
+(255, 7, 12, 6, 1, '', 1, 3, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F6e209bea-5589-4403-a73a-8364f789c0a2.jpeg?alt=media&token=a2147303-59b3-4a08-b7be-6b6e4daa4519\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F200f2429-d4ed-486e-89fa-fb0d6c9a6814.jpeg?alt=media&token=e6b85a11-1649-48c7-b4f6-313022730041\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fdfb723aa-ec53-4897-8fb5-9ab5f6df110d.jpeg?alt=media&token=0cbe9201-7253-4e2a-8145-8994f8797e42\"]', 248, '2024-10-02'),
+(263, 7, 12, 6, 2, '', 1, 2, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F234f64a7-4529-418b-a2c7-313babd941c0.jpeg?alt=media&token=44847dd4-acf8-4da0-b976-17fb0c102e1f\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F0e044c05-3a34-421b-9096-d29ce04b6a79.jpeg?alt=media&token=8fee0d20-6687-4c5e-9c43-c2630b9fc7ff\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fd66e9c85-8242-4eeb-ae32-b651d91fb63e.jpeg?alt=media&token=e2b2155e-cdff-491e-9e61-025e440ce8f2\"]', 248, '2024-10-02'),
+(264, 8, 25, 5, 2, '', 104, 3, 14, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F4c1060c7-9c52-42d3-9671-d5a44db44d31.jpeg?alt=media&token=bb309278-58f5-4173-a717-a660836c1eba\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F0c880db5-ec7c-4d10-834c-b60e29294c83.jpeg?alt=media&token=85dbecbf-5c90-452a-a0b1-0f2092974b69\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F86ebf422-7150-44d9-99e3-258f92a62370.jpeg?alt=media&token=c5b68f08-c580-43fd-a1aa-90986596c50a\"]', 248, '2024-10-02'),
+(265, 11, 46, 5, 2, '', 148, 3, 15, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fce5fb7ff-fce3-4a66-9d21-135e12727abe.jpeg?alt=media&token=0ea61530-a4d7-47ff-b3a8-2e5d8b3b98d4\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F399af22f-5f57-4cbd-857e-939840b92bf8.jpeg?alt=media&token=e8289eff-26cd-4fc9-b21d-0c70091b23d0\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fed9fc5bc-090b-46e0-a497-59c7bd78662c.jpeg?alt=media&token=be496d62-07a5-47cd-ac6a-3dd0206eeafb\"]', 248, '2024-10-02'),
+(272, 9, 32, 5, 1, '', 130, 2, 8, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F4bfe3ebd-a450-4876-a363-df1d4acf6dcf.jpeg?alt=media&token=49cc669e-e2bc-4bc2-a819-f66b4c1afa2c\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F5b20ccdd-f952-4a06-bc09-07055edecc29.jpeg?alt=media&token=db15ef61-bde2-42fd-84e3-e6020631b4e5\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fe086d704-45d9-413b-a3a4-481c47d07435.jpeg?alt=media&token=e4acfe6a-40c8-4e57-906b-116beb65ccf6\"]', 248, '2024-10-02'),
+(273, 8, 19, 5, 2, 'Boné encontrado jogado ', 76, 3, 4, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F96e066d9-be4b-4d43-9f41-b13b526f0a38.jpeg?alt=media&token=eb736118-6a73-49c7-8a60-6b1ea1201e36\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fbe30aaf5-30ba-44dc-8061-d48a89010c9a.jpeg?alt=media&token=a2b8c132-4a89-4cf0-865c-074a8dba7279\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F8e800049-c8d2-4e39-b132-54004a463857.jpeg?alt=media&token=a38d8b1c-4a9f-47c1-8ee2-3b13d4eeb12b\"]', 248, '2024-10-02');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `post`
+-- Estrutura para tabela `post`
 --
 
 CREATE TABLE `post` (
@@ -111,19 +105,22 @@ CREATE TABLE `post` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `post`
+-- Despejando dados para a tabela `post`
 --
 
 INSERT INTO `post` (`idPost`, `idObjeto`, `idUsuario`, `statusPost`) VALUES
-(85, 242, 245, 3),
-(86, 243, 245, 3),
-(87, 244, 245, 3),
-(88, 245, 245, 3);
+(90, 248, 248, 3),
+(91, 255, 248, 4),
+(92, 263, 248, 4),
+(93, 264, 248, 3),
+(94, 265, 248, 3),
+(95, 272, 248, 4),
+(96, 273, 248, 4);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbandar`
+-- Estrutura para tabela `tbandar`
 --
 
 CREATE TABLE `tbandar` (
@@ -132,7 +129,7 @@ CREATE TABLE `tbandar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `tbandar`
+-- Despejando dados para a tabela `tbandar`
 --
 
 INSERT INTO `tbandar` (`idAndar`, `descAndar`) VALUES
@@ -143,7 +140,7 @@ INSERT INTO `tbandar` (`idAndar`, `descAndar`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbcategoria`
+-- Estrutura para tabela `tbcategoria`
 --
 
 CREATE TABLE `tbcategoria` (
@@ -152,7 +149,7 @@ CREATE TABLE `tbcategoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `tbcategoria`
+-- Despejando dados para a tabela `tbcategoria`
 --
 
 INSERT INTO `tbcategoria` (`idCategoria`, `descCategoria`) VALUES
@@ -166,7 +163,7 @@ INSERT INTO `tbcategoria` (`idCategoria`, `descCategoria`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbcor`
+-- Estrutura para tabela `tbcor`
 --
 
 CREATE TABLE `tbcor` (
@@ -175,7 +172,7 @@ CREATE TABLE `tbcor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `tbcor`
+-- Despejando dados para a tabela `tbcor`
 --
 
 INSERT INTO `tbcor` (`idCor`, `descCor`) VALUES
@@ -198,7 +195,7 @@ INSERT INTO `tbcor` (`idCor`, `descCor`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tblocal`
+-- Estrutura para tabela `tblocal`
 --
 
 CREATE TABLE `tblocal` (
@@ -207,7 +204,7 @@ CREATE TABLE `tblocal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `tblocal`
+-- Despejando dados para a tabela `tblocal`
 --
 
 INSERT INTO `tblocal` (`idLocal`, `descLocal`) VALUES
@@ -224,7 +221,7 @@ INSERT INTO `tblocal` (`idLocal`, `descLocal`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbmarca`
+-- Estrutura para tabela `tbmarca`
 --
 
 CREATE TABLE `tbmarca` (
@@ -234,7 +231,7 @@ CREATE TABLE `tbmarca` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `tbmarca`
+-- Despejando dados para a tabela `tbmarca`
 --
 
 INSERT INTO `tbmarca` (`idMarca`, `descMarca`, `idSubcategoria`) VALUES
@@ -393,7 +390,7 @@ INSERT INTO `tbmarca` (`idMarca`, `descMarca`, `idSubcategoria`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbstatus`
+-- Estrutura para tabela `tbstatus`
 --
 
 CREATE TABLE `tbstatus` (
@@ -402,7 +399,7 @@ CREATE TABLE `tbstatus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `tbstatus`
+-- Despejando dados para a tabela `tbstatus`
 --
 
 INSERT INTO `tbstatus` (`idStatus`, `nomeStatus`) VALUES
@@ -412,7 +409,7 @@ INSERT INTO `tbstatus` (`idStatus`, `nomeStatus`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbsubcategoria`
+-- Estrutura para tabela `tbsubcategoria`
 --
 
 CREATE TABLE `tbsubcategoria` (
@@ -422,7 +419,7 @@ CREATE TABLE `tbsubcategoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `tbsubcategoria`
+-- Despejando dados para a tabela `tbsubcategoria`
 --
 
 INSERT INTO `tbsubcategoria` (`idSubCategoria`, `descSubCategoria`, `idCategoria`) VALUES
@@ -479,7 +476,7 @@ INSERT INTO `tbsubcategoria` (`idSubCategoria`, `descSubCategoria`, `idCategoria
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tbtamanho`
+-- Estrutura para tabela `tbtamanho`
 --
 
 CREATE TABLE `tbtamanho` (
@@ -488,7 +485,7 @@ CREATE TABLE `tbtamanho` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `tbtamanho`
+-- Despejando dados para a tabela `tbtamanho`
 --
 
 INSERT INTO `tbtamanho` (`idTamanho`, `descTamanho`) VALUES
@@ -499,7 +496,7 @@ INSERT INTO `tbtamanho` (`idTamanho`, `descTamanho`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `users`
+-- Estrutura para tabela `users`
 --
 
 CREATE TABLE `users` (
@@ -515,30 +512,26 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `users`
+-- Despejando dados para a tabela `users`
 --
 
 INSERT INTO `users` (`id`, `nome`, `email`, `senha`, `numeroCelular`, `dataNascimento`, `imagem`, `createdAt`, `updatedAt`) VALUES
-(245, 'Davi Freitasz', 'davifreitaz999@gmail.com', '$2y$10$HO3QI.QpDwchMFh9r1RnMuehtn/gNKwIpK20WYv0JkA3gUBlhtl/i', '11952041573', '2004-07-27 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F621569ed-ed05-4598-acc6-7f88ce898525.jpeg?alt=media&token=cd3c99bd-402d-4a59-9d11-1d5b4d6870de', '2024-08-24 00:28:46', '2024-08-24 00:28:46'),
 (246, 'Sarah', 'freitaadavia20@etec.sp.gov.br', '$2y$10$mXQ5fA/ZpF6cfH3biouF9OSjzZk6XqhxHz/R7IRxVKEa5hYse/AK6', '11952041573', '2004-07-27 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2Ff25d16d4-4ea0-4a5f-81d9-5dff69a58f49.jpeg?alt=media&token=c6ca676e-9d1c-4c7b-8392-ee0cac4691a0', '2024-08-24 00:30:30', '2024-08-24 00:30:30'),
-(247, 'Davi Freitas ', 'freitaadavi20@gmail.com', '$2y$10$Aww0lzE.5k97DhEYXpyrQO1vVc0eNOiE4Jaev.txwaOIu82ttpydu', '11952041573', '2004-08-23 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F26d4e672-c479-4d38-8b1e-3f6f35155c78.jpeg?alt=media&token=9e91987c-617b-4322-ac28-397efba2d0a1', '2024-08-24 01:58:46', '2024-08-24 01:58:46'),
-(248, 'Davi Freitas ', 'paulo.freitas74@etec.sp.gov.br', '$2y$10$hvcEmDO5s/WerPgu.294tOvEBAy/Ym6ZtIeIY0Z/8CAax/Cqm1tt2', '11942041574', '2004-08-25 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F24854126-bf06-4d39-a423-e329792d8795.jpeg?alt=media&token=33842ed4-ef36-4f4e-a0d7-bd6be76bb367', '2024-08-24 05:28:19', '2024-08-24 05:28:19'),
-(249, 'joao freitas', 'joao123@gmail.com', '$2y$10$SIAXg5SWXU96GsluK5v2Q.B29wChsehMXlwT6dknwWrliEtuxD6Qy', '11848559343', '2024-08-31 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F995234bd-4cfa-4796-91c2-7b43b7390f33.jpeg?alt=media&token=2cd8be0d-c16e-4440-ab1e-8cf0043e9d56', '2024-08-31 23:02:12', '2024-08-31 23:02:12'),
-(250, 'Faixa', 'davifreitaz999@gmail.comm', '$2y$10$M8yBb9mtDSWubTRje1ygEeuMD9zuO5hRchS66gEiEqRzKjYSdBZc.', '11952041573', '2004-09-03 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2Ff25d16d4-4ea0-4a5f-81d9-5dff69a58f49.jpeg?alt=media&token=c6ca676e-9d1c-4c7b-8392-ee0cac4691a0', '2024-09-03 04:02:01', '2024-09-03 04:02:01'),
-(251, 'Carlens', 'carlens.romelus@etec.sp.gov.br', '$2y$10$7SjUz24bsgTow2/KikTlv.2CGRfLxgl4j76cJ2RMu1SZjescVVEVG', '11954783565', '2004-07-02 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F30db62fd-b44f-4149-8fa3-471a5ed970c1.jpeg?alt=media&token=a4bd3637-d317-4c2b-90eb-e7ac8967a758', '2024-09-26 18:43:35', '2024-09-26 18:43:35');
+(248, 'Davi Freitas ', 'paulo.freitas74@etec.sp.gov.br', '$2y$10$hvcEmDO5s/WerPgu.294tOvEBAy/Ym6ZtIeIY0Z/8CAax/Cqm1tt2', '11942041574', '2004-08-25 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F2e6646c0-2954-4e1e-89f5-6f9fcb1f5cb3.jpeg?alt=media&token=874299c4-905c-43cf-937b-a60b24557618', '2024-08-24 05:28:19', '2024-08-24 05:28:19'),
+(251, 'Carlens zika', 'carlens.romelus@etec.sp.gov.br', '$2y$10$7SjUz24bsgTow2/KikTlv.2CGRfLxgl4j76cJ2RMu1SZjescVVEVG', '11954783565', '2004-07-02 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F30db62fd-b44f-4149-8fa3-471a5ed970c1.jpeg?alt=media&token=a4bd3637-d317-4c2b-90eb-e7ac8967a758', '2024-09-26 18:43:35', '2024-09-26 18:43:35');
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `adm`
+-- Índices de tabela `adm`
 --
 ALTER TABLE `adm`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `messages`
+-- Índices de tabela `messages`
 --
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`),
@@ -546,7 +539,7 @@ ALTER TABLE `messages`
   ADD KEY `recipient_id` (`recipient_id`);
 
 --
--- Índices para tabela `objeto`
+-- Índices de tabela `objeto`
 --
 ALTER TABLE `objeto`
   ADD PRIMARY KEY (`idObjeto`),
@@ -560,7 +553,7 @@ ALTER TABLE `objeto`
   ADD KEY `tamanhoObjeto` (`tamanhoObjeto`);
 
 --
--- Índices para tabela `post`
+-- Índices de tabela `post`
 --
 ALTER TABLE `post`
   ADD PRIMARY KEY (`idPost`),
@@ -569,63 +562,63 @@ ALTER TABLE `post`
   ADD KEY `post_ibfk_1` (`statusPost`);
 
 --
--- Índices para tabela `tbandar`
+-- Índices de tabela `tbandar`
 --
 ALTER TABLE `tbandar`
   ADD PRIMARY KEY (`idAndar`);
 
 --
--- Índices para tabela `tbcategoria`
+-- Índices de tabela `tbcategoria`
 --
 ALTER TABLE `tbcategoria`
   ADD PRIMARY KEY (`idCategoria`);
 
 --
--- Índices para tabela `tbcor`
+-- Índices de tabela `tbcor`
 --
 ALTER TABLE `tbcor`
   ADD PRIMARY KEY (`idCor`);
 
 --
--- Índices para tabela `tblocal`
+-- Índices de tabela `tblocal`
 --
 ALTER TABLE `tblocal`
   ADD PRIMARY KEY (`idLocal`);
 
 --
--- Índices para tabela `tbmarca`
+-- Índices de tabela `tbmarca`
 --
 ALTER TABLE `tbmarca`
   ADD PRIMARY KEY (`idMarca`),
   ADD KEY `idSubcategoria` (`idSubcategoria`);
 
 --
--- Índices para tabela `tbstatus`
+-- Índices de tabela `tbstatus`
 --
 ALTER TABLE `tbstatus`
   ADD PRIMARY KEY (`idStatus`);
 
 --
--- Índices para tabela `tbsubcategoria`
+-- Índices de tabela `tbsubcategoria`
 --
 ALTER TABLE `tbsubcategoria`
   ADD PRIMARY KEY (`idSubCategoria`),
   ADD KEY `idCategoria` (`idCategoria`);
 
 --
--- Índices para tabela `tbtamanho`
+-- Índices de tabela `tbtamanho`
 --
 ALTER TABLE `tbtamanho`
   ADD PRIMARY KEY (`idTamanho`);
 
 --
--- Índices para tabela `users`
+-- Índices de tabela `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
@@ -644,13 +637,13 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT de tabela `objeto`
 --
 ALTER TABLE `objeto`
-  MODIFY `idObjeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
+  MODIFY `idObjeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=274;
 
 --
 -- AUTO_INCREMENT de tabela `post`
 --
 ALTER TABLE `post`
-  MODIFY `idPost` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `idPost` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT de tabela `tbandar`
@@ -707,18 +700,18 @@ ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `messages`
+-- Restrições para tabelas `messages`
 --
 ALTER TABLE `messages`
   ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`recipient_id`) REFERENCES `users` (`id`);
 
 --
--- Limitadores para a tabela `objeto`
+-- Restrições para tabelas `objeto`
 --
 ALTER TABLE `objeto`
   ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`usuario`) REFERENCES `users` (`id`),
@@ -731,7 +724,7 @@ ALTER TABLE `objeto`
   ADD CONSTRAINT `objeto_ibfk_7` FOREIGN KEY (`tamanhoObjeto`) REFERENCES `tbtamanho` (`idTamanho`);
 
 --
--- Limitadores para a tabela `post`
+-- Restrições para tabelas `post`
 --
 ALTER TABLE `post`
   ADD CONSTRAINT `fk_objeto` FOREIGN KEY (`idObjeto`) REFERENCES `objeto` (`idObjeto`),
@@ -739,13 +732,13 @@ ALTER TABLE `post`
   ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`statusPost`) REFERENCES `tbstatus` (`idStatus`);
 
 --
--- Limitadores para a tabela `tbmarca`
+-- Restrições para tabelas `tbmarca`
 --
 ALTER TABLE `tbmarca`
   ADD CONSTRAINT `tbmarca_ibfk_1` FOREIGN KEY (`idSubcategoria`) REFERENCES `tbsubcategoria` (`idSubCategoria`);
 
 --
--- Limitadores para a tabela `tbsubcategoria`
+-- Restrições para tabelas `tbsubcategoria`
 --
 ALTER TABLE `tbsubcategoria`
   ADD CONSTRAINT `tbsubcategoria_ibfk_1` FOREIGN KEY (`idCategoria`) REFERENCES `tbcategoria` (`idCategoria`);
