@@ -64,8 +64,8 @@ const InfoObject = () => {
 
                     <Text style={styles.objeto}>Marca: {selectedItem.descMarca}</Text>
                     <Text style={styles.objeto}>Cor: {selectedItem.descCor}</Text>
-                    <Text style={styles.objeto}>Andar Encontrado: {selectedItem.descLocal}</Text>
-                    <Text style={styles.objeto}>Local Encontrado: {selectedItem.descAndar}</Text>
+                    <Text style={styles.objeto}>Andar Encontrado: {selectedItem.descAndar}</Text>
+                    <Text style={styles.objeto}>Local Encontrado: {selectedItem.descLocal}</Text>
                     <Text style={styles.objeto}>Data de Registro: {selectedItem.dataRegistro}</Text>
 
                     <View style={styles.descriptionContainer}>

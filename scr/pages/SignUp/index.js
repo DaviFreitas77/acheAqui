@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TextInput, Pressable, Switch, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Pressable, Switch, ScrollView, TouchableOpacity} from 'react-native';
 import { useContext, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import CustomModal from '../../ModalSignUp';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 import { Context } from '../../context/provider';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import Feather from '@expo/vector-icons/Feather';
 
 const SignUp = () => {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -18,6 +19,8 @@ const SignUp = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [show, setShow] = useState(false);
   const {urlApi} = useContext(Context)
+
+  const [verSenha, setVerSenha] = useState(false);
 
   const [errors, setErrors] = useState({
     nome: false,
@@ -145,9 +148,13 @@ const SignUp = () => {
               placeholderTextColor="#707070"
               style={[styles.input, errors.senha && styles.errorInput]}
               onChangeText={(text) => setSenha(text)}
-              secureTextEntry={true}
+              secureTextEntry={!verSenha}
               value={senha}
             />
+
+                  <TouchableOpacity onPress={()=> setVerSenha(!verSenha) } style={{position:'absolute', top:43, right:10}}>
+                    <Feather name={verSenha ? "eye" : "eye-off"} size={20} color="black" />
+                  </TouchableOpacity>
           </View>
           <View style={styles.viewInput}>
             <Text style={styles.labelInput}>Insira sua Data de nascimento</Text>

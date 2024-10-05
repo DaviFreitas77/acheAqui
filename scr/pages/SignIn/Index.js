@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useContext,useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, Pressable,ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, Pressable,ScrollView, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { Context } from '../../context/provider';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Feather from '@expo/vector-icons/Feather';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -21,8 +23,13 @@ export default function SignIn() {
   const {urlApi} = useContext(Context)
 
  
+  const [verSenha, setVerSenha] = useState(false);
+
+
+
+
   useEffect(() => {
-    setUrlApi('192.168.1.71'); 
+    setUrlApi('192.168.165.6'); 
   }, [setUrlApi])
 
 
@@ -87,16 +94,22 @@ export default function SignIn() {
                   onChangeText={(text) => setEmail(text)}
                 />
               </View>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: "row", alignItems: "center", }}>
                 <Icon name='lock-closed-outline' size={25} color="#707070" />
                 <TextInput
                   placeholder='Digite sua senha'
                   placeholderTextColor="#707070"
                   style={styles.input}
-                  secureTextEntry={true}
+                  secureTextEntry={!verSenha}
                   onChangeText={(text) => setSenha(text)}
                   value={senha}
                 />
+                
+                    <TouchableOpacity onPress={()=> setVerSenha(!verSenha) } style={{position:'absolute', top:0, right:0}}>
+                    <Feather name={verSenha ? "eye" : "eye-off"} size={20} color="black" />
+                  </TouchableOpacity>
+              
+
               </View>
             </View>
             <View style={styles.containerEsqSenha}>

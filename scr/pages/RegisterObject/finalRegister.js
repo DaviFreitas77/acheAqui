@@ -30,9 +30,8 @@ const FinalRegister = () => {
         setLocalId(item.idLocal)
     };
 
-    console.log('categoria',formData.category)
   
-    console.log(formData)
+
     console.log(localId)
 
     const handleUpload = async () => {
