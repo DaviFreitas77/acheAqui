@@ -126,6 +126,7 @@ const EletronicScreen = () => {
   
       setData(data)
       
+      
       navigation.navigate('LostObject');
     } catch (error) {
       console.log("Erro ao buscar os dados", error.response ? error.response.data : error.message);

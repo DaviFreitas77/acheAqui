@@ -110,7 +110,7 @@ export default function SignIn() {
           <Pressable style={styles.btn} onPress={loginUser}>
             <Text style={styles.txtBtn}>Acessar</Text>
           </Pressable>
-          <Text style={{ fontSize: 15, fontWeight: 'bold' }}>ou</Text>
+
        
           <Pressable onPress={() => navigation.navigate('SignUp')}>
             <Text style={{ fontWeight: 'bold', fontSize: 12 }}>
@@ -177,7 +177,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     height: 58,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    marginBottom:15
   },
   txtBtn: {
     color: "#fff",

@@ -1,14 +1,16 @@
 import { useRoute } from '@react-navigation/native';
 import React from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, Text, View, FlatList, Image, Pressable } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, Text, View, FlatList, Image, Pressable,Modal } from 'react-native';
 import { Context } from '../../context/provider';
-import { useContext } from 'react';
+import { useContext,useState } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import Denuncia from '../../modalDenuncia';
 const LostObject = () => {
     const navigation = useNavigation()
     const {data} = useContext(Context)
-        console.log(data)
+    const [modalVisible,setModalVisible] = useState(false)
+
 
     const parseImages = (imagesString) => {
         let images = [];
@@ -60,9 +62,17 @@ const LostObject = () => {
                             />
                          <Text style={styles.title}>{item.nome}</Text>
                  </View>
-                 <Pressable style={{marginTop:10}}  onPress={() => chat(item.id, item.idObjeto,item.nome,item.imagem,item.images,item.descSubCategoria)}>
-                    <Icon  name='chatbubble-ellipses' size={30} color= '#4786d3'/>
-                 </Pressable>
+
+                
+                 <View style={{flexDirection:"row",gap:30,justifyContent:"center",alignItems:'center'}}>
+                     <Pressable style={{marginTop:10}} onPress={()=>setModalVisible(true)}>
+                     <Icon name="alert-circle-sharp" size={32} color="red" />
+                     </Pressable>
+
+                     <Pressable style={{marginTop:10}}  onPress={() => chat(item.id, item.idObjeto,item.nome,item.imagem,item.images,item.descSubCategoria)}>
+                        <Icon  name='chatbubble-ellipses' size={30} color= '#4786d3'/>
+                     </Pressable>
+                 </View>
                  </View>
 
                     <View style={{paddingTop:10,width:'100%',flexDirection:"row",justifyContent:"space-between",alignItems:"center"}}>
@@ -98,6 +108,10 @@ const LostObject = () => {
                     <Text>Nenhum dado encontrado</Text>
                 )}
             </View>
+            <Denuncia
+                visible={modalVisible}
+                onClose={() => setModalVisible(false)}
+             />
         </SafeAreaView>
     );
 };
