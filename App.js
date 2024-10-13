@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, Text,Image,Pressable } from 'react-native';
+import { View, Text, Image, Pressable } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -44,6 +44,8 @@ import InfoObject from './scr/areaAdm/pages/InfoObject';
 import HomeAdm from './scr/areaAdm/pages/SignIn';
 import ObjectBank from './scr/areaAdm/pages/ObjectBank';
 import Usuarios from './scr/areaAdm/pages/Usuarios/index.js';
+import AdmDenuncia from './scr/areaAdm/pages/Denuncia';
+import PostDenunciado from './scr/areaAdm/pages/Denuncia/denuncia.js';
 
 function TabNavigator() {
   return (
@@ -73,7 +75,11 @@ function TabNavigator() {
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Icon name="comments" color={color} size={size} />
+            <Image
+              source={require('./scr/imges/post.png')}
+              style={{width:280,height:300}}
+            />
+            
           ),
         }} />
 
@@ -108,7 +114,7 @@ function StackInsideDrawer() {
         options={{
           headerShown: false
         }} />
-     
+
     </Stack.Navigator>
   );
 }
@@ -116,14 +122,14 @@ function StackInsideDrawer() {
 function DrawerNavigator() {
   return (
     <Drawer.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name="StackInsideDrawer" component={StackInsideDrawer}   options={({ navigation }) => ({
-        headerTitle:'',
-          headerRight: () => (
-            <Pressable style={{paddingRight:20}} onPress={() => navigation.navigate('Conversations')}>
-              <Feather name="message-circle" size={30} color="#005AC5" />
-            </Pressable>
-          )
-        })}
+      <Drawer.Screen name="StackInsideDrawer" component={StackInsideDrawer} options={({ navigation }) => ({
+        headerTitle: '',
+        headerRight: () => (
+          <Pressable style={{ paddingRight: 20 }} onPress={() => navigation.navigate('Conversations')}>
+            <Feather name="message-circle" size={30} color="#005AC5" />
+          </Pressable>
+        )
+      })}
       />
     </Drawer.Navigator>
   );
@@ -141,66 +147,49 @@ function MyStack() {
         <Stack.Screen name="EditUser" component={EditUser} options={{
           headerShown: true,
           headerTitle: "Editar Perfil",
-          headerTintColor:"#fff",
+          headerTintColor: "#fff",
 
           headerStyle: {
             backgroundColor: '#005AC5',
-            
-
           },
           headerTitleContainerStyle: {
-            
-            width:'70%',
-            justifyContent:"center",
-            alignItems:"center",
- 
-            
-            
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
           },
           headerTitleStyle: {
             fontSize: 22
           }
         }} />
+
         <Stack.Screen name="RegisterObject" component={RegisterObject} options={{
           headerShown: true,
           headerTitle: 'Registrar Achado',
-          headerTintColor:"#fff",
+          headerTintColor: "#fff",
           headerStyle: {
             backgroundColor: '#005AC5',
-
           },
           headerTitleContainerStyle: {
-            
-            width:'70%',
-            justifyContent:"center",
-            alignItems:"center",
- 
-            
-            
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
           },
           headerTitleStyle: {
             fontSize: 22
           }
-
-
-
         }} />
 
         <Stack.Screen name="CharactObject" component={CharactObject} options={{
           headerShown: true,
           headerTitle: 'Registrar Achado',
-          headerTintColor:"#fff",
+          headerTintColor: "#fff",
           headerStyle: {
             backgroundColor: '#005AC5',
           },
           headerTitleContainerStyle: {
-            
-            width:'70%',
-            justifyContent:"center",
-            alignItems:"center",
- 
-            
-            
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
           },
           headerTitleStyle: {
             fontSize: 22
@@ -211,204 +200,213 @@ function MyStack() {
         <Stack.Screen name="FinalRegister" component={FinalRegister} options={{
           headerShown: true,
           headerTitle: 'Registrar Achado',
-          headerTintColor:"#fff",
+          headerTintColor: "#fff",
           headerStyle: {
             backgroundColor: '#005AC5',
           },
           headerTitleContainerStyle: {
-            
-            width:'70%',
-            justifyContent:"center",
-            alignItems:"center",
- 
-            
-            
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
           },
           headerTitleStyle: {
             fontSize: 22
           }
         }}
         />
-  
-        <Stack.Screen name="Code" component={Code} options={{ headerShown: true,
-          headerTitle:'Autentificando-se',
-          headerTintColor:"#fff",
+
+        <Stack.Screen name="Code" component={Code} options={{
+          headerShown: true,
+          headerTitle: 'Autentificando-se',
+          headerTintColor: "#fff",
           headerTitleContainerStyle: {
-            
-            width:'70%',
-            justifyContent:"center",
-            alignItems:"center",
- 
-            
-            
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
           },
-          headerStyle:{
-            backgroundColor:'#6d9fdc'
+          headerStyle: {
+            backgroundColor: '#6d9fdc'
           }
-         }} />
-         
-           <Stack.Screen name="AdminDrawer" component={AdminDrawerNavigator} options={{ headerShown: false }} />
+        }} />
+
+        <Stack.Screen name="AdminDrawer" component={AdminDrawerNavigator} options={{ headerShown: false }} />
 
 
-           <Stack.Screen name="RegisterComplempeted" component={RegisterComplempeted} options={{ headerShown: true,headerTitle:'Registrar achado',  headerTintColor:"#fff",headerStyle:{
-              backgroundColor:"#4786d3",
-           },   headerTitleContainerStyle: {
-            paddingLeft:'30%'
+        <Stack.Screen name="RegisterComplempeted" component={RegisterComplempeted} options={{
+          headerShown: true, headerTitle: 'Registrar achado', headerTintColor: "#fff", headerStyle: {
+            backgroundColor: "#4786d3",
+          }, headerTitleContainerStyle: {
+            paddingLeft: '30%'
           },
-          headerLeft: () => null}} />
+          headerLeft: () => null
+        }} />
 
-          <Stack.Screen  name='InfoObject' component={InfoObject} options={{headerShown:false}} />
+        <Stack.Screen name='InfoObject' component={InfoObject} options={{ headerShown: false }} />
 
-          <Stack.Screen  name='HomeAdm' component={HomeAdm} options={{headerShown:false}} />
+        <Stack.Screen name='HomeAdm' component={HomeAdm} options={{ headerShown: false }} />
 
-          <Stack.Screen  name='ObjectBank' component={ObjectBank} options={{headerTitle:'Banco de objetos',headerTintColor:'white',headerStyle:{
-            backgroundColor:"#4786d3"
+        <Stack.Screen name='ObjectBank' component={ObjectBank} options={{
+          headerTitle: 'Banco de objetos', headerTintColor: 'white', headerStyle: {
+            backgroundColor: "#4786d3"
           },
           headerTitleContainerStyle: {
-            
-            width:'70%',
-            justifyContent:"center",
-            alignItems:"center",
- 
-            
-            
-          },}} />
 
-          <Stack.Screen  name='EletronicScreen' component={EletronicScreen} options={{headerTitle:'Eletrônicos',headerTintColor:'white',headerStyle:{
-            backgroundColor:"#4786d3"
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
+          },
+        }} />
+
+        <Stack.Screen name='EletronicScreen' component={EletronicScreen} options={{
+          headerTitle: 'Eletrônicos', headerTintColor: 'white', headerStyle: {
+            backgroundColor: "#4786d3"
           },
           headerTitleContainerStyle: {
-            
-            width:'70%',
-            justifyContent:"center",
-            alignItems:"center",
- 
-            
-            
-          },}} />
-          
-          <Stack.Screen  name='LostObject' component={LostObject} options={{headerTitle:'Achados',headerTintColor:'white',headerStyle:{
-            backgroundColor:"#4786d3"
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
+          },
+        }} />
+
+        <Stack.Screen name='LostObject' component={LostObject} options={{
+          headerTitle: 'Achados', headerTintColor: 'white', headerStyle: {
+            backgroundColor: "#4786d3"
           },
           headerTitleContainerStyle: {
-            
-            width:'70%',
-            justifyContent:"center",
-            alignItems:"center",
- 
-            
-            
-          },}} />
-          <Stack.Screen  name='Roupas' component={Roupas} options={{headerTitle:'Roupas',headerTintColor:'white',headerStyle:{
-            backgroundColor:"#4786d3"
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
+          },
+        }} />
+
+        <Stack.Screen name='Roupas' component={Roupas} options={{
+          headerTitle: 'Roupas', headerTintColor: 'white', headerStyle: {
+            backgroundColor: "#4786d3"
           },
           headerTitleContainerStyle: {
-            
-            width:'70%',
-            justifyContent:"center",
-            alignItems:"center",
- 
-            
-            
-          },}} />
-          <Stack.Screen  name='Acessorio' component={Acessorio} options={{headerTitle:'Acesório Pessoal',headerTintColor:'white',headerStyle:{
-            backgroundColor:"#4786d3"
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
+          },
+        }} />
+        <Stack.Screen name='Acessorio' component={Acessorio} options={{
+          headerTitle: 'Acesório Pessoal', headerTintColor: 'white', headerStyle: {
+            backgroundColor: "#4786d3"
           },
           headerTitleContainerStyle: {
-            
-            width:'70%',
-            justifyContent:"center",
-            alignItems:"center",
- 
-            
-            
-          },}} />
-          <Stack.Screen  name='MaterialEscolar' component={MaterialEscolar} options={{headerTitle:'Material Escolar',headerTintColor:'white',headerStyle:{
-            backgroundColor:"#4786d3"
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
+          },
+        }} />
+
+        <Stack.Screen name='MaterialEscolar' component={MaterialEscolar} options={{
+          headerTitle: 'Material Escolar', headerTintColor: 'white', headerStyle: {
+            backgroundColor: "#4786d3"
           },
           headerTitleContainerStyle: {
-            
-            width:'70%',
-            justifyContent:"center",
-            alignItems:"center",
- 
-            
-            
-          },}} />
-          <Stack.Screen  name='Documento' component={Documento} options={{headerTitle:'Documentos',headerTintColor:'white',headerStyle:{
-            backgroundColor:"#4786d3"
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
+          },
+        }} />
+
+        <Stack.Screen name='Documento' component={Documento} options={{
+          headerTitle: 'Documentos', headerTintColor: 'white', headerStyle: {
+            backgroundColor: "#4786d3"
           },
           headerTitleContainerStyle: {
-            
-            width:'70%',
-            justifyContent:"center",
-            alignItems:"center",
- 
-            
-            
-          },}} />
-          <Stack.Screen  name='Outros' component={Outros} options={{headerTitle:'Outros',headerTintColor:'white',headerStyle:{
-            backgroundColor:"#4786d3"
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
+          },
+        }} />
+
+        <Stack.Screen name='Outros' component={Outros} options={{
+          headerTitle: 'Outros', headerTintColor: 'white', headerStyle: {
+            backgroundColor: "#4786d3"
           },
           headerTitleContainerStyle: {
-            
-            width:'70%',
-            justifyContent:"center",
-            alignItems:"center",
- 
-            
-            
-          },}} />
-          <Stack.Screen  name='Conversations' component={Conversations}options={{headerTitle:'Conversa',headerTintColor:'white',headerStyle:{
-            backgroundColor:"#4786d3"
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
+          },
+        }} />
+
+        <Stack.Screen name='Conversations' component={Conversations} options={{
+          headerTitle: 'Conversa', headerTintColor: 'white', headerStyle: {
+            backgroundColor: "#4786d3"
           },
           headerTitleContainerStyle: {
-            
-            width:'70%',
-            justifyContent:"center",
-            alignItems:"center",
- 
-            
-            
-          },}} />
-          <Stack.Screen  name='Usuarios' component={Usuarios}options={{headerTitle:'Banco de usuarios',headerTintColor:'white',headerStyle:{
-            backgroundColor:"#4786d3"
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
+          },
+        }} />
+
+        <Stack.Screen name='Usuarios' component={Usuarios} options={{
+          headerTitle: 'Banco de usuarios', headerTintColor: 'white', headerStyle: {
+            backgroundColor: "#4786d3"
           },
           headerTitleContainerStyle: {
-            
-            width:'70%',
-            justifyContent:"center",
-            alignItems:"center",
- 
-            
-            
-          },}} />
-    <Stack.Screen
-    name="Chat"
-    component={Chat}
-    options={({ route }) => ({
-        headerTitle: () => (
-            <View style={{ flexDirection: 'row', alignItems: 'center',gap:10 }}>
-           
+
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
+          },
+        }} />
+
+        <Stack.Screen
+          name="Chat"
+          component={Chat}
+          options={({ route }) => ({
+            headerTitle: () => (
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+
                 <Image
-                    source={{ uri: route.params.userImagem }}
-                    style={{ width: 40, height: 40, borderRadius: 20 }} 
+                  source={{ uri: route.params.userImagem }}
+                  style={{ width: 40, height: 40, borderRadius: 20 }}
                 />
-               
-                <Text style={{ fontSize: 20, marginRight: 10,color:"white" }}>{route.params ? route.params.userNome : 'Chat'}</Text>
-              
-            </View>
-        ),
-        
-        headerStyle:{
-           backgroundColor:"#4786d3",
- 
-        },
-       
-    })}
-/>
-         
-        
+                <Text style={{ fontSize: 20, marginRight: 10, color: "white" }}>{route.params ? route.params.userNome : 'Chat'}</Text>
+
+              </View>
+            ),
+            headerStyle: {
+              backgroundColor: "#4786d3",
+            },
+          })}
+        />
+        <Stack.Screen name='AdmDenuncia' component={AdmDenuncia} options={{
+          headerTitle: 'Denúncias', headerTintColor: 'white', headerStyle: {
+            backgroundColor: "#4786d3"
+          },
+          headerTitleContainerStyle: {
+
+            width: '70%',
+            justifyContent: "center",
+            alignItems: "center",
+
+          },
+        }} />
+
+        <Stack.Screen
+          name="PostDenunciado" component={PostDenunciado}
+          options={{
+            headerTitle: 'Objeto', headerTintColor: 'white', headerStyle: {
+              backgroundColor: "#4786d3"
+            },
+            headerTitleContainerStyle: {
+
+              width: '70%',
+              justifyContent: "center",
+              alignItems: "center",
+
+            },
+          }}
+        />
+
+
+
 
       </Stack.Navigator>
     </Provider>

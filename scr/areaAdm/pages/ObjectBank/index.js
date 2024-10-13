@@ -4,11 +4,13 @@ import { useContext } from 'react';
 import { Context } from '../../../context/provider';
 import Icon from 'react-native-vector-icons/Feather';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
 export default function ObjectBank() {
   const {urlApi} = useContext(Context)
   const { nomeAdm } = useContext(Context);
   const { emailAdm } = useContext(Context);
+  const navigation = useNavigation(); 
   const [post, setpost] = useState([])
 
   useEffect(() => {
@@ -50,6 +52,25 @@ export default function ObjectBank() {
       ]
     );
   };
+
+  const handleVisualizar = async (idPost) => {
+  
+    try {
+     
+      const response = await axios.get(`http://${urlApi}/services/getPostDetails.php`, {
+        
+        params: { idPost }
+      });
+  
+      console.log(response.data); 
+      navigation.navigate('PostDenunciado', { postDetails: response.data });
+    
+    } catch (error) {
+      console.error('Erro ao buscar os detalhes do post:', error);
+    }
+     
+    
+  };
   return (
     <View style={styles.container}>
       <View style={{ width: "90%", borderBottomWidth: 1, borderBottomColor: '#888888', height: 100 }}>
@@ -88,7 +109,7 @@ export default function ObjectBank() {
                 <Icon name="trash" color={item.nomeStatus === "ativado" ? "red" : "green"} size={20} />
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.dataText}>
+            <TouchableOpacity onPress={()=>handleVisualizar(item.idPost)} style={styles.dataText}>
               <Text style={{ paddingLeft: 25 }}>
                 <Icon name='eye' color="#4b7099" size={20} />
               </Text>

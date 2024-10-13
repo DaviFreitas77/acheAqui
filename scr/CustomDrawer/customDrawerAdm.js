@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Context } from '../context/provider';
 import { useContext } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
+import Feather from '@expo/vector-icons/Feather';
 
 
 function CustomDrawerAdmin(props) {
@@ -42,6 +43,10 @@ function CustomDrawerAdmin(props) {
                 <Pressable onPress={() => props.navigation.navigate('RegisterObject')} style={styles.menuItem}>
                     <Icon  name='upload-cloud' size={30}/>
                     <Text>Registrar achado</Text>
+                </Pressable>
+                <Pressable onPress={() => props.navigation.navigate('AdmDenuncia')} style={styles.menuItem}>
+                <Feather name="alert-triangle" size={30} color="black" />
+                    <Text>Denuncias</Text>
                 </Pressable>
                
                 <Pressable onPress={handleLogout} style={styles.logoutButton}>
