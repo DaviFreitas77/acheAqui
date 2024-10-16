@@ -33,21 +33,21 @@ const MaterialEscolar = () => {
     const fetchData = async () => {
 
       try {
-        const corResponse = await axios.get(`http://${urlApi}/services/getcor.php`)
+        const corResponse = await axios.get(`${urlApi}/services/getcor.php`)
         setCores(corResponse.data)
       } catch (error) {
         console.log(error)
       }
 
       try {
-        const tamanhoResponse = await axios.get(`http://${urlApi}/services/getTamanho.php`)
+        const tamanhoResponse = await axios.get(`${urlApi}/services/getTamanho.php`)
         setTamanho(tamanhoResponse.data)
       } catch (error) {
         console.log('tamanho', error)
       }
 
       try {
-        const response = await axios.get(`http://${urlApi}/services/getSubCategoria.php`);
+        const response = await axios.get(`${urlApi}/services/getSubCategoria.php`);
 
         const subCategoriasFiltered = response.data
           .filter(sub => sub.idCategoria === 10)
@@ -70,7 +70,7 @@ const MaterialEscolar = () => {
       const objetoId = selectedItem; 
       if (objetoId) {
         try {
-          const marcaResponse = await axios.get(`http://${urlApi}/services/getMarca.php?id=${objetoId}`);
+          const marcaResponse = await axios.get(`${urlApi}/services/getMarca.php?id=${objetoId}`);
           setMarcas(marcaResponse.data);
         } catch (error) {
           console.log('marca', error);
@@ -106,7 +106,7 @@ const MaterialEscolar = () => {
   async function getObjeto() {
     console.log(selectedItem, activeTam, corId, activeMarca); 
     try {
-      const response = await axios.post(`http://${urlApi}/services/searchObjeto.php`, {
+      const response = await axios.post(`${urlApi}/services/searchObjeto.php`, {
         item: selectedItem, 
         tamanho: activeTam,
         cor: corId,

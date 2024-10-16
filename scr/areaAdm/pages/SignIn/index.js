@@ -25,7 +25,7 @@ const HomeAdm = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://${urlApi}/services/getPost.php`);
+                const response = await axios.get(`${urlApi}/services/getPost.php`);
                 setPosts(response.data);
             } catch (error) {
                 console.error('Erro ao buscar os dados:', error);

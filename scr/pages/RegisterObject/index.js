@@ -78,14 +78,14 @@ const RegisterObject = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const categoriasResponse = await axios.get( `http://${urlApi}/services/getCategoria.php`);
+                const categoriasResponse = await axios.get( `${urlApi}/services/getCategoria.php`);
                 setCategorias(categoriasResponse.data);
             } catch (error) {
                 console.error('Erro ao buscar categorias:', error);
             }
 
             try {
-                const subCategoriasResponse = await axios.get(`http://${urlApi}/services/getSubCategoria.php`);
+                const subCategoriasResponse = await axios.get(`${urlApi}/services/getSubCategoria.php`);
                 setSubCategorias(subCategoriasResponse.data);
             } catch (error) {
                 console.error('Erro ao buscar subcategorias:', error);

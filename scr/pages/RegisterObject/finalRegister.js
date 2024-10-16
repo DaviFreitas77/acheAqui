@@ -62,7 +62,7 @@ const FinalRegister = () => {
         };
 
         try {
-            const request = await fetch( `http://${urlApi}/services/registroObjeto.php`, {
+            const request = await fetch( `${urlApi}/services/registroObjeto.php`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -79,7 +79,7 @@ const FinalRegister = () => {
                 idUsuario: response.idUser
             };
 
-            const postResponse = await fetch( `http://${urlApi}/services/criarPost.php`, {
+            const postResponse = await fetch( `${urlApi}/services/criarPost.php`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,14 +100,14 @@ const FinalRegister = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const andarResponse = await axios.get( `http://${urlApi}/services/getandar.php`);
+                const andarResponse = await axios.get( `${urlApi}/services/getandar.php`);
                 setAndar(andarResponse.data);
             } catch (error) {
                 console.log(error);
             }
 
             try {
-                const localResponse = await axios.get( `http://${urlApi}/services/getLocal.php`);
+                const localResponse = await axios.get( `${urlApi}/services/getLocal.php`);
                 setLocal(localResponse.data);
             } catch (error) {
                 console.log(error);

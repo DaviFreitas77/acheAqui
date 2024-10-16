@@ -22,6 +22,7 @@ const SignUp = () => {
 
   const [verSenha, setVerSenha] = useState(false);
 
+  console.log(urlApi);
   const [errors, setErrors] = useState({
     nome: false,
     numero: false,
@@ -63,7 +64,7 @@ const SignUp = () => {
       return;
     } else {
       try {
-        let response = await fetch(`http://${urlApi}/services/register.php`, {
+        let response = await fetch(`${urlApi}/services/register.php`, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',

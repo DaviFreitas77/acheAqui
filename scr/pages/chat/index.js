@@ -15,7 +15,7 @@ const Chat = () => {
     
     const fetchMensagens = async () => {
         try {
-            const response = await axios.get(`http://${urlApi}/services/getMensagens.php`, {
+            const response = await axios.get(`${urlApi}/services/getMensagens.php`, {
                 params: { remetente: idUser, destinatario: recipientId }
             });
 
@@ -51,7 +51,7 @@ const Chat = () => {
 
         const mensagem = novaMensagem[0];
         try {
-            await axios.post(`http://${urlApi}/services/postMensagem.php`, {
+            await axios.post(`${urlApi}/services/postMensagem.php`, {
                 texto: mensagem.text,
                 remetente: idUser,
                 destinatario: recipientId

@@ -12,7 +12,7 @@ const Usuarios = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get(`http://${urlApi}/services/getUsuarios.php`)
+                const response = await axios.get(`${urlApi}/services/getUsuarios.php`)
    
                 setUsers(response.data)
             } catch (error) {

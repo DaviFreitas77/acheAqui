@@ -12,7 +12,7 @@ const MeusPosts = () => {
   useEffect(()=>{
     const fetchPost = async () =>{
       try{
-        const response = await axios.get(`http://${urlApi}/services/getPostUsuario.php`,{
+        const response = await axios.get(`${urlApi}/services/getPostUsuario.php`,{
           params:{id:idUser}
         })
         console.log(response.data)

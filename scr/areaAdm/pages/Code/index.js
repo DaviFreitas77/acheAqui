@@ -15,7 +15,7 @@ export default function Code() {
     const validarAdm = async () => {
    
         try {
-            const response = await fetch(`http://${urlApi}/services/loginAdm.php`, {
+            const response = await fetch(`${urlApi}/services/loginAdm.php`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

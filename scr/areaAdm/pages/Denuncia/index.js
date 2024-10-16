@@ -11,7 +11,7 @@ const AdmDenuncia = () => {
   useEffect(() => {
     const fetchDenuncia = async () => {
       try {
-        const response = await axios.get(`http://${urlApi}/services/getDenunciaAdm.php`);
+        const response = await axios.get(`${urlApi}/services/getDenunciaAdm.php`);
         console.log(response.data);
         setDenuncias(response.data);
       } catch (error) {
@@ -26,7 +26,7 @@ const AdmDenuncia = () => {
   
     try {
      
-      const response = await axios.get(`http://${urlApi}/services/getPostDetails.php`, {
+      const response = await axios.get(`${urlApi}/services/getPostDetails.php`, {
         
         params: { idPost }
       });

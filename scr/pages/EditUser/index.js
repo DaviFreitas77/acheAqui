@@ -63,7 +63,7 @@ export default function EditUser() {
            
                 try {
                     
-                    const response = await axios.put(`http://${urlApi}/services/atualizaRegistro.php`, {
+                    const response = await axios.put(`${urlApi}/services/atualizaRegistro.php`, {
                         id: idUser,         
                         imagem: url         
                     });
@@ -99,7 +99,7 @@ export default function EditUser() {
         }
 
         try {
-            const response = await fetch(`http://${urlApi}/services/atualizaRegistro.php`, {
+            const response = await fetch(`${urlApi}/services/atualizaRegistro.php`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

@@ -16,7 +16,7 @@ export default function ObjectBank() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://${urlApi}/services/getPost.php`);
+        const response = await axios.get(`${urlApi}/services/getPost.php`);
       
         setpost(response.data);
 
@@ -30,7 +30,7 @@ export default function ObjectBank() {
   const togglePostStatus = async (id, currentStatus) => {
     const atuacao = currentStatus === "ativado" ? 'desativar' : 'ativar';
     try {
-      const response = await axios.patch(`http://${urlApi}/services/deletarPost.php`, {
+      const response = await axios.patch(`${urlApi}/services/deletarPost.php`, {
         id: id,
         atuacao: atuacao,
       });
@@ -57,7 +57,7 @@ export default function ObjectBank() {
   
     try {
      
-      const response = await axios.get(`http://${urlApi}/services/getPostDetails.php`, {
+      const response = await axios.get(`${urlApi}/services/getPostDetails.php`, {
         
         params: { idPost }
       });

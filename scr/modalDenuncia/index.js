@@ -36,7 +36,7 @@ const Denuncia = ({ visible, onClose }) => {
     useEffect(() => {
         const fetchDenuncia = async () => {
             try {
-                const response = await axios.get(`http://${urlApi}/services/getDenuncia.php`);
+                const response = await axios.get(`${urlApi}/services/getDenuncia.php`);
 
                 setDenuncia(response.data)
             } catch (error) {
@@ -49,7 +49,7 @@ const Denuncia = ({ visible, onClose }) => {
 
     const enviarDenuncia =async () =>{
       try {
-        const response = await axios.post(`http://${urlApi}/services/postDenuncia.php`, {
+        const response = await axios.post(`${urlApi}/services/postDenuncia.php`, {
             idDenuncia: idDenuncia, 
             idUsuario: idUser,   
             idPost: idPost

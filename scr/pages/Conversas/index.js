@@ -12,7 +12,7 @@ const Conversations = () => {
     useEffect(() => {
         const fetchMensagens = async () => {
             try {
-                const response = await axios.get(`http://${urlApi}/services/getConversa.php`, {
+                const response = await axios.get(`${urlApi}/services/getConversa.php`, {
                     params: { usuario: idUser }
                 });
                

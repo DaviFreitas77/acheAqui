@@ -56,14 +56,14 @@ console.log(marcaId)
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const corResponse = await axios.get(`http://${urlApi}/services/getcor.php`)
+                const corResponse = await axios.get(`${urlApi}/services/getcor.php`)
                 setCores(corResponse.data);
             } catch (error) {
                 console.log(error)
             }
 
             try {
-                const tamanhoResponse = await axios.get( `http://${urlApi}/services/getTamanho.php`)
+                const tamanhoResponse = await axios.get( `${urlApi}/services/getTamanho.php`)
                 setTamanho(tamanhoResponse.data)
             } catch (error) {
                 console.log('tamanho', error)
@@ -72,7 +72,7 @@ console.log(marcaId)
             const objetoId = formData.item; 
             if (objetoId) {
                 try {
-                    const marcaResponse = await axios.get(`http://${urlApi}/services/getMarca.php?id=${objetoId}`); 
+                    const marcaResponse = await axios.get(`${urlApi}/services/getMarca.php?id=${objetoId}`); 
                     setMarca(marcaResponse.data);
                 } catch (error) {
                     console.log('marca', error);
