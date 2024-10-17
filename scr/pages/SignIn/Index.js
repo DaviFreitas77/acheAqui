@@ -29,7 +29,7 @@ export default function SignIn() {
 
 
   useEffect(() => {
-    setUrlApi('https://9d90-2804-82c4-97-b000-ad3a-71cc-14f0-3070.ngrok-free.app'); 
+    setUrlApi('http://192.168.1.71'); 
   }, [setUrlApi])
 
 

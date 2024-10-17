@@ -22,7 +22,7 @@ const SignUp = () => {
 
   const [verSenha, setVerSenha] = useState(false);
 
-  console.log(urlApi);
+ 
   const [errors, setErrors] = useState({
     nome: false,
     numero: false,
