@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 const AdmDenuncia = () => {
   const { urlApi } = useContext(Context);
   const [denuncias, setDenuncias] = useState([]);
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
   useEffect(() => {
     const fetchDenuncia = async () => {
       try {
@@ -23,22 +23,22 @@ const AdmDenuncia = () => {
   }, []);
 
   const handleVisualizar = async (idPost) => {
-  
+
     try {
-     
+
       const response = await axios.get(`${urlApi}/services/getPostDetails.php`, {
-        
+
         params: { idPost }
       });
-  
-      console.log(response.data); 
+
+      console.log(response.data);
       navigation.navigate('PostDenunciado', { postDetails: response.data });
-    
+
     } catch (error) {
       console.error('Erro ao buscar os detalhes do post:', error);
     }
-     
-    
+
+
   };
 
   const renderItem = ({ item }) => {
@@ -54,7 +54,7 @@ const AdmDenuncia = () => {
             <Text>{item.tipoDenunicia}</Text>
             <Text style={styles.idPost}>ID POST: {item.idPost}</Text>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity 
+              <TouchableOpacity
                 style={styles.visualizarButton}
                 onPress={() => handleVisualizar(item.idPost)}
               >
@@ -69,11 +69,23 @@ const AdmDenuncia = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={denuncias}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.idPost.toString()}
-      />
+      {denuncias.length > 0 ? (
+        <FlatList
+          data={denuncias}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.idPost.toString()}
+        />
+      ) : (
+        <View style={{alignItems:"center"}}>
+          <Text style={{fontWeight:"bold",fontSize:17}}>Nenhuma Denúncia Realizada</Text>
+          <Image
+            source={require('../../../imges/denunciaAdm.png')}
+            style={{ width: 400, height: 400 }}
+          />
+        </View>
+
+      )}
+
     </SafeAreaView>
   );
 };
@@ -93,7 +105,7 @@ const styles = StyleSheet.create({
   containerNome: {
     flexDirection: "row",
     gap: 15,
-   
+
   },
   infoContainer: {
     width: '85%',
