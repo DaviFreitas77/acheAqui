@@ -7,27 +7,31 @@ import { Context } from '../../../context/provider';
 
 const Acessorio = () => {
 
-  const{urlApi} = useContext(Context)
-  
+  const { urlApi } = useContext(Context)
+
   const [activeColor, setActiveColor] = useState(null);
   const [cores, setCores] = useState([])
   const [corId, setCorId] = useState(null)
 
   const [activeTam, setActiveTam] = useState(null);
-  const [tamNome,setTamNome] = useState(null)
+  const [tamNome, setTamNome] = useState(null)
   const [tamanho, setTamanho] = useState([]);
 
   const [selectedItem, setSelectedItem] = useState(null);
   const [nomeItem, setNomeItem] = useState(null);
 
+  const [caracteristica, setCaracteristica] = useState([])
+  const [activeCaracteristica, setActiveCaracteristica] = useState(null)
+
+
   const [marcas, setMarcas] = useState([]);
-  const [activeMarca,setActiveMarca] = useState(null)
+  const [activeMarca, setActiveMarca] = useState(null)
   const [subCategorias, setSubCategorias] = useState([]);
   const [results, setResults] = useState([]);
   const navigation = useNavigation();
   const { setData } = useContext(Context);
 
-  
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +71,7 @@ const Acessorio = () => {
 
   useEffect(() => {
     const fetchMarcas = async () => {
-      const objetoId = selectedItem; 
+      const objetoId = selectedItem;
       if (objetoId) {
         try {
           const marcaResponse = await axios.get(`${urlApi}/services/getMarca.php?id=${objetoId}`);
@@ -75,21 +79,29 @@ const Acessorio = () => {
         } catch (error) {
           console.log('marca', error);
         }
+
+        try {
+          const caractResponse = await axios.get(`${urlApi}/services/getCaracteristica.php?id=${objetoId}`);
+          setCaracteristica(caractResponse.data);
+          console.log(caractResponse.data);
+        } catch (error) {
+          console.log('caract', error);
+        }
       }
     };
 
     fetchMarcas();
-  }, [selectedItem]); 
+  }, [selectedItem]);
 
 
   const handleItemPress = (value) => {
     const selectedSubcategoria = subCategorias.find(sub => sub.value === value);
     if (selectedSubcategoria) {
-      setNomeItem(selectedSubcategoria.label);  
-        setSelectedItem(selectedSubcategoria.value);      
-      
+      setNomeItem(selectedSubcategoria.label);
+      setSelectedItem(selectedSubcategoria.value);
+
     }
-};
+  };
   const handleColorPress = (item) => {
     setActiveColor(item.descCor);
     setCorId(item.idCor)
@@ -103,29 +115,36 @@ const Acessorio = () => {
   const handleMarcaPress = (item) => {
     setActiveMarca(item)
   };
+
+  const handlePressCaract = (item) => {
+    setActiveCaracteristica(item.idCaractestica)
+  };
+
+  console.log(activeCaracteristica)
   async function getObjeto() {
-    console.log(selectedItem, activeTam, corId, activeMarca); 
+    console.log(selectedItem, activeTam, corId, activeMarca);
     try {
       const response = await axios.post(`${urlApi}/services/searchObjeto.php`, {
-        item: selectedItem, 
+        item: selectedItem,
         tamanho: activeTam,
         cor: corId,
         marca: activeMarca,
+        caracteristica:activeCaracteristica
       }, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      
+
       const data = response.data
       const itensNome = {
-        nomeTamanho:tamNome,
-        nomeCor:activeColor,
-        nomeitem:nomeItem,
+        nomeTamanho: tamNome,
+        nomeCor: activeColor,
+        nomeitem: nomeItem,
       }
-  
+
       setData(data)
-      
+
       navigation.navigate('LostObject');
     } catch (error) {
       console.log("Erro ao buscar os dados", error.response ? error.response.data : error.message);
@@ -134,13 +153,13 @@ const Acessorio = () => {
 
 
 
-  
 
 
-  
+
+
   const originalColor = '#ffffff';
   const activeTagColor = '#b1b1b1';
-  
+
 
   return (
     <ScrollView style={{ backgroundColor: "#fff" }}>
@@ -150,7 +169,7 @@ const Acessorio = () => {
           <View style={{ gap: 10 }}>
             <Text style={styles.title}>Qual seu Acessório??</Text>
             <RNPickerSelect
-             onValueChange={(value) => handleItemPress(value)}
+              onValueChange={(value) => handleItemPress(value)}
               items={subCategorias}
               placeholder={{ label: 'Selecione...', value: null }}
               style={pickerSelectStyles}
@@ -172,7 +191,7 @@ const Acessorio = () => {
             </View>
           </View>
 
-    
+
 
           <View style={{ alignItems: "center", gap: 10 }}>
             <Text style={styles.title}>Qual o tamanho do seu Acessório?</Text>
@@ -189,13 +208,14 @@ const Acessorio = () => {
               ))}
             </View>
           </View>
-          
-          {selectedItem &&(
-                <View style={{ alignItems: "center", gap: 10 }}>
+
+          {selectedItem && (
+            <View>
+              <View style={{ alignItems: "center", gap: 10 }}>
                 <Text style={styles.title}>Qual a marca do seu Acessório?</Text>
                 <View style={styles.containerTags}>
                   {marcas.map((item, index) => (
-    
+
                     <Pressable
                       key={index}
                       onPress={() => handleMarcaPress(item.idMarca)}
@@ -206,10 +226,28 @@ const Acessorio = () => {
                   ))}
                 </View>
               </View>
-          )}
-      
 
-          {(selectedItem  && activeTam && activeColor) && (
+              <View style={{ alignItems: "center", gap: 10 }}>
+                <Text style={styles.title}>Nos informe a útima característica</Text>
+                <View style={styles.containerTags}>
+                  {caracteristica.map((item, index) => (
+
+                    <Pressable
+                      key={index}
+                      onPress={() => handlePressCaract(item)}
+                      style={[styles.tag, { backgroundColor: activeCaracteristica === item.idCaractestica ? activeTagColor : originalColor }]}
+                    >
+                      <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descCapacidade}</Text>
+                    </Pressable>
+                  ))}
+                </View>
+              </View>
+            </View>
+
+          )}
+
+
+          {(selectedItem && activeTam && activeColor) && (
             <Pressable
               onPress={async () => {
                 await getObjeto();

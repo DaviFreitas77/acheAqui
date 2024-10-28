@@ -37,6 +37,9 @@ export default function RegisterComplempeted() {
                 <View style={styles.tag}>
                     <Text  style={styles.txtItem}>{formData.marcaItem}</Text>
                 </View>
+                <View style={styles.tag}>
+                    <Text  style={styles.txtItem}>{formData.caractAdd}</Text>
+                </View>
 
             </View>
             </View>

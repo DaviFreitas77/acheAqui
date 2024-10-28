@@ -27,6 +27,9 @@ const Documento = () => {
   const navigation = useNavigation();
   const { setData } = useContext(Context);
 
+  const [caracteristica,setCaracteristica] = useState([])
+  const [activeCaract,setActiveCaract] = useState(null)
+
   
 
   useEffect(() => {
@@ -75,7 +78,16 @@ const Documento = () => {
         } catch (error) {
           console.log('marca', error);
         }
+
+        try {
+          const caractResponse = await axios.get(`${urlApi}/services/getCaracteristica.php?id=${objetoId}`);
+          setCaracteristica(caractResponse.data);
+          console.log(caractResponse.data);
+        } catch (error) {
+          console.log('caract', error);
+        }
       }
+      
     };
 
     fetchMarcas();
@@ -103,6 +115,10 @@ const Documento = () => {
   const handleMarcaPress = (item) => {
     setActiveMarca(item)
   };
+
+  const handleCaract = (item) => {
+    setActiveCaract(item.idCaractestica)
+  };
   async function getObjeto() {
     console.log(selectedItem, activeTam, corId, activeMarca); 
     try {
@@ -111,6 +127,7 @@ const Documento = () => {
         tamanho: activeTam,
         cor: corId,
         marca: activeMarca,
+        caracteristica:activeCaract,
       }, {
         headers: {
           'Content-Type': 'application/json'
@@ -191,7 +208,8 @@ const Documento = () => {
           </View>
           
           {selectedItem &&(
-                <View style={{ alignItems: "center", gap: 10 }}>
+            <View>
+               <View style={{ alignItems: "center", gap: 10 }}>
                 <Text style={styles.title}>Qual a marca do seu Documento?</Text>
                 <View style={styles.containerTags}>
                   {marcas.map((item, index) => (
@@ -205,7 +223,27 @@ const Documento = () => {
                     </Pressable>
                   ))}
                 </View>
+
+                <View style={{ alignItems: "center", gap: 10 }}>
+                <Text style={styles.title}>Nos informe a utima característica?</Text>
+                <View style={styles.containerTags}>
+                  {caracteristica.map((item, index) => (
+    
+                    <Pressable
+                      key={index}
+                      onPress={() => handleCaract(item)}
+                      style={[styles.tag, { backgroundColor: activeCaract === item.idCaractestica ? activeTagColor : originalColor }]}
+                    >
+                      <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descCapacidade}</Text>
+                    </Pressable>
+                  ))}
+                </View>
               </View>
+              </View>
+
+
+            </View>
+               
           )}
       
 

@@ -17,6 +17,9 @@ const Outros = () => {
   const [tamNome,setTamNome] = useState(null)
   const [tamanho, setTamanho] = useState([]);
 
+  const [caracteristica, setCaracteristica] = useState([])
+  const [activeCaracteristica, setActiveCaracteristica] = useState()
+
   const [selectedItem, setSelectedItem] = useState(null);
   const [nomeItem, setNomeItem] = useState(null);
 
@@ -75,6 +78,14 @@ const Outros = () => {
         } catch (error) {
           console.log('marca', error);
         }
+
+        try {
+          const caractResponse = await axios.get(`${urlApi}/services/getCaracteristica.php?id=${objetoId}`);
+          setCaracteristica(caractResponse.data);
+          console.log(caractResponse.data);
+        } catch (error) {
+          console.log('caract', error);
+        }
       }
     };
 
@@ -103,6 +114,12 @@ const Outros = () => {
   const handleMarcaPress = (item) => {
     setActiveMarca(item)
   };
+
+  const handlePressCaract = (item) => {
+    setActiveCaracteristica(item.idCaractestica)
+  };
+
+
   async function getObjeto() {
     console.log(selectedItem, activeTam, corId, activeMarca); 
     try {
@@ -191,7 +208,8 @@ const Outros = () => {
           </View>
           
           {selectedItem &&(
-                <View style={{ alignItems: "center", gap: 10 }}>
+            <View>
+                 <View style={{ alignItems: "center", gap: 10 }}>
                 <Text style={styles.title}>Qual a marca do seu Objeto?</Text>
                 <View style={styles.containerTags}>
                   {marcas.map((item, index) => (
@@ -205,7 +223,25 @@ const Outros = () => {
                     </Pressable>
                   ))}
                 </View>
+
+                <View style={{ alignItems: "center", gap: 10 }}>
+                <Text style={styles.title}>Qual a marca da sua Roupa?</Text>
+                <View style={styles.containerTags}>
+                  {caracteristica.map((item, index) => (
+    
+                    <Pressable
+                      key={index}
+                      onPress={() => handlePressCaract(item)}
+                      style={[styles.tag, { backgroundColor: activeCaracteristica === item.idCaractestica ? activeTagColor : originalColor }]}
+                    >
+                      <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descCapacidade}</Text>
+                    </Pressable>
+                  ))}
+                </View>
               </View>
+              </View>
+            </View>
+               
           )}
       
 

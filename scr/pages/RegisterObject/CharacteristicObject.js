@@ -9,28 +9,33 @@ const RegisterObject = () => {
     const { formData } = useContext(Context);
     const navigation = useNavigation();
     const [activeColor, setActiveColor] = useState(null);
-    const [colorId,setColorId] = useState(null)
+    const [colorId, setColorId] = useState(null)
 
     const [activeTam, setActiveTam] = useState(null);
-    const [tamanhoId,setTamanhoId] = useState(null)
+    const [tamanhoId, setTamanhoId] = useState(null)
 
     const [activeMarca, setActiveMarca] = useState(null)
-    const [marcaId,setMarcaId] = useState(null)
-    
-    const [activeCaracteristica, setActiveCaracteristica] = useState([]);
+    const [marcaId, setMarcaId] = useState(null)
+
+
+    const [activeCaracteristica, setActiveCaracteristica] = useState(null);
+    const [caracteristica, setCaracteristica] = useState([])
+    const [caracteristicaId, setCaracteristicaId] = useState(null)
+
     const [cores, setCores] = useState([]);
     const [tamanho, setTamanho] = useState([]);
     const [marca, setMarca] = useState([])
+
     const originalColor = '#ffffff';
     const activeTagColor = '#b1b1b1';
     const { setFormData } = useContext(Context);
-    const {urlApi} = useContext(Context)
+    const { urlApi } = useContext(Context)
     const handleColorPress = (item) => {
         setActiveColor(item.descCor);
         setColorId(item.idCor)
     };
-console.log(activeMarca)
-console.log(marcaId)
+    console.log(activeMarca)
+    console.log(marcaId)
     const handleLocationPress = (item) => {
         setActiveTam(item.descTamanho);
         setTamanhoId(item.idTamanho)
@@ -40,18 +45,29 @@ console.log(marcaId)
         setActiveMarca(item.descMarca)
         setMarcaId(item.idMarca)
     }
- 
+
+
+    const handleCaractPress = (item) => {
+        setActiveCaracteristica(item.descCapacidade);
+        setCaracteristicaId(item.idCaractestica)
+    }
+
+
     async function handleUpload() {
         setFormData(prevData => ({
             ...prevData,
             cor: activeColor,
-            corID:colorId,
+            corID: colorId,
             tamanho: activeTam,
-            tamanhoId:tamanhoId,
+            tamanhoId: tamanhoId,
             caracteristica: activeMarca,
-            marcaId:marcaId,
+            marcaId: marcaId,
+            caracteristicaObjeto: activeCaracteristica,
+            caracteristicaObjetoId: caracteristicaId
         }));
     }
+
+    console.log(caracteristicaId)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -63,25 +79,34 @@ console.log(marcaId)
             }
 
             try {
-                const tamanhoResponse = await axios.get( `${urlApi}/services/getTamanho.php`)
+                const tamanhoResponse = await axios.get(`${urlApi}/services/getTamanho.php`)
                 setTamanho(tamanhoResponse.data)
             } catch (error) {
                 console.log('tamanho', error)
             }
 
-            const objetoId = formData.item; 
+            const objetoId = formData.item;
+
             if (objetoId) {
                 try {
-                    const marcaResponse = await axios.get(`${urlApi}/services/getMarca.php?id=${objetoId}`); 
+                    const marcaResponse = await axios.get(`${urlApi}/services/getMarca.php?id=${objetoId}`);
                     setMarca(marcaResponse.data);
                 } catch (error) {
                     console.log('marca', error);
+                }
+
+                try {
+                    const caractResponse = await axios.get(`${urlApi}/services/getCaracteristica.php?id=${objetoId}`);
+                    setCaracteristica(caractResponse.data);
+                    console.log(caractResponse.data)
+                } catch (error) {
+                    console.error('Erro ao trazer as características:', error);
                 }
             }
         }
         fetchData()
     }, [])
-  
+
 
     return (
         <ScrollView style={{ backgroundColor: "#fff" }}>
@@ -112,7 +137,7 @@ console.log(marcaId)
                             onPress={() => handleColorPress(item)}
                             style={[styles.tag, { backgroundColor: activeColor === item.descCor ? activeTagColor : originalColor }]}
                         >
-                        <Text style={{ fontSize: 12, fontWeight: '600',textAlign:"center" }}>{item.descCor}</Text>
+                            <Text style={{ fontSize: 12, fontWeight: '600', textAlign: "center" }}>{item.descCor}</Text>
                         </Pressable>
                     ))}
                 </View>
@@ -140,21 +165,45 @@ console.log(marcaId)
                     {marca.map((item, index) => (
                         <Pressable
                             key={index}
-                            onPress={() => handleMarcaPress(item)} 
-                            style={[styles.tag, { backgroundColor: activeMarca === item.descMarca ? activeTagColor : originalColor }]}  
+                            onPress={() => handleMarcaPress(item)}
+                            style={[styles.tag, { backgroundColor: activeMarca === item.descMarca ? activeTagColor : originalColor }]}
                         >
                             <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descMarca}</Text>
                         </Pressable>
                     ))}
                 </View>
 
+                {caracteristica.length > 0 && (
+                    <View>
+                        <View style={[styles.objectCategory]}>
+                            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Nos informe a utima caracteristica</Text>
+                            <Text style={styles.instructionText}>Escolha 1 tag</Text>
 
-                {activeColor && activeCaracteristica && activeTam && (
+                            <View style={styles.containerTags}>
+                                {caracteristica.map((item, index) => (
+                                    <Pressable
+                                        key={index}
+                                        onPress={() => handleCaractPress(item)}
+                                        style={[styles.tag, { backgroundColor: activeCaracteristica === item.descCapacidade ? activeTagColor : originalColor }]}
+                                    >
+                                        <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descCapacidade}</Text>
+                                    </Pressable>
+                                ))}
+                            </View>
+                        </View>
+
+                    </View>
+
+                )}
+
+
+
+                {activeColor && activeTam && (
                     <View style={{ width: "100%", justifyContent: "center", alignItems: "center", marginBottom: 20 }}>
                         <Pressable
                             onPress={async () => {
                                 await handleUpload();
-                                navigation.replace('FinalRegister');
+                                navigation.navigate('FinalRegister');
                             }}
                             style={styles.btnAdvance}
                         >
@@ -171,7 +220,7 @@ console.log(marcaId)
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: 'white',
         paddingTop: 50,
         gap: 20,
     },
@@ -223,7 +272,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         paddingHorizontal: 20,
         marginBottom: 40,
-      
+
     },
     tag: {
         width: 100,

@@ -13,6 +13,9 @@ const MaterialEscolar = () => {
   const [cores, setCores] = useState([])
   const [corId, setCorId] = useState(null)
 
+  const [caracteristica,setCaracteristica] = useState([])
+  const [activeCaract,setActiveCaract] = useState(null)
+
   const [activeTam, setActiveTam] = useState(null);
   const [tamNome,setTamNome] = useState(null)
   const [tamanho, setTamanho] = useState([]);
@@ -65,6 +68,7 @@ const MaterialEscolar = () => {
     fetchData();
   }, []);
 
+
   useEffect(() => {
     const fetchMarcas = async () => {
       const objetoId = selectedItem; 
@@ -74,6 +78,14 @@ const MaterialEscolar = () => {
           setMarcas(marcaResponse.data);
         } catch (error) {
           console.log('marca', error);
+        }
+
+        try {
+          const caractResponse = await axios.get(`${urlApi}/services/getCaracteristica.php?id=${objetoId}`);
+          setCaracteristica(caractResponse.data);
+          console.log(caractResponse.data);
+        } catch (error) {
+          console.log('caract', error);
         }
       }
     };
@@ -103,6 +115,10 @@ const MaterialEscolar = () => {
   const handleMarcaPress = (item) => {
     setActiveMarca(item)
   };
+
+  const handleCaract = (item) => {
+    setActiveCaract(item.idCaractestica)
+  };
   async function getObjeto() {
     console.log(selectedItem, activeTam, corId, activeMarca); 
     try {
@@ -111,6 +127,7 @@ const MaterialEscolar = () => {
         tamanho: activeTam,
         cor: corId,
         marca: activeMarca,
+        caracteristica:activeCaract,
       }, {
         headers: {
           'Content-Type': 'application/json'
@@ -191,7 +208,8 @@ const MaterialEscolar = () => {
           </View>
           
           {selectedItem &&(
-                <View style={{ alignItems: "center", gap: 10 }}>
+            <View>
+                    <View style={{ alignItems: "center", gap: 10 }}>
                 <Text style={styles.title}>Qual a marca do seu Eletronico?</Text>
                 <View style={styles.containerTags}>
                   {marcas.map((item, index) => (
@@ -206,6 +224,24 @@ const MaterialEscolar = () => {
                   ))}
                 </View>
               </View>
+
+                    <View style={{ alignItems: "center", gap: 10 }}>
+                <Text style={styles.title}>Nos informe a utima característica?</Text>
+                <View style={styles.containerTags}>
+                  {caracteristica.map((item, index) => (
+    
+                    <Pressable
+                      key={index}
+                      onPress={() => handleCaract(item)}
+                      style={[styles.tag, { backgroundColor: activeCaract === item.idCaractestica ? activeTagColor : originalColor }]}
+                    >
+                      <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descCapacidade}</Text>
+                    </Pressable>
+                  ))}
+                </View>
+              </View>
+            </View> 
+            
           )}
       
 

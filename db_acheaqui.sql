@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 14/10/2024 às 00:35
+-- Tempo de geração: 28/10/2024 às 03:44
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -57,6 +57,22 @@ CREATE TABLE `messages` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `messages`
+--
+
+INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `mensagem`, `item_id`, `created_at`) VALUES
+(16, 251, 248, 'Ola Davi', 0, '2024-10-17 00:44:40'),
+(17, 254, 253, 'Oii! Essa blusa é minha!!', 0, '2024-10-17 13:31:47'),
+(18, 251, 248, 'Oii', 0, '2024-10-17 17:00:20'),
+(19, 251, 248, 'Esse boné é meu', 0, '2024-10-17 17:00:28'),
+(20, 251, 248, 'Devolve ladrão', 0, '2024-10-17 17:00:34'),
+(21, 248, 251, 'Que isso', 0, '2024-10-17 17:00:42'),
+(22, 248, 251, 'Opa', 0, '2024-10-17 17:00:55'),
+(23, 251, 248, 'Boa', 0, '2024-10-17 17:01:01'),
+(24, 258, 256, 'Eii!! Essa blusa é minha', 0, '2024-10-17 19:50:06'),
+(25, 251, 248, 'Ola Davi', 0, '2024-10-28 02:40:31');
+
 -- --------------------------------------------------------
 
 --
@@ -75,26 +91,25 @@ CREATE TABLE `objeto` (
   `corObjeto` int(11) NOT NULL,
   `images` varchar(900) NOT NULL,
   `usuario` int(11) NOT NULL,
-  `dataRegistro` date DEFAULT curdate()
+  `dataRegistro` date DEFAULT curdate(),
+  `caractAdicional` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `objeto`
 --
 
-INSERT INTO `objeto` (`idObjeto`, `categoriaObjeto`, `nomeObjeto`, `tamanhoObjeto`, `localidadeObjeto`, `descObjeto`, `marcaObjeto`, `andar`, `corObjeto`, `images`, `usuario`, `dataRegistro`) VALUES
-(248, 7, 12, 6, 1, '', 1, 1, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F3048ce07-5215-4f4d-9401-fe86ab7b2ac4.jpeg?alt=media&token=0644f474-450a-459d-9a1f-32d53ea305f3\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F0efbda5b-04b0-495d-bf81-8a46161588bf.jpeg?alt=media&token=e05c2ed9-a4bc-4bdc-a76e-7f67ea907b3b\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F127608f0-4a22-497c-b9a7-76a9c6917423.jpeg?alt=media&token=5dc41a6d-1a19-4a5d-9871-542ded2de53a\"]', 248, '2024-10-02'),
-(255, 7, 12, 6, 1, '', 1, 3, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F6e209bea-5589-4403-a73a-8364f789c0a2.jpeg?alt=media&token=a2147303-59b3-4a08-b7be-6b6e4daa4519\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F200f2429-d4ed-486e-89fa-fb0d6c9a6814.jpeg?alt=media&token=e6b85a11-1649-48c7-b4f6-313022730041\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fdfb723aa-ec53-4897-8fb5-9ab5f6df110d.jpeg?alt=media&token=0cbe9201-7253-4e2a-8145-8994f8797e42\"]', 248, '2024-10-02'),
-(263, 7, 12, 6, 2, '', 1, 2, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F234f64a7-4529-418b-a2c7-313babd941c0.jpeg?alt=media&token=44847dd4-acf8-4da0-b976-17fb0c102e1f\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F0e044c05-3a34-421b-9096-d29ce04b6a79.jpeg?alt=media&token=8fee0d20-6687-4c5e-9c43-c2630b9fc7ff\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fd66e9c85-8242-4eeb-ae32-b651d91fb63e.jpeg?alt=media&token=e2b2155e-cdff-491e-9e61-025e440ce8f2\"]', 248, '2024-10-02'),
-(264, 8, 25, 5, 2, '', 104, 3, 14, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F4c1060c7-9c52-42d3-9671-d5a44db44d31.jpeg?alt=media&token=bb309278-58f5-4173-a717-a660836c1eba\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F0c880db5-ec7c-4d10-834c-b60e29294c83.jpeg?alt=media&token=85dbecbf-5c90-452a-a0b1-0f2092974b69\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F86ebf422-7150-44d9-99e3-258f92a62370.jpeg?alt=media&token=c5b68f08-c580-43fd-a1aa-90986596c50a\"]', 248, '2024-10-02'),
-(265, 11, 46, 5, 2, '', 148, 3, 15, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fce5fb7ff-fce3-4a66-9d21-135e12727abe.jpeg?alt=media&token=0ea61530-a4d7-47ff-b3a8-2e5d8b3b98d4\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F399af22f-5f57-4cbd-857e-939840b92bf8.jpeg?alt=media&token=e8289eff-26cd-4fc9-b21d-0c70091b23d0\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fed9fc5bc-090b-46e0-a497-59c7bd78662c.jpeg?alt=media&token=be496d62-07a5-47cd-ac6a-3dd0206eeafb\"]', 248, '2024-10-02'),
-(272, 9, 32, 5, 1, '', 130, 2, 8, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F4bfe3ebd-a450-4876-a363-df1d4acf6dcf.jpeg?alt=media&token=49cc669e-e2bc-4bc2-a819-f66b4c1afa2c\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F5b20ccdd-f952-4a06-bc09-07055edecc29.jpeg?alt=media&token=db15ef61-bde2-42fd-84e3-e6020631b4e5\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fe086d704-45d9-413b-a3a4-481c47d07435.jpeg?alt=media&token=e4acfe6a-40c8-4e57-906b-116beb65ccf6\"]', 248, '2024-10-02'),
-(273, 8, 19, 5, 2, 'Boné encontrado jogado ', 76, 3, 4, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F96e066d9-be4b-4d43-9f41-b13b526f0a38.jpeg?alt=media&token=eb736118-6a73-49c7-8a60-6b1ea1201e36\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fbe30aaf5-30ba-44dc-8061-d48a89010c9a.jpeg?alt=media&token=a2b8c132-4a89-4cf0-865c-074a8dba7279\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F8e800049-c8d2-4e39-b132-54004a463857.jpeg?alt=media&token=a38d8b1c-4a9f-47c1-8ee2-3b13d4eeb12b\"]', 248, '2024-10-02'),
-(274, 9, 27, 6, 4, '', 110, 1, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F250f105e-cfb6-40fb-96b6-c4ddc34fc361.jpeg?alt=media&token=0eb6c2b9-e68b-4da0-9970-a0ffe372f7ec\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fceddc915-37aa-4967-a442-ba2bcfb077a0.jpeg?alt=media&token=ec2dc5c9-8c20-4d7d-9417-8b95a719740c\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F6057ddf0-c3c6-4772-bfe9-071f7d090cef.jpeg?alt=media&token=b5ee2c6d-6e5d-40a7-9f2e-dade0fa22768\"]', 248, '2024-10-04'),
-(275, 8, 19, 5, 4, 'Boné lindo', 76, 1, 4, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F509c42f6-0441-4573-8d6b-3d39217c4358.jpeg?alt=media&token=cbba3063-0530-4722-91c1-269b1e040955\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fda658050-1772-4e50-935b-3a2e0e09f862.jpeg?alt=media&token=f8e1144a-24b0-4694-9d88-526fbfbb7492\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fe3968412-9283-410c-a007-404e7258b6f4.jpeg?alt=media&token=e81330e1-b02e-4050-8fc2-6de0cd3321f2\"]', 248, '2024-10-13'),
-(276, 8, 19, 5, 4, '', 76, 1, 4, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F05121a1e-96cc-4f4b-9e6e-0df1e45998b0.jpeg?alt=media&token=a61c4e2e-0f90-4fee-a531-49fc5af53fe3\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F002a8ef7-a2e5-4c8a-aefa-0edd544b98be.jpeg?alt=media&token=242564a1-4290-4493-b9e5-b46a854938de\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fc178bf2a-9c72-4679-8798-d464cd9df1dd.jpeg?alt=media&token=b1a64e3d-fa53-418a-8df3-38f191d5518d\"]', 248, '2024-10-13'),
-(277, 7, 12, 6, 1, '', 1, 1, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F4fc2fd2f-96e9-409b-bc98-04c5028aa7df.png?alt=media&token=28c872ab-c95a-4db8-9f1d-7f59a3ff0ff9\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F7d1dae19-36b4-4e21-b983-ef40853bf2fb.png?alt=media&token=3d215c74-d1b7-4ed9-b5ab-a04e47903964\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F4a89d43f-791e-4c3d-a47d-7523455bf3e0.png?alt=media&token=0ea6e6db-e6d9-4c15-b6ec-387f8a30496c\"]', 251, '2024-10-13'),
-(278, 8, 19, 5, 5, '', 76, 2, 4, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F286c40ca-52c6-4a18-9337-82447314c014.png?alt=media&token=16a5a47d-5fc5-4cd6-b642-6ca58f0cdbdc\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fb2dcb325-f08a-4bf0-a635-acc43913b388.png?alt=media&token=e6571667-77f0-4bb2-a913-b18b7d8a085d\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F51ce7dfa-8041-4727-9f86-c5e796463f07.png?alt=media&token=88d55940-f076-40fe-9fb3-9a2b73f4fced\"]', 248, '2024-10-13');
+INSERT INTO `objeto` (`idObjeto`, `categoriaObjeto`, `nomeObjeto`, `tamanhoObjeto`, `localidadeObjeto`, `descObjeto`, `marcaObjeto`, `andar`, `corObjeto`, `images`, `usuario`, `dataRegistro`, `caractAdicional`) VALUES
+(361, 8, 19, 5, 1, '', 76, 1, 4, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F44555b66-46d0-4228-a256-2040389f725f.jpeg?alt=media&token=e1e9cf8d-af2e-47a3-8cae-fd08b4a3241b\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F6d48f603-ab86-4d79-ac6a-727a472b7d18.jpeg?alt=media&token=93caf48e-1882-4df1-a7be-2a7208ab63f3\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fef9e9d9a-81ad-4be6-80c8-97020d0b3868.jpeg?alt=media&token=1259adbc-ee49-4275-b8be-a020c9b631e0\"]', 248, '2024-10-24', 35),
+(362, 8, 19, 5, 1, '', 76, 1, 4, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F5cb71f34-f268-4991-9f50-b7ee6efa0432.jpeg?alt=media&token=5951d81e-85ba-404d-9158-5b7a9051c9e1\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F70c4fb4f-17fd-452d-9eb0-fbb198605c60.jpeg?alt=media&token=db5b9a8c-fc6b-450b-b467-9e09b6ccb981\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F8bdbdbf5-9d6c-4ba0-8b0a-3cfc14f895d4.jpeg?alt=media&token=53fe5ea1-f92b-4a26-a6fe-81394f017630\"]', 248, '2024-10-24', 35),
+(363, 7, 12, 6, 1, '', 1, 1, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fe7c0e377-2188-4495-91da-3d9ad226cef7.jpeg?alt=media&token=523a9f0a-0c4d-4994-af9d-145552bc201d\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F80f42c4c-8c14-4a2a-8ed7-50896572e831.jpeg?alt=media&token=672b9ff0-6213-4e08-a046-6090d4347a19\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F7756b8ef-42b5-44f5-8e03-766aa1d66794.jpeg?alt=media&token=25a7ff65-2a2c-418f-9e52-0c99e795bd5d\"]', 248, '2024-10-24', 2),
+(364, 8, 19, 5, 1, '', 76, 1, 4, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fec9e4c0e-1281-4af0-be79-902a2add033f.jpeg?alt=media&token=1bb906cf-02ba-4cf6-86a0-aaf2ff456f6c\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fb7dde691-a970-48be-bd4f-3c074d5583ef.jpeg?alt=media&token=d5d8b331-1434-4800-afd7-11b60b171d27\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fd60fc856-fe14-4390-af73-619915c9e53f.jpeg?alt=media&token=7ca7c02e-6c82-4c7d-8eb0-2de44168f8ee\"]', 248, '2024-10-24', 34),
+(365, 7, 5, 6, 1, '', 11, 1, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F0a91126f-cca2-4dac-af7d-b5f52bd0519e.jpeg?alt=media&token=174c666d-1f49-4ae2-9286-fa0c0b15f036\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F7acf986a-209f-4ab2-96d5-46859a8e165a.png?alt=media&token=51dad038-1ba2-40eb-878d-e6a0ee58bccd\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F1c7e4917-296e-42ca-9200-f4780ef73a73.png?alt=media&token=9c384990-aa7c-4c39-b3ea-4d6b0cb9fb34\"]', 248, '2024-10-24', 8),
+(366, 9, 33, 6, 1, '', 131, 1, 8, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fa7f8cdbb-0a2e-45be-b634-c32b51774531.jpeg?alt=media&token=7d6c56f4-dfe3-437b-97aa-4e9142d4bb78\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F49d44fc5-c05b-4437-8735-3b9c2c5ce0c1.jpeg?alt=media&token=935cdbc2-be30-4cc0-828f-e9e0fce002f6\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fef62a116-76fc-44e4-b7a1-f7dc20fb40d4.jpeg?alt=media&token=233752ba-fa38-407e-abe8-99655cabe4a9\"]', 248, '2024-10-24', 64),
+(367, 10, 38, 5, 1, '', 136, 1, 14, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fbf60b9df-f72e-4ad2-9974-8e572ff11e6b.png?alt=media&token=b42517e9-8804-45d9-9d7d-1e253a5e8d98\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F9d0ccd16-3aed-4881-976d-98e85eea3dbf.png?alt=media&token=e5d88153-b4f8-4330-b393-53311b4ff530\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F022ca46b-272b-4405-be0c-e7009dda63a5.png?alt=media&token=df1361a1-06ca-4283-a79d-6532ecdae9c4\"]', 248, '2024-10-27', 71),
+(368, 11, 46, 5, 5, 'Rg jogado', 148, 2, 15, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F2ef9986a-00bf-4d22-bfaa-86171222d3d3.png?alt=media&token=738623ac-332e-4756-8d51-8d47e104098d\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F4994e850-5760-417d-9a64-935b68cd3083.png?alt=media&token=993fd567-438a-4294-ab47-5d9ea4dad23a\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F9e5ebbc2-a741-4fe6-91a9-46e25abde4ea.png?alt=media&token=0f50319f-80af-4054-9777-b98f44a7b50e\"]', 248, '2024-10-27', 79),
+(369, 12, 48, 5, 5, '', 158, 2, 14, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fda90fb01-7f1f-4d2c-9a06-d2e5c0ff203c.png?alt=media&token=8769788d-2699-4a66-af7f-5dd49cbc2b1a\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fca238f33-48e0-478b-8620-6f12394553b1.png?alt=media&token=ce82d40d-dcff-4d51-b322-0311be8c1f7f\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F9294b554-fc02-4b48-babe-35373b266dd2.png?alt=media&token=c665edad-463a-4732-a6db-5ddf6c3b2fea\"]', 248, '2024-10-27', 81),
+(370, 7, 12, 6, 1, 'Pendrive bonito ', 1, 1, 10, '[\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fece30074-87ba-4d71-b655-7454f01500e0.png?alt=media&token=b198e181-56b0-41e6-a95f-e46c4a300cd6\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2F70f06393-e8d3-429b-8b1a-3f4558db4ea0.png?alt=media&token=6a2cbca5-c5aa-46b2-8fc9-5afc9103b4ba\",\"https:\\/\\/firebasestorage.googleapis.com\\/v0\\/b\\/acheaqui-2bc44.appspot.com\\/o\\/objetos%2Fc0c9f719-558c-41cb-b022-a3f0c37daa18.png?alt=media&token=c3952308-f844-4bea-baf0-70419ef190c5\"]', 248, '2024-10-27', 2);
 
 -- --------------------------------------------------------
 
@@ -114,8 +129,16 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`idPost`, `idObjeto`, `idUsuario`, `statusPost`) VALUES
-(100, 277, 251, 3),
-(101, 278, 248, 3);
+(135, 361, 248, 4),
+(136, 362, 248, 4),
+(137, 363, 248, 4),
+(138, 364, 248, 4),
+(139, 365, 248, 4),
+(140, 366, 248, 4),
+(141, 367, 248, 4),
+(142, 368, 248, 4),
+(143, 369, 248, 4),
+(144, 370, 248, 4);
 
 -- --------------------------------------------------------
 
@@ -136,6 +159,176 @@ INSERT INTO `tbandar` (`idAndar`, `descAndar`) VALUES
 (1, '1 andar'),
 (2, '2 andar'),
 (3, 'Subsolo Refeitó');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `tbcapacidadependrive`
+--
+
+CREATE TABLE `tbcapacidadependrive` (
+  `idCapacidade` int(11) NOT NULL,
+  `descCapacidade` varchar(70) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `tbcapacidadependrive`
+--
+
+INSERT INTO `tbcapacidadependrive` (`idCapacidade`, `descCapacidade`) VALUES
+(1, '4GB'),
+(2, '8GB'),
+(3, '16gb'),
+(4, '32GB'),
+(5, 'Outro'),
+(6, 'com fio'),
+(7, 'sem fio'),
+(8, 'Intel'),
+(9, 'Ryzem'),
+(10, '64Gb +'),
+(11, '130GB +'),
+(12, 'Mecanico'),
+(13, 'semi mecanino'),
+(14, 'normal'),
+(15, '1Metro +'),
+(16, 'Padrão'),
+(17, 'potência alta'),
+(18, 'potência baixa'),
+(19, 'Jeans'),
+(20, 'Moletom'),
+(21, 'Tectel'),
+(22, 'Com touca'),
+(23, 'Sem touca'),
+(24, 'Aba reta'),
+(25, 'Aba torta'),
+(26, 'Couro'),
+(27, 'Corta vento'),
+(28, 'Longo'),
+(29, 'Curto'),
+(30, '34 ao 38'),
+(31, '39 ao 44'),
+(32, 'Soquete'),
+(33, 'Com foto'),
+(34, 'Sem foto'),
+(36, 'Platinum'),
+(37, 'Black'),
+(38, 'chave/carro'),
+(39, 'chave/casa'),
+(40, 'Ouro'),
+(41, 'Prata'),
+(42, 'Grau'),
+(43, 'Sol/escuro'),
+(44, 'Anel'),
+(45, 'Aliança'),
+(46, '10 Matéria +'),
+(47, '1 Matéria'),
+(48, 'Ponta grossa'),
+(49, 'Ponta fina'),
+(50, '2 a 4 bolso'),
+(51, '1 bolso'),
+(52, 'Com cpf'),
+(53, 'Sem cpf'),
+(54, 'Prótese Braço'),
+(55, 'Prótese Perna');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `tbcaracteristicas`
+--
+
+CREATE TABLE `tbcaracteristicas` (
+  `idCaractestica` int(11) NOT NULL,
+  `fkItem` int(11) NOT NULL,
+  `fkCaracterisca` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `tbcaracteristicas`
+--
+
+INSERT INTO `tbcaracteristicas` (`idCaractestica`, `fkItem`, `fkCaracterisca`) VALUES
+(1, 12, 1),
+(2, 12, 2),
+(3, 12, 3),
+(4, 12, 4),
+(5, 12, 5),
+(6, 11, 6),
+(7, 11, 7),
+(8, 5, 6),
+(9, 5, 7),
+(10, 1, 8),
+(11, 1, 9),
+(12, 7, 4),
+(13, 7, 10),
+(14, 7, 11),
+(15, 10, 12),
+(16, 10, 13),
+(17, 10, 14),
+(18, 13, 15),
+(19, 13, 14),
+(20, 14, 17),
+(21, 14, 18),
+(22, 2, 4),
+(23, 2, 4),
+(24, 2, 11),
+(25, 16, 19),
+(26, 16, 20),
+(27, 16, 5),
+(28, 16, 21),
+(29, 17, 19),
+(30, 17, 20),
+(31, 17, 5),
+(32, 18, 22),
+(33, 18, 23),
+(34, 19, 24),
+(35, 19, 25),
+(36, 20, 19),
+(37, 20, 26),
+(38, 20, 27),
+(39, 20, 5),
+(40, 21, 19),
+(41, 21, 20),
+(42, 21, 5),
+(43, 22, 28),
+(44, 22, 29),
+(45, 23, 30),
+(46, 23, 31),
+(47, 23, 5),
+(48, 24, 30),
+(49, 24, 31),
+(50, 25, 30),
+(51, 25, 31),
+(52, 26, 32),
+(53, 26, 14),
+(54, 27, 33),
+(55, 27, 34),
+(57, 28, 36),
+(58, 28, 37),
+(59, 30, 38),
+(60, 30, 39),
+(61, 32, 40),
+(62, 32, 41),
+(63, 33, 40),
+(64, 33, 41),
+(65, 34, 42),
+(66, 34, 43),
+(67, 35, 40),
+(68, 35, 41),
+(69, 36, 44),
+(70, 36, 45),
+(71, 38, 46),
+(72, 38, 47),
+(73, 39, 48),
+(74, 39, 49),
+(75, 40, 48),
+(76, 40, 49),
+(77, 42, 50),
+(78, 42, 51),
+(79, 46, 52),
+(80, 46, 53),
+(81, 48, 54),
+(82, 48, 55);
 
 -- --------------------------------------------------------
 
@@ -210,7 +403,8 @@ CREATE TABLE `tbdenuncia` (
 --
 
 INSERT INTO `tbdenuncia` (`idDenuncia`, `idUsuario`, `idPost`, `idDescDenuncia`) VALUES
-(116, 248, 100, 2);
+(116, 248, 100, 2),
+(117, 251, 144, 1);
 
 -- --------------------------------------------------------
 
@@ -371,25 +565,12 @@ INSERT INTO `tbmarca` (`idMarca`, `descMarca`, `idSubcategoria`) VALUES
 (114, 'banco Brasil', 28),
 (115, 'Bradesco', 28),
 (116, 'Outro', 28),
-(117, 'Nubank', 29),
-(118, 'banco Brasil', 29),
-(119, 'Bradesco', 29),
-(120, 'Outro', 29),
-(121, 'Nubank', 29),
-(122, 'banco Brasil', 29),
-(123, 'Bradesco', 29),
-(124, 'Outro', 29),
 (125, 'Sem marca', 30),
-(126, 'Invicta', 31),
-(127, 'Condor', 31),
-(128, 'Rolex', 31),
-(129, 'Outro', 31),
 (130, 'Sem marca', 32),
 (131, 'Sem marca', 33),
 (132, 'Sem marca', 34),
 (133, 'Sem marca', 35),
 (134, 'Sem marca', 36),
-(135, 'Sem marca', 37),
 (136, 'Jandaia', 38),
 (137, 'Tilibra', 38),
 (138, 'Outro', 38),
@@ -397,15 +578,16 @@ INSERT INTO `tbmarca` (`idMarca`, `descMarca`, `idSubcategoria`) VALUES
 (140, 'Outro', 39),
 (141, 'Bic', 40),
 (142, 'Outro', 40),
-(143, 'Sem marca', 41),
 (144, 'Sem marca', 42),
-(145, 'Sem marca', 43),
-(146, 'Sem marca', 44),
-(147, 'Sem marca', 45),
 (148, 'Sem marca', 46),
 (149, 'Sem marca', 47),
-(150, 'Sem marca', 48),
-(151, 'Sem marca', 49);
+(152, 'Calvin klein', 16),
+(153, 'Dudalina', 16),
+(154, 'Outro', 16),
+(155, 'Invicta', 32),
+(156, 'Rolex', 32),
+(157, 'Outro', 32),
+(158, 'Sem marca', 48);
 
 -- --------------------------------------------------------
 
@@ -447,8 +629,7 @@ INSERT INTO `tbsubcategoria` (`idSubCategoria`, `descSubCategoria`, `idCategoria
 (2, 'Tablet', 7),
 (3, 'Projetor', 7),
 (4, 'Data Show', 7),
-(5, 'Fone de Ouvido com f', 7),
-(6, 'Fone de Ouvido sem f', 7),
+(5, 'Fone de ouvido', 7),
 (7, 'Smartphone', 7),
 (8, 'Câmera Digital', 7),
 (9, 'Impressora', 7),
@@ -471,27 +652,19 @@ INSERT INTO `tbsubcategoria` (`idSubCategoria`, `descSubCategoria`, `idCategoria
 (26, 'Meia', 8),
 (27, 'Bilhete Unico', 9),
 (28, 'Cartão de Crédito', 9),
-(29, 'Cartão de Débito', 9),
-(30, 'Chave de Casa', 9),
-(31, 'Chave do Carro', 9),
+(30, 'Chave', 9),
 (32, 'Relógio', 9),
 (33, 'Brinco', 9),
 (34, 'Óculos', 9),
 (35, 'Colar', 9),
 (36, 'Anel', 9),
-(37, 'Máscara de Proteção', 9),
 (38, 'Caderno', 10),
 (39, 'Caneta', 10),
 (40, 'Lápis', 10),
-(41, 'Borracha', 10),
 (42, 'Mochila', 10),
-(43, 'Apontador', 10),
-(44, 'Régua', 10),
-(45, 'Pasta de Arquivo', 10),
 (46, 'RG', 11),
 (47, 'CNH', 11),
-(48, 'CPF', 11),
-(49, 'Certidão de Nascimen', 11);
+(48, 'Prótese', 12);
 
 -- --------------------------------------------------------
 
@@ -557,8 +730,15 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `nome`, `email`, `senha`, `numeroCelular`, `dataNascimento`, `imagem`, `createdAt`, `updatedAt`) VALUES
 (246, 'Sarah', 'freitaadavia20@etec.sp.gov.br', '$2y$10$mXQ5fA/ZpF6cfH3biouF9OSjzZk6XqhxHz/R7IRxVKEa5hYse/AK6', '11952041573', '2004-07-27 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F5081a806-4a68-492b-9fd1-08e988445ba4.jpeg?alt=media&token=fb82a7a4-6b65-4b69-a3d8-494796f0d2a3', '2024-08-24 00:30:30', '2024-08-24 00:30:30'),
-(248, 'Davi Freitas ', 'paulo.freitas74@etec.sp.gov.br', '$2y$10$hvcEmDO5s/WerPgu.294tOvEBAy/Ym6ZtIeIY0Z/8CAax/Cqm1tt2', '11942041574', '2004-08-25 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F41d22ab9-0965-4982-9d49-591e7d8e4955.jpeg?alt=media&token=38da5489-127f-47f7-b6bc-7e7061d47e58', '2024-08-24 05:28:19', '2024-08-24 05:28:19'),
-(251, 'Carlens zika', 'carlens.romelus@etec.sp.gov.br', '$2y$10$7SjUz24bsgTow2/KikTlv.2CGRfLxgl4j76cJ2RMu1SZjescVVEVG', '11954783565', '2004-07-02 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F30db62fd-b44f-4149-8fa3-471a5ed970c1.jpeg?alt=media&token=a4bd3637-d317-4c2b-90eb-e7ac8967a758', '2024-09-26 18:43:35', '2024-09-26 18:43:35');
+(248, 'Davi Freitasz', 'paulo.freitas74@etec.sp.gov.br', '$2y$10$hvcEmDO5s/WerPgu.294tOvEBAy/Ym6ZtIeIY0Z/8CAax/Cqm1tt2', '11942041574', '2004-08-25 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F3b7d8591-93df-48fa-b407-0596b9d9d389.png?alt=media&token=9bdc71c8-2972-4d18-a107-ba7b7e28768a', '2024-08-24 05:28:19', '2024-08-24 05:28:19'),
+(251, 'Carlens zika', 'carlens.romelus@etec.sp.gov.br', '$2y$10$7SjUz24bsgTow2/KikTlv.2CGRfLxgl4j76cJ2RMu1SZjescVVEVG', '11954783565', '2004-07-02 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F30db62fd-b44f-4149-8fa3-471a5ed970c1.jpeg?alt=media&token=a4bd3637-d317-4c2b-90eb-e7ac8967a758', '2024-09-26 18:43:35', '2024-09-26 18:43:35'),
+(252, 'Faixa', 'Silva@etec.sp.gov.br', '$2y$10$hfb2DbEBo9Esl/IAEcddseF3P60e50QB1vselfADUkaRTl9QpQLwe', '11952041573', '2024-10-17 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2Ff25d16d4-4ea0-4a5f-81d9-5dff69a58f49.jpeg?alt=media&token=c6ca676e-9d1c-4c7b-8392-ee0cac4691a0', '2024-10-17 14:59:11', '2024-10-17 14:59:11'),
+(253, 'Lucas Silva Moura', 'lucassilva@etec.sp.gov.br', '$2y$10$Z1ayxY59RfaNCjlBtuP5peR8DiPvP/swVtuxzR8E68B0DUiBXSIfK', '11966668888', '2024-10-05 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2Fd1a505fa-6358-4cf9-8144-673eb97e9f28.jpeg?alt=media&token=375d83de-53bc-4a71-adc1-f11a8d2286ac', '2024-10-17 15:21:27', '2024-10-17 15:21:27'),
+(254, 'Silvana Eloisa Cardoso', 'silvaeloisa@etec.sp.gov.br', '$2y$10$Loa2J.W/U2fxNVWtZlZAJOnwFVrNlt6ke3hxU76QmLAemkD6IGTg.', '11944443333', '2024-10-29 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2F5cade532-25c3-4c28-ba2e-c97b049814d5.png?alt=media&token=d371af76-6c3b-43d7-af16-d522de8bb3af', '2024-10-17 15:28:58', '2024-10-17 15:28:58'),
+(255, 'Pedro Moura', 'pedro.moura@etec.sp.gov.br', '$2y$10$3DaL1OLM6qKisCQDEOKa6uqinMiJkAzT6j37/NRFvD3o29iUlHyNO', '119258936548', '2024-10-12 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2Ff25d16d4-4ea0-4a5f-81d9-5dff69a58f49.jpeg?alt=media&token=c6ca676e-9d1c-4c7b-8392-ee0cac4691a0', '2024-10-17 15:37:02', '2024-10-17 15:37:02'),
+(256, 'Lucas Cardoso silva', 'lucascardoso@etec.sp.gov.br', '$2y$10$QM4xl6z2i4.tyjWEoxiwEegTOxo7Cx3SHThYZIuqo421rHBKlFbbi', '11944447777', '2024-10-31 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2Fa7d46ce9-7490-4750-8ab3-6f9445471811.jpeg?alt=media&token=8f2c95e6-19d0-41d9-aa7e-ddfe5c0625c0', '2024-10-17 21:44:03', '2024-10-17 21:44:03'),
+(257, 'Lucas Cardoso', 'lucascardoso@etec.sp.gov.br', '$2y$10$5LVDrNQjWH5K/SHekkhVr.zeaGNZqwpJdsnYjzzOsH16iyd3LB2zG', '11955556666', '2024-10-31 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2Ff25d16d4-4ea0-4a5f-81d9-5dff69a58f49.jpeg?alt=media&token=c6ca676e-9d1c-4c7b-8392-ee0cac4691a0', '2024-10-17 21:44:03', '2024-10-17 21:44:03'),
+(258, 'Silvana Maia Silva', 'silvanacatdoso@etec.sp.gov.br', '$2y$10$zZU5wOgIoh4OJe1ikwL8PejZ4W8n/akcmq7ivnKvgI57CGuqDvgyS', '11934562345', '2024-10-17 00:00:00', 'https://firebasestorage.googleapis.com/v0/b/acheaqui-2bc44.appspot.com/o/images%2Fa3871c9b-b2cc-4cf5-8346-dccb51d17530.png?alt=media&token=1d117ba3-e63a-4497-aaf4-4732dd666e4d', '2024-10-17 21:47:46', '2024-10-17 21:47:46');
 
 --
 -- Índices para tabelas despejadas
@@ -590,7 +770,8 @@ ALTER TABLE `objeto`
   ADD KEY `marcaObjeto` (`marcaObjeto`),
   ADD KEY `andar` (`andar`),
   ADD KEY `localidadeObjeto` (`localidadeObjeto`),
-  ADD KEY `tamanhoObjeto` (`tamanhoObjeto`);
+  ADD KEY `tamanhoObjeto` (`tamanhoObjeto`),
+  ADD KEY `caractAdicional` (`caractAdicional`);
 
 --
 -- Índices de tabela `post`
@@ -606,6 +787,20 @@ ALTER TABLE `post`
 --
 ALTER TABLE `tbandar`
   ADD PRIMARY KEY (`idAndar`);
+
+--
+-- Índices de tabela `tbcapacidadependrive`
+--
+ALTER TABLE `tbcapacidadependrive`
+  ADD PRIMARY KEY (`idCapacidade`);
+
+--
+-- Índices de tabela `tbcaracteristicas`
+--
+ALTER TABLE `tbcaracteristicas`
+  ADD PRIMARY KEY (`idCaractestica`),
+  ADD KEY `fkItem` (`fkItem`),
+  ADD KEY `fkCaracterisca` (`fkCaracterisca`);
 
 --
 -- Índices de tabela `tbcategoria`
@@ -686,25 +881,37 @@ ALTER TABLE `adm`
 -- AUTO_INCREMENT de tabela `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de tabela `objeto`
 --
 ALTER TABLE `objeto`
-  MODIFY `idObjeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=279;
+  MODIFY `idObjeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=371;
 
 --
 -- AUTO_INCREMENT de tabela `post`
 --
 ALTER TABLE `post`
-  MODIFY `idPost` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `idPost` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT de tabela `tbandar`
 --
 ALTER TABLE `tbandar`
   MODIFY `idAndar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `tbcapacidadependrive`
+--
+ALTER TABLE `tbcapacidadependrive`
+  MODIFY `idCapacidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+
+--
+-- AUTO_INCREMENT de tabela `tbcaracteristicas`
+--
+ALTER TABLE `tbcaracteristicas`
+  MODIFY `idCaractestica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT de tabela `tbcategoria`
@@ -722,7 +929,7 @@ ALTER TABLE `tbcor`
 -- AUTO_INCREMENT de tabela `tbdenuncia`
 --
 ALTER TABLE `tbdenuncia`
-  MODIFY `idDenuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `idDenuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT de tabela `tblocal`
@@ -734,7 +941,7 @@ ALTER TABLE `tblocal`
 -- AUTO_INCREMENT de tabela `tbmarca`
 --
 ALTER TABLE `tbmarca`
-  MODIFY `idMarca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
+  MODIFY `idMarca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
 -- AUTO_INCREMENT de tabela `tbstatus`
@@ -764,7 +971,7 @@ ALTER TABLE `tbtipodenuncia`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=259;
 
 --
 -- Restrições para tabelas despejadas
@@ -788,7 +995,8 @@ ALTER TABLE `objeto`
   ADD CONSTRAINT `objeto_ibfk_4` FOREIGN KEY (`marcaObjeto`) REFERENCES `tbmarca` (`idMarca`),
   ADD CONSTRAINT `objeto_ibfk_5` FOREIGN KEY (`andar`) REFERENCES `tbandar` (`idAndar`),
   ADD CONSTRAINT `objeto_ibfk_6` FOREIGN KEY (`localidadeObjeto`) REFERENCES `tblocal` (`idLocal`),
-  ADD CONSTRAINT `objeto_ibfk_7` FOREIGN KEY (`tamanhoObjeto`) REFERENCES `tbtamanho` (`idTamanho`);
+  ADD CONSTRAINT `objeto_ibfk_7` FOREIGN KEY (`tamanhoObjeto`) REFERENCES `tbtamanho` (`idTamanho`),
+  ADD CONSTRAINT `objeto_ibfk_8` FOREIGN KEY (`caractAdicional`) REFERENCES `tbcaracteristicas` (`idCaractestica`);
 
 --
 -- Restrições para tabelas `post`
@@ -797,6 +1005,13 @@ ALTER TABLE `post`
   ADD CONSTRAINT `fk_objeto` FOREIGN KEY (`idObjeto`) REFERENCES `objeto` (`idObjeto`),
   ADD CONSTRAINT `fk_user` FOREIGN KEY (`idUsuario`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`statusPost`) REFERENCES `tbstatus` (`idStatus`);
+
+--
+-- Restrições para tabelas `tbcaracteristicas`
+--
+ALTER TABLE `tbcaracteristicas`
+  ADD CONSTRAINT `tbcaracteristicas_ibfk_1` FOREIGN KEY (`fkItem`) REFERENCES `tbsubcategoria` (`idSubCategoria`),
+  ADD CONSTRAINT `tbcaracteristicas_ibfk_2` FOREIGN KEY (`fkCaracterisca`) REFERENCES `tbcapacidadependrive` (`idCapacidade`);
 
 --
 -- Restrições para tabelas `tbmarca`

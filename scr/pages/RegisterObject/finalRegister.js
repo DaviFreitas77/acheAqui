@@ -9,16 +9,16 @@ import axios from 'axios';
 const FinalRegister = () => {
     const navigation = useNavigation();
     const [andarActive, setAndarActive] = useState(null);
-    const [andarId,setAndarId] = useState(null)
-    const [localActive, setLocalActive] = useState(null); 
-    const [localId,setLocalId] = useState(null)
+    const [andarId, setAndarId] = useState(null)
+    const [localActive, setLocalActive] = useState(null);
+    const [localId, setLocalId] = useState(null)
     const [local, setLocal] = useState([]);
     const originalColor = '#ffffff';
     const activeTagColor = '#b1b1b1';
     const [andar, setAndar] = useState([]);
     const { formData, setFormData, idUser, nomeUser } = useContext(Context);
     const [desc, setDesc] = useState('');
-    const {urlApi} =useContext(Context)
+    const { urlApi } = useContext(Context)
 
     const handleAndarPress = (item) => {
         setAndarActive(item.descAndar);
@@ -26,13 +26,13 @@ const FinalRegister = () => {
     };
 
     const handleLocationPress = (item) => {
-        setLocalActive(item.descLocal); // Atualiza o local ativo
+        setLocalActive(item.descLocal);
         setLocalId(item.idLocal)
     };
 
-  
 
-    console.log(localId)
+
+    console.log(formData.caracteristicaObjetoId)
 
     const handleUpload = async () => {
         const requestData = {
@@ -47,22 +47,28 @@ const FinalRegister = () => {
             local: localId,
             idUser: idUser,
             desc: desc,
+            caractAdicional: formData.caracteristicaObjetoId,
+
+
+
+
+
 
             //pegando no front para experiencia do usuario
-            nomeItem:formData.itemName,
-            marcaItem:formData.caracteristica,
-            categoriaItem:formData.category,
-            corItem:formData.cor,
-            localItem:localActive,
-            andarItem:andarActive,
-            tamanhoItem:formData.tamanho
-            
-
+            nomeItem: formData.itemName,
+            marcaItem: formData.caracteristica,
+            categoriaItem: formData.category,
+            corItem: formData.cor,
+            localItem: localActive,
+            andarItem: andarActive,
+            tamanhoItem: formData.tamanho,
+            caractAdd: formData.caracteristicaObjeto
 
         };
+   
 
         try {
-            const request = await fetch( `${urlApi}/services/registroObjeto.php`, {
+            const request = await fetch(`${urlApi}/services/registroObjeto.php`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -79,7 +85,7 @@ const FinalRegister = () => {
                 idUsuario: response.idUser
             };
 
-            const postResponse = await fetch( `${urlApi}/services/criarPost.php`, {
+            const postResponse = await fetch(`${urlApi}/services/criarPost.php`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,14 +106,14 @@ const FinalRegister = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const andarResponse = await axios.get( `${urlApi}/services/getandar.php`);
+                const andarResponse = await axios.get(`${urlApi}/services/getandar.php`);
                 setAndar(andarResponse.data);
             } catch (error) {
                 console.log(error);
             }
 
             try {
-                const localResponse = await axios.get( `${urlApi}/services/getLocal.php`);
+                const localResponse = await axios.get(`${urlApi}/services/getLocal.php`);
                 setLocal(localResponse.data);
             } catch (error) {
                 console.log(error);
@@ -142,6 +148,13 @@ const FinalRegister = () => {
                         <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
                             <Text>{formData.tamanho}</Text>
                         </View>
+                        {formData.caracteristicaObjeto && (
+                            <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
+                                <Text>{formData.caracteristicaObjeto}</Text>
+                            </View>
+                        )}
+
+
                         {formData.caracteristica[0] && (
                             <View style={[styles.tag, { backgroundColor: '#b1b1b1', fontWeight: "bold" }]}>
                                 <Text>{formData.caracteristica}</Text>
@@ -167,7 +180,7 @@ const FinalRegister = () => {
                     {andar.map((item, index) => (
                         <Pressable
                             key={index}
-                            onPress={() => handleAndarPress(item)} 
+                            onPress={() => handleAndarPress(item)}
                             style={[styles.tag, { backgroundColor: andarActive === item.descAndar ? activeTagColor : originalColor }]}
                         >
                             <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descAndar}</Text>
@@ -183,7 +196,7 @@ const FinalRegister = () => {
                     {local.map((item, index) => (
                         <Pressable
                             key={index}
-                            onPress={() => handleLocationPress(item)} 
+                            onPress={() => handleLocationPress(item)}
                             style={[styles.tag, { backgroundColor: localActive === item.descLocal ? activeTagColor : originalColor }]}
                         >
                             <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descLocal}</Text>

@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { Context } from '../../context/provider';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useFocusEffect } from '@react-navigation/native';
 
 const MeusPosts = () => {
   const { idUser, urlApi } = useContext(Context);
@@ -13,16 +14,26 @@ const MeusPosts = () => {
       const response = await axios.get(`${urlApi}/services/getPostUsuario.php`, {
         params: { id: idUser },
       });
-      console.log(response.data);
+     
       setPosts(response.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    fetchPost();
-  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchPost();
+
+      
+      const interval = setInterval(() => {
+        fetchPost();
+      }, 1000); 
+
+      return () => clearInterval(interval); 
+    }, [])
+  );
 
   const renderItem = ({ item }) => {
     let images = [];
@@ -49,6 +60,7 @@ const MeusPosts = () => {
           </View>
           <Text style={styles.objeto}>Marca: {item.descMarca}</Text>
           <Text style={styles.objeto}>Cor: {item.descCor}</Text>
+          <Text style={styles.objeto}>caractAdicional: {item.descCapacidade}</Text>
           <Text style={styles.objeto}>Andar encontrado: {item.descAndar}</Text>
           <Text style={styles.objeto}>Local encontrado: {item.descLocal}</Text>
           <Text style={styles.objeto}>Data de registro: {item.dataRegistro}</Text>
@@ -60,19 +72,28 @@ const MeusPosts = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      <View style={styles.header}>
-        
-        <TouchableOpacity onPress={fetchPost}>
-          <MaterialIcons name="refresh" size={30} color="black" />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.inner}>
-        <FlatList
-          data={posts}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.idPost.toString()}
+      {posts.length > 0 ? (
+           <View style={styles.inner}>
+           <FlatList
+             data={posts}
+             renderItem={renderItem}
+             keyExtractor={(item) => item.idPost.toString()}
+           />
+         </View>
+      ):(
+        <View style={{flex:1,alignItems:"center",justifyContent:"center"}}>
+          <Text style={{fontSize:18}}>Nenhum objeto postado</Text>
+           <Image
+          source={require('../../imges/meusPosts/post.png')}  
+          style={styles.img}
         />
-      </View>
+        </View>
+          
+  
+     
+      
+      )}
+   
     </SafeAreaView>
   );
 };
@@ -80,7 +101,7 @@ const MeusPosts = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#ffff',
   },
   header: {
     flexDirection: 'row',
@@ -124,6 +145,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+  img:{
+    width:350,
+    height:350
+  }
 });
 
 export default MeusPosts;

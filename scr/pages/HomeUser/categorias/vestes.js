@@ -20,6 +20,9 @@ const Roupas = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [nomeItem, setNomeItem] = useState(null);
 
+  const[caracteristica,setCaracteristica] = useState([])
+  const [activeCaracteristica,setActiveCaracteristica] = useState(null)
+
   const [marcas, setMarcas] = useState([]);
   const [activeMarca,setActiveMarca] = useState(null)
   const [subCategorias, setSubCategorias] = useState([]);
@@ -75,6 +78,14 @@ const Roupas = () => {
         } catch (error) {
           console.log('marca', error);
         }
+
+        try {
+          const caractResponse = await axios.get(`${urlApi}/services/getCaracteristica.php?id=${objetoId}`);
+          setCaracteristica(caractResponse.data);
+          console.log(caractResponse.data);
+        } catch (error) {
+          console.log('caract', error);
+        }
       }
     };
 
@@ -103,6 +114,14 @@ const Roupas = () => {
   const handleMarcaPress = (item) => {
     setActiveMarca(item)
   };
+
+  const handlePressCaract = (item) => {
+    setActiveCaracteristica(item.idCaractestica)
+  };
+
+
+
+
   async function getObjeto() {
     console.log(selectedItem, activeTam, corId, activeMarca); 
     try {
@@ -111,6 +130,7 @@ const Roupas = () => {
         tamanho: activeTam,
         cor: corId,
         marca: activeMarca,
+        caracteristica:activeCaracteristica
       }, {
         headers: {
           'Content-Type': 'application/json'
@@ -191,7 +211,8 @@ const Roupas = () => {
           </View>
           
           {selectedItem &&(
-                <View style={{ alignItems: "center", gap: 10 }}>
+            <View>
+                  <View style={{ alignItems: "center", gap: 10 }}>
                 <Text style={styles.title}>Qual a marca da sua Roupa?</Text>
                 <View style={styles.containerTags}>
                   {marcas.map((item, index) => (
@@ -206,6 +227,24 @@ const Roupas = () => {
                   ))}
                 </View>
               </View>
+
+                  <View style={{ alignItems: "center", gap: 10 }}>
+                <Text style={styles.title}>Qual a marca da sua Roupa?</Text>
+                <View style={styles.containerTags}>
+                  {caracteristica.map((item, index) => (
+    
+                    <Pressable
+                      key={index}
+                      onPress={() => handlePressCaract(item)}
+                      style={[styles.tag, { backgroundColor: activeCaracteristica === item.idCaractestica ? activeTagColor : originalColor }]}
+                    >
+                      <Text style={{ fontSize: 12, fontWeight: '600' }}>{item.descCapacidade}</Text>
+                    </Pressable>
+                  ))}
+                </View>
+              </View>
+            </View>
+            
           )}
       
 
