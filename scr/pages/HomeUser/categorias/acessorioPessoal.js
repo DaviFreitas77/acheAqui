@@ -83,7 +83,7 @@ const Acessorio = () => {
         try {
           const caractResponse = await axios.get(`${urlApi}/services/getCaracteristica.php?id=${objetoId}`);
           setCaracteristica(caractResponse.data);
-          console.log(caractResponse.data);
+         
         } catch (error) {
           console.log('caract', error);
         }
@@ -120,9 +120,9 @@ const Acessorio = () => {
     setActiveCaracteristica(item.idCaractestica)
   };
 
-  console.log(activeCaracteristica)
+ 
   async function getObjeto() {
-    console.log(selectedItem, activeTam, corId, activeMarca);
+  
     try {
       const response = await axios.post(`${urlApi}/services/searchObjeto.php`, {
         item: selectedItem,
@@ -144,7 +144,7 @@ const Acessorio = () => {
       }
 
       setData(data)
-
+      console.log(data)
       navigation.navigate('LostObject');
     } catch (error) {
       console.log("Erro ao buscar os dados", error.response ? error.response.data : error.message);

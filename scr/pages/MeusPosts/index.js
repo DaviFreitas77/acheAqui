@@ -55,7 +55,7 @@ const MeusPosts = () => {
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <Text style={styles.objeto}>Nome: {item.descSubCategoria}</Text>
             <TouchableOpacity style={styles.btn}>
-              <Text style={styles.btnText}>Objeto devolvido</Text>
+              <Text style={styles.btnText}>Retirar objeto</Text>
             </TouchableOpacity>
           </View>
           <Text style={styles.objeto}>Marca: {item.descMarca}</Text>
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   btn: {
-    backgroundColor: '#82d26d',
+    backgroundColor: 'red',
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 15,

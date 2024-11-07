@@ -100,16 +100,26 @@ const LostObject = () => {
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="dark-content" />
             <View style={styles.inner}>
-                {data && data.length > 0 ? (
-                    <FlatList
-                        data={data}
-                        renderItem={renderItem}
-                        keyExtractor={(item) => item.idObjeto.toString()}
-
-                    />
+                {data.message === 'Pode haver um objeto que corresponde, mas a cor, marca e/ou tamanho não batem.' ? (
+                    <View>
+                        <Text style={styles.subtitle}>Objeto encontrado, porém algumas características não coincidem. Por favor, procure a diretoria para mais informações.</Text>
+                        <Image
+                            source={require('../../imges/perdido.png')}
+                            style={{ width: 400, height: 400 }}
+                        />
+                    </View>
                 ) : (
-                    <Text>Nenhum dado encontrado</Text>
+                    data && data.length > 0 ? (
+                        <FlatList
+                            data={data}
+                            renderItem={renderItem}
+                            keyExtractor={(item) => item.idObjeto.toString()}
+                        />
+                    ) : (
+                        <Text>Nenhum dado encontrado</Text>
+                    )
                 )}
+
             </View>
             <Denuncia
                 visible={modalVisible}
@@ -127,6 +137,9 @@ const styles = StyleSheet.create({
     },
     inner: {
         width: '100%',
+        alignItems: "center",
+        justifyContent: "center",
+        flex: 1
     },
     itemContainer: {
         marginBottom: 20,
