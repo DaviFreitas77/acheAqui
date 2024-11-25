@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useContext,useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Image, Pressable,ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, Pressable,ScrollView, TouchableOpacity,ActivityIndicator} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
@@ -21,6 +21,7 @@ export default function SignIn() {
   const { setLogAdm } = useContext(Context)
   const {setUrlApi} = useContext(Context)
   const {urlApi} = useContext(Context)
+  const [loading,setLoading] = useState(false)
 
  
   const [verSenha, setVerSenha] = useState(false);
@@ -29,11 +30,12 @@ export default function SignIn() {
 
 
   useEffect(() => {
-    setUrlApi('https://ddaf-2804-7f0-b900-a8c4-4ddd-ab08-d76c-d5d2.ngrok-free.app'); 
+    setUrlApi('https://0a30-2804-7f0-b900-9a1e-4d4d-6ad5-23d-4c86.ngrok-free.app'); 
   }, [setUrlApi])
 
 
   async function loginUser() {
+    setLoading(true)
     try {
       const response = await fetch(`${urlApi}/services/login.php`, {
         method: 'POST',
@@ -63,6 +65,8 @@ export default function SignIn() {
       }
     } catch (error) {
       alert('aa', error);
+    }finally{
+      setLoading(false)
     }
   }
 
@@ -119,7 +123,10 @@ export default function SignIn() {
             </View>
           </View>
         </View>
-        <View style={styles.containerBtn}>
+        {loading ?(
+          <ActivityIndicator  size='large' color='blue' />
+        ):(
+          <View style={styles.containerBtn}>
           <Pressable style={styles.btn} onPress={loginUser}>
             <Text style={styles.txtBtn}>Acessar</Text>
           </Pressable>
@@ -134,6 +141,8 @@ export default function SignIn() {
             <Text style={{ fontSize: 10, color: 'white' }}>Admins</Text>
           </Pressable>
         </View>
+        )}
+        
         
         <StatusBar style="auto" />
       </View>

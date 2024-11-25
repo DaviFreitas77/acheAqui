@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable,ActivityIndicator } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Context } from '../../../context/provider';
 export default function Code() {
     const animation = useRef(null);
+    const [loading,setLoading] = useState(false);
     const {setLogAdm} = useContext(Context);
     const {setNomeAdm} = useContext(Context);
     const {setEmailAdm} = useContext(Context);
@@ -13,7 +14,7 @@ export default function Code() {
     const[code,setCode] = useState('');
     const navigation = useNavigation();
     const validarAdm = async () => {
-   
+        setLoading(true)
         try {
             const response = await fetch(`${urlApi}/services/loginAdm.php`, {
                 method: 'POST',
@@ -44,7 +45,9 @@ export default function Code() {
             }
         } catch (error) {
             alert("Erro: " + error.message);
-        } 
+        } finally{
+            setLoading(false)
+        }
     };
 
     return (
@@ -77,9 +80,14 @@ export default function Code() {
                                 secureTextEntry={true}
                             />
                         </View>
-                        <Pressable style={styles.btn} onPress={validarAdm}>
+                        {loading ? (
+                            <ActivityIndicator size='large' color='blue' />
+                        ):(
+                            <Pressable style={styles.btn} onPress={validarAdm}>
                             <Text style={styles.txtBtn}>Continuar</Text>
                         </Pressable>
+                        )}
+                       
                     </View>
                 </View>
             </View>

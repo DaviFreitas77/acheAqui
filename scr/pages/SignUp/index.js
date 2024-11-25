@@ -7,8 +7,12 @@ import Icon from 'react-native-vector-icons/FontAwesome6';
 import { Context } from '../../context/provider';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Feather from '@expo/vector-icons/Feather';
+import Toast from 'react-native-toast-message';
+import { useNavigation } from '@react-navigation/native';
+import { TextInputMask } from 'react-native-masked-text';
 
 const SignUp = () => {
+  const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [nome, setNome] = useState('');
@@ -40,6 +44,14 @@ const SignUp = () => {
   const showDatePicker = () => {
     setShow(true);
   };
+
+  const showToast = () => {
+    Toast.show({
+      type: 'success',
+      text2: 'Cadastro realizado com sucesso',
+      position: 'top', 
+    });
+  }
 
   async function registerUser() {
     // Reset errors
@@ -84,7 +96,11 @@ const SignUp = () => {
           if (result.success === false) {
             alert(result.message);
           } else {
-            setModalVisible(true);
+            showToast()
+
+            setTimeout(() => {
+              navigation.navigate('SignIn');
+            }, 1500);;
           }
         }
       } catch (error) {
@@ -123,7 +139,13 @@ const SignUp = () => {
           </View>
           <View style={styles.viewInput}>
             <Text style={styles.labelInput}>Numero do Celular</Text>
-            <TextInput
+            <TextInputMask
+            type={'cel-phone'}
+              options={{
+                maskType:'BRL',
+                withDDD: true,
+                dddMask:'(99)'
+              }}
               placeholder='ex: 11964928492'
               placeholderTextColor="#707070"
               style={[styles.input, errors.numero && styles.errorInput]}
@@ -188,12 +210,9 @@ const SignUp = () => {
             </Text>
           </View>
         </View>
-        <CustomModal
-          visible={modalVisible}
-          onClose={() => setModalVisible(false)}
-        />
         <StatusBar style="auto" />
       </View>
+      <Toast/>
     </ScrollView>
   );
 };

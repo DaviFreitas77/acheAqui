@@ -229,7 +229,7 @@ const Roupas = () => {
               </View>
 
                   <View style={{ alignItems: "center", gap: 10 }}>
-                <Text style={styles.title}>Qual a marca da sua Roupa?</Text>
+                <Text style={styles.title}>Nos informe a última característica</Text>
                 <View style={styles.containerTags}>
                   {caracteristica.map((item, index) => (
     
