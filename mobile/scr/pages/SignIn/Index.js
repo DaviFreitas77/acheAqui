@@ -30,7 +30,7 @@ export default function SignIn() {
 
 
   useEffect(() => {
-    setUrlApi('https://0a30-2804-7f0-b900-9a1e-4d4d-6ad5-23d-4c86.ngrok-free.app'); 
+    setUrlApi('http://10.0.2.2'); 
   }, [setUrlApi])
 
 
