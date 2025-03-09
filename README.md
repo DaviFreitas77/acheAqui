@@ -1,4 +1,4 @@
-# Ache Aqui 🐶🐱
+# Ache Aqui 
 
 ## 📌 Visão Geral do Projeto
 O **Ache Aqui** é um aplicativo desenvolvido como **Trabalho de Conclusão de Curso (TCC)** para a ETEC de Guaianases. O objetivo do aplicativo é ajudar as pessoas que perderam seus objetos a reencontrá-los. A plataforma conecta quem encontrou um item perdido com o responsável por ele, permitindo que o usuário se comunique e agende um local de encontro para devolver o objeto.
